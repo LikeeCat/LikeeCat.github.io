@@ -6,19 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://LikeeCat.github.io">
-  <title>LikeeCat&#39;s Blog</title>
+  <title>Xcode10 【libray not found for -lstdc++.6.0.9 】 | LikeeCat&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="努力努力在努力">
+  <meta name="description" content="简介上周在打包上传后，报了一个警告，大致的意思就是这样的：2019年3月必须使用Xcode 10.1或更高版本，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10">
 <meta name="keywords" content="iOS">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LikeeCat&#39;s Blog">
-<meta property="og:url" content="http://LikeeCat.github.io/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xcode10 【libray not found for -lstdc++.6.0.9 】">
+<meta property="og:url" content="http://LikeeCat.github.io/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/index.html">
 <meta property="og:site_name" content="LikeeCat&#39;s Blog">
-<meta property="og:description" content="努力努力在努力">
+<meta property="og:description" content="简介上周在打包上传后，报了一个警告，大致的意思就是这样的：2019年3月必须使用Xcode 10.1或更高版本，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2239937-848b52834ec3858b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2239937-ecece630e02378cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2239937-7f8054d0ac0dd3ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2239937-105ecf1dca3ceace.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-03-16T09:37:28.827Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LikeeCat&#39;s Blog">
-<meta name="twitter:description" content="努力努力在努力">
+<meta name="twitter:title" content="Xcode10 【libray not found for -lstdc++.6.0.9 】">
+<meta name="twitter:description" content="简介上周在打包上传后，报了一个警告，大致的意思就是这样的：2019年3月必须使用Xcode 10.1或更高版本，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2239937-848b52834ec3858b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="LikeeCat&#39;s Blog" type="application/atom+xml">
   
@@ -154,321 +160,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-iOS-中-CSV格式文件读写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Xcode10 【libray not found for -lstdc++.6.0.9 】" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/16/iOS-中-CSV格式文件读写/">iOS 中 CSV格式文件读写</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/16/iOS-中-CSV格式文件读写/" class="archive-article-date">
-  	<time datetime="2019-03-16T09:09:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CSV"><a href="#CSV" class="headerlink" title="CSV"></a>CSV</h1><p><strong>逗号分隔值</strong>（Comma-Separated Values，<strong>CSV</strong>，有时也称为<strong>字符分隔值</strong>，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）</p>
-<blockquote>
-<p>CSV其实就是一个<strong>纯文本</strong>,那么对应到 Objective-C 中，他就是一个<code>NSString</code>,对应到 Swift 中就是一个<code>String</code><br>
-        
-          <a class="article-more-a" href="/2019/03/16/iOS-中-CSV格式文件读写/#more">more >></a>
-        
-      
-
-      
-    </p></blockquote></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/16/iOS-中-CSV格式文件读写/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/16/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/16/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-16T07:33:27.479Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/16/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-NSArray 之 SEL 的保存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/27/NSArray 之 SEL 的保存/">NSArray 之 SEL 的保存</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/27/NSArray 之 SEL 的保存/" class="archive-article-date">
-  	<time datetime="2019-02-27T10:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在初始化类的时候，会有很多没有返回值的初始化方法需要调用，每次都需要再写一遍，所以想把函数装进 NSArray 中可以自动调用。结果查了一下真的可以，所以做个笔记记一下</p>
-        
-          <a class="article-more-a" href="/2019/02/27/NSArray 之 SEL 的保存/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/27/NSArray 之 SEL 的保存/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-UITableView reloadData 滑不到底部" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/18/UITableView reloadData 滑不到底部/">UITableView reloadData 滑不到底部</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/18/UITableView reloadData 滑不到底部/" class="archive-article-date">
-  	<time datetime="2019-02-18T10:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近有个需求，在 tableView <code>reloadData</code>结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档</p>
-<ol>
-<li>layoutSubviews</li>
-<li>setNeedsLayout</li>
-<li>layoutIfNeeded
-        
-          <a class="article-more-a" href="/2019/02/18/UITableView reloadData 滑不到底部/#more">more >></a>
-        
-      
-
-      
-    </li></ol></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/18/UITableView reloadData 滑不到底部/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Xcode10 【libray not found for -lstdc++.6.0.9 】" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/">Xcode10 【libray not found for -lstdc++.6.0.9 】</a>
+    <h1 class="article-title" itemprop="name">
+      Xcode10 【libray not found for -lstdc++.6.0.9 】
     </h1>
   
 
@@ -481,14 +180,63 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>上周在打包上传后，报了一个警告，大致的意思就是这样的：<code>2019年3月必须使用Xcode 10.1或更高版本</code>，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10<br>
-        
-          <a class="article-more-a" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/#more">more >></a>
-        
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>上周在打包上传后，报了一个警告，大致的意思就是这样的：<code>2019年3月必须使用Xcode 10.1或更高版本</code>，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10<br><a id="more"></a></p>
+<h2 id="开始采坑"><a href="#开始采坑" class="headerlink" title="开始采坑"></a>开始采坑</h2><p>1、升级完成后直接报了<code>libray not found for -lstdc++.6.0.9</code>，在 Xcode 10 Release Notes 中有着如下的描述</p>
+<blockquote>
+<p>Building with libstdc++ was deprecated with Xcode 8 and is not supported in Xcode 10 when targeting iOS. C++ projects must now migrate to libc++ and are recommended to set a deployment target of macOS 10.9 or later, or iOS 7 or later. Besides changing the C++ Standard Library build setting, developers should audit hard-coded linker flags and target dependencies to remove references to libstdc++ (including -lstdc++, -lstdc++.6.0.9, libstdc++.6.0.9.tbd, and libstdc++.6.0.9.dylib). Project dependencies such as static archives that were built against libstdc++ will also need to be rebuilt against libc++. (40885260)<br>所以苹果在 Xcode10 中移除了对 libstdc++ 的支持。</p>
+</blockquote>
+<p>2、具体的报错可能会有这些</p>
+<ol>
+<li>libray not found for -lstdc++.6.0.9</li>
+<li>libray not found for -lstdc++</li>
+<li>libray not found for libstdc++.6.0.9.tbd</li>
+</ol>
+<p>3、解决办法</p>
+<ol>
+<li>在Build Phases -&gt; Link Binary With Libraries 中删除<code>lstdc++</code>、<code>lstdc++.6.0.9</code>、<code>libstdc++.6.0.9.tbd</code>,并且添加<code>libc++</code>。</li>
+<li>对于有使用 pod 的项目，在debug.xcconfig和release.xcconfig中也需要删除<code>lstdc++.6.0.9</code>、</li>
+</ol>
+<p>4、删除完了这些后还可能编译不成功的问题<br>我在做完这些操作后，我 clean 了项目，然后再次编译的时候，还是有报错，但是其实我已经把引用到这个库的地方都删掉了<br><img src="https://upload-images.jianshu.io/upload_images/2239937-848b52834ec3858b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>我全局搜索了一下，在Build Settings 中找到了这个<br><img src="https://upload-images.jianshu.io/upload_images/2239937-ecece630e02378cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2239937-7f8054d0ac0dd3ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/2239937-105ecf1dca3ceace.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>接着就是在c++ standard Library 中选择 libc++ ，然后编译，成功解决了报错。</p>
+<h1 id="升级后关于Xs-Max-和-XR的适配"><a href="#升级后关于Xs-Max-和-XR的适配" class="headerlink" title="升级后关于Xs Max 和 XR的适配"></a>升级后关于Xs Max 和 XR的适配</h1><p>花了一下午的时间升级了Xcode 10,接着就是关于iPhone Xs Max 和XR 的适配了</p>
+<h2 id="启动页的分辨率"><a href="#启动页的分辨率" class="headerlink" title="启动页的分辨率"></a>启动页的分辨率</h2><h4 id="Xs-Max-1242-2688"><a href="#Xs-Max-1242-2688" class="headerlink" title="Xs Max: 1242 * 2688"></a>Xs Max: 1242 * 2688</h4><h4 id="XR-828-1792-png"><a href="#XR-828-1792-png" class="headerlink" title="XR: 828*1792.png"></a>XR: 828*1792.png</h4><h2 id="一些判断用的宏"><a href="#一些判断用的宏" class="headerlink" title="一些判断用的宏"></a>一些判断用的宏</h2><pre><code>#define isPad ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+#define iPhone5 ([UIScreen mainScreen].bounds.size.height == 568)
+#define iPhone4 ([UIScreen mainScreen].bounds.size.height == 480)
+#define iPhone6 ([UIScreen mainScreen].bounds.size.height == 667)
+#define iPhone6P ([UIScreen mainScreen].bounds.size.height == 736)
+#define iPhoneX ([UIScreen mainScreen].bounds.size.height == 812)
+#define iPhoneXR ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) &amp;&amp; !isPad : NO)
+#define iPhoneXsMax ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size)&amp;&amp; !isPad : NO)
+</code></pre><h1 id="脱坑"><a href="#脱坑" class="headerlink" title="脱坑"></a>脱坑</h1><p>终于完成了 Xcode 9 到 Xcode 10 的迁移，总的来说比之前可能稍微麻烦了一些。在此做个记录</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.jianshu.com/p/f2a24732cf14" target="_blank" rel="noopener">xsmax 的宏</a><br><a href="https://www.jianshu.com/p/f8a3ccbfbd7b" target="_blank" rel="noopener">Xcode 10 升级项目报错</a></p>
+
       
 
       
-    </p></div>
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
     <div class="article-info article-info-index">
       
       
@@ -506,16 +254,79 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LikeeCat.github.io/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/02/18/UITableView reloadData 滑不到底部/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          UITableView reloadData 滑不到底部
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -535,8 +346,14 @@
 
 
 
+  
+  
+  
 
   
+
+  
+
   
 
 
@@ -559,8 +376,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

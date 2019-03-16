@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://LikeeCat.github.io">
-  <title>LikeeCat&#39;s Blog</title>
+  <title>iOS 中 CSV格式文件读写 | LikeeCat&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="努力努力在努力">
+  <meta name="description" content="CSV逗号分隔值（Comma-Separated Values，CSV，有时也称为字符分隔值，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）  CSV其实就是一个纯文本,那么对应到 Objective-C 中，他就是一个NSString,对应到 Swift 中就是一个String">
 <meta name="keywords" content="iOS">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LikeeCat&#39;s Blog">
-<meta property="og:url" content="http://LikeeCat.github.io/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 中 CSV格式文件读写">
+<meta property="og:url" content="http://LikeeCat.github.io/2019/03/16/iOS-中-CSV格式文件读写/index.html">
 <meta property="og:site_name" content="LikeeCat&#39;s Blog">
-<meta property="og:description" content="努力努力在努力">
+<meta property="og:description" content="CSV逗号分隔值（Comma-Separated Values，CSV，有时也称为字符分隔值，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）  CSV其实就是一个纯文本,那么对应到 Objective-C 中，他就是一个NSString,对应到 Swift 中就是一个String">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-16T09:37:25.492Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LikeeCat&#39;s Blog">
-<meta name="twitter:description" content="努力努力在努力">
+<meta name="twitter:title" content="iOS 中 CSV格式文件读写">
+<meta name="twitter:description" content="CSV逗号分隔值（Comma-Separated Values，CSV，有时也称为字符分隔值，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）  CSV其实就是一个纯文本,那么对应到 Objective-C 中，他就是一个NSString,对应到 Swift 中就是一个String">
   
     <link rel="alternative" href="/atom.xml" title="LikeeCat&#39;s Blog" type="application/atom+xml">
   
@@ -154,16 +155,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-iOS-中-CSV格式文件读写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-iOS-中-CSV格式文件读写" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/16/iOS-中-CSV格式文件读写/">iOS 中 CSV格式文件读写</a>
+    <h1 class="article-title" itemprop="name">
+      iOS 中 CSV格式文件读写
     </h1>
   
 
@@ -178,241 +177,105 @@
       
         <h1 id="CSV"><a href="#CSV" class="headerlink" title="CSV"></a>CSV</h1><p><strong>逗号分隔值</strong>（Comma-Separated Values，<strong>CSV</strong>，有时也称为<strong>字符分隔值</strong>，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）</p>
 <blockquote>
-<p>CSV其实就是一个<strong>纯文本</strong>,那么对应到 Objective-C 中，他就是一个<code>NSString</code>,对应到 Swift 中就是一个<code>String</code><br>
-        
-          <a class="article-more-a" href="/2019/03/16/iOS-中-CSV格式文件读写/#more">more >></a>
-        
-      
-
-      
-    </p></blockquote></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/16/iOS-中-CSV格式文件读写/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/16/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/16/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-16T07:33:27.479Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/16/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-NSArray 之 SEL 的保存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/27/NSArray 之 SEL 的保存/">NSArray 之 SEL 的保存</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/27/NSArray 之 SEL 的保存/" class="archive-article-date">
-  	<time datetime="2019-02-27T10:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在初始化类的时候，会有很多没有返回值的初始化方法需要调用，每次都需要再写一遍，所以想把函数装进 NSArray 中可以自动调用。结果查了一下真的可以，所以做个笔记记一下</p>
-        
-          <a class="article-more-a" href="/2019/02/27/NSArray 之 SEL 的保存/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/27/NSArray 之 SEL 的保存/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-UITableView reloadData 滑不到底部" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/18/UITableView reloadData 滑不到底部/">UITableView reloadData 滑不到底部</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/18/UITableView reloadData 滑不到底部/" class="archive-article-date">
-  	<time datetime="2019-02-18T10:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近有个需求，在 tableView <code>reloadData</code>结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档</p>
+<p>CSV其实就是一个<strong>纯文本</strong>,那么对应到 Objective-C 中，他就是一个<code>NSString</code>,对应到 Swift 中就是一个<code>String</code><br><a id="more"></a></p>
+</blockquote>
+<h1 id="举个🌰"><a href="#举个🌰" class="headerlink" title="举个🌰"></a>举个🌰</h1><blockquote>
+<p>sj_mino1001.jpg,715282,4FB55FE8<br>sj_mino1002.jpg,471289,93203C5C<br>sj_mino1003.jpg,451929,C4E80467<br>这个就是一个简单的CSV文件,每个值之间用,分割,在一行数据结束的时候才换行。</p>
+</blockquote>
+<h1 id="CSV读取"><a href="#CSV读取" class="headerlink" title="CSV读取"></a>CSV读取</h1><p>假设我们的项目中有一个 csv 文件，叫做likee</p>
 <ol>
-<li>layoutSubviews</li>
-<li>setNeedsLayout</li>
-<li>layoutIfNeeded
-        
-          <a class="article-more-a" href="/2019/02/18/UITableView reloadData 滑不到底部/#more">more >></a>
-        
+<li><p>获取文件路径</p>
+<pre><code>NSString  *path = [[NSBundle mainBundle]pathForResource:@&quot;likee&quot; ofType:@&quot;csv&quot;];
+</code></pre></li>
+<li><p>将此文件转码为一个字符串</p>
+<pre><code>NSError *error = nil;
+//GBK编码
+NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:0x80000632 error:&amp;error];
+//UTF8编码
+NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error];
+</code></pre></li>
+<li><p>切割字符串，可以拿到每一行的数据    </p>
+<pre><code>//取出每一行的数据
+NSArray *_allLinedStrings = [fileContents componentsSeparatedByString:@&quot;\r\n&quot;];
+</code></pre></li>
+<li><p>如果有表头可以对表头进行处理，即对第一行数据进行处理</p>
+<pre><code> NSInteger nameRow = 0;
+ __block NSInteger phoneRow = 0;
+ NSArray *firstLine = [_allLinedStrings[0] componentsSeparatedByString:@&quot;,&quot;];
+ [firstLine enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *line = obj;
+        if ([line isEqualToString:@&quot;客户名称&quot;]){
+            nameRow = idx;
+        }
+        else if ([line isEqualToString:@&quot;手机号&quot;]){
+            phoneRow = idx;
+        }
+}];
+</code></pre></li>
+<li><p>对数据进行处理</p>
+<pre><code>[_allLinedStrings enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if (idx == 0) {
+
+    }
+    else{
+      NSString *str = obj;
+        NSArray *array = [str componentsSeparatedByString:@&quot;,&quot;];
+       //获取到某一行的数据，切割这个字符串就可以拿到这一行的值，然后在进行下一步的处理
+    } 
+ }];
+</code></pre></li>
+</ol>
+<h1 id="CSV文件的写入"><a href="#CSV文件的写入" class="headerlink" title="CSV文件的写入"></a>CSV文件的写入</h1><p>假设我们有一个 likee.csv 需要放在Documents目录下</p>
+<ol>
+<li><p>创建写入路径</p>
+<pre><code>NSString *fileNameStr = @&quot;likee.Csv&quot;;
+NSString *DocPath = [[NSHomeDirectory() stringByAppendingPathComponent:@&quot;Documents&quot;] stringByAppendingPathComponent:fileNameStr];
+</code></pre></li>
+<li><p>够造需要写入的数据</p>
+<pre><code>NSString *str = @&quot;11111,22222,33333,44444\n&quot;;
+NSMutableString *csvString = [NSMutableString string];
+    for (int i = 0; i&lt; 400; i ++) {
+         [csvString appendString:str];
+    };
+</code></pre></li>
+<li><p>够造为NSData，并使用NSData进行文件的写入。</p>
+<pre><code>NSData *data = [csvString dataUsingEncoding:NSUTF8StringEncoding];
+[data writeToFile:DocPath atomically:YES];
+</code></pre></li>
+</ol>
+<h1 id="编码格式的坑"><a href="#编码格式的坑" class="headerlink" title="编码格式的坑"></a>编码格式的坑</h1><p>在 mac 下文本的默认编码格式使用的是UTF-8，在 windows 的 Excel 上，对中文的处理是GBK,所以可能会造成乱码的问题。如果读取文件是无法读出内容，就和使用的编码格式有关。所以建议先使用UTF-8进行解码，如果无法显示内容，再用GBK进行解码</p>
+<pre><code> //UTF8编码
+NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error];
+if(!fileContents){
+    //GBK编码
+    fileContents = [NSString stringWithContentsOfFile:path encoding:0x80000632 error:&amp;error];
+}
+</code></pre>
       
 
       
-    </li></ol></div>
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
     <div class="article-info article-info-index">
       
       
@@ -430,16 +293,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/18/UITableView reloadData 滑不到底部/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LikeeCat.github.io/2019/03/16/iOS-中-CSV格式文件读写/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/16/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -459,84 +381,14 @@
 
 
 
-
   
-    <article id="post-Xcode10 【libray not found for -lstdc++.6.0.9 】" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/">Xcode10 【libray not found for -lstdc++.6.0.9 】</a>
-    </h1>
   
 
-        
-        <a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" class="archive-article-date">
-  	<time datetime="2019-01-07T18:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>上周在打包上传后，报了一个警告，大致的意思就是这样的：<code>2019年3月必须使用Xcode 10.1或更高版本</code>，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10<br>
-        
-          <a class="article-more-a" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/jekyll-update//" class="article-tag-list-link color4">jekyll update</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -559,8 +411,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

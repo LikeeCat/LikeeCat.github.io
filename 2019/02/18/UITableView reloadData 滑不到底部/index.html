@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://LikeeCat.github.io">
-  <title>LikeeCat&#39;s Blog</title>
+  <title>UITableView reloadData 滑不到底部 | LikeeCat&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="努力努力在努力">
+  <meta name="description" content="简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档  layoutSubviews setNeedsLayout layoutIfNeeded">
 <meta name="keywords" content="iOS">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LikeeCat&#39;s Blog">
-<meta property="og:url" content="http://LikeeCat.github.io/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UITableView reloadData 滑不到底部">
+<meta property="og:url" content="http://LikeeCat.github.io/2019/02/18/UITableView reloadData 滑不到底部/index.html">
 <meta property="og:site_name" content="LikeeCat&#39;s Blog">
-<meta property="og:description" content="努力努力在努力">
+<meta property="og:description" content="简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档  layoutSubviews setNeedsLayout layoutIfNeeded">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-16T09:35:34.970Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LikeeCat&#39;s Blog">
-<meta name="twitter:description" content="努力努力在努力">
+<meta name="twitter:title" content="UITableView reloadData 滑不到底部">
+<meta name="twitter:description" content="简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档  layoutSubviews setNeedsLayout layoutIfNeeded">
   
     <link rel="alternative" href="/atom.xml" title="LikeeCat&#39;s Blog" type="application/atom+xml">
   
@@ -154,241 +155,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-iOS-中-CSV格式文件读写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-UITableView reloadData 滑不到底部" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/16/iOS-中-CSV格式文件读写/">iOS 中 CSV格式文件读写</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/16/iOS-中-CSV格式文件读写/" class="archive-article-date">
-  	<time datetime="2019-03-16T09:09:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CSV"><a href="#CSV" class="headerlink" title="CSV"></a>CSV</h1><p><strong>逗号分隔值</strong>（Comma-Separated Values，<strong>CSV</strong>，有时也称为<strong>字符分隔值</strong>，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）</p>
-<blockquote>
-<p>CSV其实就是一个<strong>纯文本</strong>,那么对应到 Objective-C 中，他就是一个<code>NSString</code>,对应到 Swift 中就是一个<code>String</code><br>
-        
-          <a class="article-more-a" href="/2019/03/16/iOS-中-CSV格式文件读写/#more">more >></a>
-        
-      
-
-      
-    </p></blockquote></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/16/iOS-中-CSV格式文件读写/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/16/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/16/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-16T07:33:27.479Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/16/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-NSArray 之 SEL 的保存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/27/NSArray 之 SEL 的保存/">NSArray 之 SEL 的保存</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/27/NSArray 之 SEL 的保存/" class="archive-article-date">
-  	<time datetime="2019-02-27T10:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在初始化类的时候，会有很多没有返回值的初始化方法需要调用，每次都需要再写一遍，所以想把函数装进 NSArray 中可以自动调用。结果查了一下真的可以，所以做个笔记记一下</p>
-        
-          <a class="article-more-a" href="/2019/02/27/NSArray 之 SEL 的保存/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/27/NSArray 之 SEL 的保存/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-UITableView reloadData 滑不到底部" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/18/UITableView reloadData 滑不到底部/">UITableView reloadData 滑不到底部</a>
+    <h1 class="article-title" itemprop="name">
+      UITableView reloadData 滑不到底部
     </h1>
   
 
@@ -405,14 +179,70 @@
 <ol>
 <li>layoutSubviews</li>
 <li>setNeedsLayout</li>
-<li>layoutIfNeeded
-        
-          <a class="article-more-a" href="/2019/02/18/UITableView reloadData 滑不到底部/#more">more >></a>
-        
+<li>layoutIfNeeded<a id="more"></a>
+###layoutSubviews</li>
+</ol>
+<p>Lays out subviews.</p>
+<h4 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h4><p>Subclasses can override this method as needed to perform more precise layout of their subviews. You should override this method only if the autoresizing and constraint-based behaviors of the subviews do not offer the behavior you want. You can use your implementation to set the frame rectangles of your subviews directly.</p>
+<p>You should not call this method directly. If you want to force a layout update, call the <code>setNeedsLayout</code> method instead to do so prior to the next drawing update. If you want to update the layout of your views immediately, call the <code>layoutIfNeeded</code> method.</p>
+<p>在子类中，如果你需要更加准确的定位，你可以重写这个方法。如果 autoresizing 和 constraint不能为你提供你想要做的。你可以自己设置subviews的 frame。<br>你不应该直接调用这个方法，如果你想要强制更新布局，应该调用<code>setNeedsLayout</code>,在下一次绘图更新之前，如果你想要立刻的更新布局，需要调用 <code>layoutIfNeeded</code></p>
+<h3 id="setNeedsLayout"><a href="#setNeedsLayout" class="headerlink" title="setNeedsLayout"></a>setNeedsLayout</h3><p>Invalidates the current layout of the receiver and triggers a layout update during the next update cycle.</p>
+<h4 id="Discussion-1"><a href="#Discussion-1" class="headerlink" title="Discussion"></a>Discussion</h4><p>Call this method on your application’s main thread when you want to adjust the layout of a view’s subviews. This method makes a note of the request and returns immediately. Because this method does not force an immediate update, but instead waits for the next update cycle, you can use it to invalidate the layout of multiple views before any of those views are updated. This behavior allows you to consolidate all of your layout updates to one update cycle, which is usually better for performance.<br>你在想要更新 view 的 subviews 的布局的时候，可以在主线程调用此方法。此方法记录请求并且立即返回。因为这个方法不强制立即更新，而是等待下一个周期更新，你可以使用此方法来让很多 views 的布局失效，并且这样做可以把所有布局更新合并到一个更新周期，这通常会提高性能。</p>
+<h3 id="layoutIfNeeded"><a href="#layoutIfNeeded" class="headerlink" title="layoutIfNeeded"></a>layoutIfNeeded</h3><p>Lays out the subviews immediately, if layout updates are pending.</p>
+<h4 id="Discussion-2"><a href="#Discussion-2" class="headerlink" title="Discussion"></a>Discussion</h4><p>Use this method to force the view to update its layout immediately. When using Auto Layout, the layout engine updates the position of views as needed to satisfy changes in constraints. Using the view that receives the message as the root view, this method lays out the view subtree starting at the root. If no layout updates are pending, this method exits without modifying the layout or calling any layout-related callbacks.<br>使用此方法强制视图立即更新其布局。使用“自动布局”时，布局引擎会根据需要更新视图的位置，以满足约束的更改，使用一个 view 作为 rootView ，此方法从根开始布局视图子树。如果没有约束需要更新，此方法会退出，不会修改 layout 或者调用和此 layout 有关的回调。</p>
+<h2 id="stackoverflow上的提问"><a href="#stackoverflow上的提问" class="headerlink" title="stackoverflow上的提问"></a>stackoverflow上的提问</h2><p>在 stackoverflow上有查到一个问题， <a href="https://stackoverflow.com/questions/16071503/how-to-tell-when-uitableview-has-completed-reloaddata" target="_blank" rel="noopener">How to tell when UITableView has completed ReloadData?</a>，提问的人想要滚动 tableView 到底部，发现调用直接 reloadData，然后滚动没有滚动到最底部，提出了这个问题。 这个下面有很多很多的答案，具体的如下：<br>1.调用<code>layoutIfNeeded</code>强制的刷新布局，接着执行scrollToRowAtIndexPath,滚动到底部，确实是帮助我们解决了这个问题。</p>
+<pre><code>[self.tableView reloadData];
+[self.tableView layoutIfNeeded];
+NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOfRowsInSection:([self.tableView     numberOfSections]-1)]-1) inSection: ([self.tableView numberOfSections]-1)];
+[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+</code></pre><p>原因：</p>
+<blockquote>
+<p>The reload happens during the next layout pass, which normally happens when you return control to the run loop (after, say, your button action or whatever returns).<br>So one way to run something after the table view reloads is simply to force the table view to perform layout immediately<br>重新加载发生在下一个布局过程中，这通常发生在将控制返回到运行循环时（例如，您的按钮操作或任何返回之后）。<br>所以，在tableView reloads 后可以立刻强制更新布局。</p>
+</blockquote>
+<ol start="2">
+<li><p>调用<code>dispatch_async(dispatch_get_main_queue(), ^{})</code></p>
+<pre><code>[self.tableView reloadData];
+ dispatch_async(dispatch_get_main_queue(), ^{
+ NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOfRowsInSection:([self.tableView numberOfSections]-1)]-1) inSection:([self.tableView numberOfSections]-1)];
+
+ [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+ });
+</code></pre><p>原因</p>
+</li>
+</ol>
+<blockquote>
+<p>depending on how big your table data source is, you can animate going to the bottom of the tableview in the same run loop. If you try your test code with a huge table, your trick of using GCD to delay scrolling until the next run loop will work, whereas immediately scrolling will fail. But anyways, thanks for this trick!<br>但是这种方式并不总是能解决问题,使用GCD来延迟滑动到下一个 runloop，但是立即滑动的话，就会出错。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果你的 tableView 在 <code>reloadData</code>后，无法滑动到底部，那么就可以这样做,在<code>reloadData</code>后，调用 <code>layoutIfNeeded</code>，来强制进行布局，然后在进行 tableView的滑动就可以了。</p>
+<pre><code>[self.tableView reloadData];
+[self.tableView layoutIfNeeded];
+//do somthing you want
+</code></pre>
       
 
       
-    </li></ol></div>
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
     <div class="article-info article-info-index">
       
       
@@ -430,16 +260,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/18/UITableView reloadData 滑不到底部/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LikeeCat.github.io/2019/02/18/UITableView reloadData 滑不到底部/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/02/27/NSArray 之 SEL 的保存/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          NSArray 之 SEL 的保存
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Xcode10 【libray not found for -lstdc++.6.0.9 】</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -459,84 +357,14 @@
 
 
 
-
   
-    <article id="post-Xcode10 【libray not found for -lstdc++.6.0.9 】" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/">Xcode10 【libray not found for -lstdc++.6.0.9 】</a>
-    </h1>
   
 
-        
-        <a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" class="archive-article-date">
-  	<time datetime="2019-01-07T18:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>上周在打包上传后，报了一个警告，大致的意思就是这样的：<code>2019年3月必须使用Xcode 10.1或更高版本</code>，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10<br>
-        
-          <a class="article-more-a" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/jekyll-update//" class="article-tag-list-link color4">jekyll update</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -559,8 +387,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
