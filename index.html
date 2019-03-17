@@ -246,14 +246,73 @@
       
         <h1 id="CSV"><a href="#CSV" class="headerlink" title="CSV"></a>CSV</h1><p><strong>逗号分隔值</strong>（Comma-Separated Values，<strong>CSV</strong>，有时也称为<strong>字符分隔值</strong>，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）</p>
 <blockquote>
-<p>CSV其实就是一个<strong>纯文本</strong>,那么对应到 Objective-C 中，他就是一个<code>NSString</code>,对应到 Swift 中就是一个<code>String</code><br>
-        
-          <a class="article-more-a" href="/2019/03/16/iOS-中-CSV格式文件读写/#more">more >></a>
-        
+<p>CSV其实就是一个<strong>纯文本</strong>,那么对应到 Objective-C 中，他就是一个<code>NSString</code>,对应到 Swift 中就是一个<code>String</code></p>
+</blockquote>
+<h1 id="举个🌰"><a href="#举个🌰" class="headerlink" title="举个🌰"></a>举个🌰</h1><blockquote>
+<p>sj_mino1001.jpg,715282,4FB55FE8<br>sj_mino1002.jpg,471289,93203C5C<br>sj_mino1003.jpg,451929,C4E80467<br>这个就是一个简单的CSV文件,每个值之间用,分割,在一行数据结束的时候才换行。</p>
+</blockquote>
+<h1 id="CSV读取"><a href="#CSV读取" class="headerlink" title="CSV读取"></a>CSV读取</h1><p>假设我们的项目中有一个 csv 文件，叫做1</p>
+<p>1.获取文件路径</p>
+<pre><code>NSString  *path = [[NSBundle mainBundle]pathForResource:@&quot;1&quot; ofType:@&quot;csv&quot;];
+</code></pre><p>2.将此文件转码为一个字符串</p>
+<pre><code>NSError *error = nil;
+//GBK编码
+NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:0x80000632 error:&amp;error];
+//UTF8编码
+NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error];
+</code></pre><p>3.切割字符串，可以拿到每一行的数据</p>
+<pre><code>//取出每一行的数据
+NSArray *_allLinedStrings = [fileContents componentsSeparatedByString:@&quot;\r\n&quot;];
+</code></pre><p>4.如果有表头可以对表头进行处理，即对第一行数据进行处理</p>
+<pre><code>__block NSInteger nameRow = 0;
+__block NSInteger phoneRow = 0;
+
+NSArray *firstLine = [_allLinedStrings[0] componentsSeparatedByString:@&quot;,&quot;];
+[firstLine enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+NSString *line = obj;
+if ([line isEqualToString:@&quot;客户名称&quot;]){
+    nameRow = idx;
+}
+else if ([line isEqualToString:@&quot;手机号&quot;]){
+    phoneRow = idx;
+}
+}];
+</code></pre><p>5.对数据进行处理</p>
+<pre><code>[_allLinedStrings enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if (idx == 0) {
+
+    }
+    else{
+      NSString *str = obj;
+        NSArray *array = [str componentsSeparatedByString:@&quot;,&quot;];
+       //获取到某一行的数据，切割这个字符串就可以拿到这一行的值，然后在进行下一步的处理
+    } 
+    }];
+</code></pre><h1 id="CSV文件的写入"><a href="#CSV文件的写入" class="headerlink" title="CSV文件的写入"></a>CSV文件的写入</h1><p>假设我们有一个 likee.csv 需要放在Documents目录下</p>
+<p>1.创建写入路径</p>
+<pre><code>NSString *fileNameStr = @&quot;likee.Csv&quot;;
+NSString *DocPath = [[NSHomeDirectory() stringByAppendingPathComponent:@&quot;Documents&quot;] stringByAppendingPathComponent:fileNameStr];
+</code></pre><p>2.够造需要写入的数据</p>
+<pre><code>NSString *str = @&quot;11111,22222,33333,44444\n&quot;;
+NSMutableString *csvString = [NSMutableString string];
+for (int i = 0; i&lt; 400; i ++) {
+ [csvString appendString:str];
+ };
+</code></pre><p>3.够造为NSData，并使用NSData进行文件的写入。</p>
+<pre><code>NSData *data = [csvString dataUsingEncoding:NSUTF8StringEncoding];
+[data writeToFile:DocPath atomically:YES];
+</code></pre><h1 id="编码格式的坑"><a href="#编码格式的坑" class="headerlink" title="编码格式的坑"></a>编码格式的坑</h1><p>在 mac 下文本的默认编码格式使用的是UTF-8，在 windows 的 Excel 上，对中文的处理是GBK,所以可能会造成乱码的问题。如果读取文件是无法读出内容，就和使用的编码格式有关。所以建议先使用UTF-8进行解码，如果无法显示内容，再用GBK进行解码</p>
+<pre><code> //UTF8编码
+NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error];
+if(!fileContents){
+    //GBK编码
+    fileContents = [NSString stringWithContentsOfFile:path encoding:0x80000632 error:&amp;error];
+}
+</code></pre>
       
 
       
-    </p></blockquote></div>
+    </div>
     <div class="article-info article-info-index">
       
       
