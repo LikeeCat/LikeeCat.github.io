@@ -8,14 +8,17 @@
   <link rel="dns-prefetch" href="http://LikeeCat.github.io">
   <title>LikeeCat&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="iOS">
+  <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="website">
 <meta property="og:title" content="LikeeCat&#39;s Blog">
 <meta property="og:url" content="http://LikeeCat.github.io/index.html">
 <meta property="og:site_name" content="LikeeCat&#39;s Blog">
+<meta property="og:description" content="Hello，我是Likee,一个 iOS 开发者">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LikeeCat&#39;s Blog">
+<meta name="twitter:description" content="Hello，我是Likee,一个 iOS 开发者">
   
     <link rel="alternative" href="/atom.xml" title="LikeeCat&#39;s Blog" type="application/atom+xml">
   
@@ -167,8 +170,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#起<br>忽然觉得大多数的写作的地方都太浮躁了，自己想找个安静的角落，写一写关于技术、生活、旅游方面的姑且认为是文章啦，于是就有了想自己做一个静态网站的想法。</p>
-<p>#接下来<br>花了一周的时间想了很久，最终还是在 GitHub 上安家了，离开自己的舒服区，跑来折腾前端的我也是有够拼的。接下来就慢慢的写，让自己能够得到一些沉淀吧。折腾了一天的我，突然发现天也已经暗了下来，不过总算是完成了一大半的工程。<br>
+        <h1 id="起"><a href="#起" class="headerlink" title="起"></a>起</h1><p>忽然觉得大多数的写作的地方都太浮躁了，自己想找个安静的角落，写一写关于技术、生活、旅游方面的姑且认为是文章啦，于是就有了想自己做一个静态网站的想法。</p>
+<h1 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h1><p>花了一周的时间想了很久，最终还是在 GitHub 上安家了，离开自己的舒服区，跑来折腾前端的我也是有够拼的。接下来就慢慢的写，让自己能够得到一些沉淀吧。折腾了一天的我，突然发现天也已经暗了下来，不过总算是完成了一大半的工程。<br>
         
           <a class="article-more-a" href="/2019/03/16/把博客从简书搬出来/#more">more >></a>
         
@@ -192,10 +195,6 @@
 
       
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/16/把博客从简书搬出来/">展开全文 >></a>
-        </p>
       
 
       
@@ -248,67 +247,9 @@
 <blockquote>
 <p>CSV其实就是一个<strong>纯文本</strong>,那么对应到 Objective-C 中，他就是一个<code>NSString</code>,对应到 Swift 中就是一个<code>String</code></p>
 </blockquote>
-<h1 id="举个🌰"><a href="#举个🌰" class="headerlink" title="举个🌰"></a>举个🌰</h1><blockquote>
-<p>sj_mino1001.jpg,715282,4FB55FE8<br>sj_mino1002.jpg,471289,93203C5C<br>sj_mino1003.jpg,451929,C4E80467<br>这个就是一个简单的CSV文件,每个值之间用,分割,在一行数据结束的时候才换行。</p>
-</blockquote>
-<h1 id="CSV读取"><a href="#CSV读取" class="headerlink" title="CSV读取"></a>CSV读取</h1><p>假设我们的项目中有一个 csv 文件，叫做1</p>
-<p>1.获取文件路径</p>
-<pre><code>NSString  *path = [[NSBundle mainBundle]pathForResource:@&quot;1&quot; ofType:@&quot;csv&quot;];
-</code></pre><p>2.将此文件转码为一个字符串</p>
-<pre><code>NSError *error = nil;
-//GBK编码
-NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:0x80000632 error:&amp;error];
-//UTF8编码
-NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error];
-</code></pre><p>3.切割字符串，可以拿到每一行的数据</p>
-<pre><code>//取出每一行的数据
-NSArray *_allLinedStrings = [fileContents componentsSeparatedByString:@&quot;\r\n&quot;];
-</code></pre><p>4.如果有表头可以对表头进行处理，即对第一行数据进行处理</p>
-<pre><code>__block NSInteger nameRow = 0;
-__block NSInteger phoneRow = 0;
-
-NSArray *firstLine = [_allLinedStrings[0] componentsSeparatedByString:@&quot;,&quot;];
-[firstLine enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-NSString *line = obj;
-if ([line isEqualToString:@&quot;客户名称&quot;]){
-    nameRow = idx;
-}
-else if ([line isEqualToString:@&quot;手机号&quot;]){
-    phoneRow = idx;
-}
-}];
-</code></pre><p>5.对数据进行处理</p>
-<pre><code>[_allLinedStrings enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-    if (idx == 0) {
-
-    }
-    else{
-      NSString *str = obj;
-        NSArray *array = [str componentsSeparatedByString:@&quot;,&quot;];
-       //获取到某一行的数据，切割这个字符串就可以拿到这一行的值，然后在进行下一步的处理
-    } 
-    }];
-</code></pre><h1 id="CSV文件的写入"><a href="#CSV文件的写入" class="headerlink" title="CSV文件的写入"></a>CSV文件的写入</h1><p>假设我们有一个 likee.csv 需要放在Documents目录下</p>
-<p>1.创建写入路径</p>
-<pre><code>NSString *fileNameStr = @&quot;likee.Csv&quot;;
-NSString *DocPath = [[NSHomeDirectory() stringByAppendingPathComponent:@&quot;Documents&quot;] stringByAppendingPathComponent:fileNameStr];
-</code></pre><p>2.够造需要写入的数据</p>
-<pre><code>NSString *str = @&quot;11111,22222,33333,44444\n&quot;;
-NSMutableString *csvString = [NSMutableString string];
-for (int i = 0; i&lt; 400; i ++) {
- [csvString appendString:str];
- };
-</code></pre><p>3.够造为NSData，并使用NSData进行文件的写入。</p>
-<pre><code>NSData *data = [csvString dataUsingEncoding:NSUTF8StringEncoding];
-[data writeToFile:DocPath atomically:YES];
-</code></pre><h1 id="编码格式的坑"><a href="#编码格式的坑" class="headerlink" title="编码格式的坑"></a>编码格式的坑</h1><p>在 mac 下文本的默认编码格式使用的是UTF-8，在 windows 的 Excel 上，对中文的处理是GBK,所以可能会造成乱码的问题。如果读取文件是无法读出内容，就和使用的编码格式有关。所以建议先使用UTF-8进行解码，如果无法显示内容，再用GBK进行解码</p>
-<pre><code> //UTF8编码
-NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error];
-if(!fileContents){
-    //GBK编码
-    fileContents = [NSString stringWithContentsOfFile:path encoding:0x80000632 error:&amp;error];
-}
-</code></pre>
+        
+          <a class="article-more-a" href="/2019/03/16/iOS-中-CSV格式文件读写/#more">more >></a>
+        
       
 
       
@@ -329,10 +270,6 @@ if(!fileContents){
 
       
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/16/iOS-中-CSV格式文件读写/">展开全文 >></a>
-        </p>
       
 
       
@@ -406,10 +343,6 @@ if(!fileContents){
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/27/NSArray 之 SEL 的保存/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
@@ -477,7 +410,7 @@ if(!fileContents){
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">UITableView</a>
         		</li>
       		
 		</ul>
@@ -485,10 +418,6 @@ if(!fileContents){
 
       
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/18/UITableView reloadData 滑不到底部/">展开全文 >></a>
-        </p>
       
 
       
@@ -562,10 +491,6 @@ if(!fileContents){
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
@@ -593,6 +518,10 @@ if(!fileContents){
 
 
   
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -692,6 +621,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">UITableView</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
@@ -773,7 +706,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">Hello&lt;br&gt;&lt;br&gt;我是LikeeCat&lt;br&gt;&lt;br&gt;目前专注于 iOS 开发</div>
   	  	
     	</section>
     

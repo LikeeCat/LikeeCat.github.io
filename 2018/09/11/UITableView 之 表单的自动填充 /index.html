@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://LikeeCat.github.io">
-  <title>Archives: 2019 | LikeeCat&#39;s Blog</title>
+  <title>UITableView 之 表单的自动填充 | LikeeCat&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
-<meta name="keywords" content="iOS">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LikeeCat&#39;s Blog">
-<meta property="og:url" content="http://LikeeCat.github.io/archives/2019/index.html">
+  <meta name="description" content="简介最近在做一些复杂的表单提交界面，由于 TableView 的复用问题，有了很多的坑，在此做一些记录">
+<meta name="keywords" content="UITableView">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UITableView 之 表单的自动填充">
+<meta property="og:url" content="http://LikeeCat.github.io/2018/09/11/UITableView 之 表单的自动填充 /index.html">
 <meta property="og:site_name" content="LikeeCat&#39;s Blog">
-<meta property="og:description" content="Hello，我是Likee,一个 iOS 开发者">
+<meta property="og:description" content="简介最近在做一些复杂的表单提交界面，由于 TableView 的复用问题，有了很多的坑，在此做一些记录">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2239937-1750e1763419e818.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-03-20T09:54:52.668Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LikeeCat&#39;s Blog">
-<meta name="twitter:description" content="Hello，我是Likee,一个 iOS 开发者">
+<meta name="twitter:title" content="UITableView 之 表单的自动填充">
+<meta name="twitter:description" content="简介最近在做一些复杂的表单提交界面，由于 TableView 的复用问题，有了很多的坑，在此做一些记录">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2239937-1750e1763419e818.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="LikeeCat&#39;s Blog" type="application/atom+xml">
   
@@ -148,150 +151,126 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-UITableView 之 表单的自动填充 " class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      UITableView 之 表单的自动填充
+    </h1>
+  
+
+        
+        <a href="/2018/09/11/UITableView 之 表单的自动填充 /" class="archive-article-date">
+  	<time datetime="2018-09-11T08:15:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在做一些复杂的表单提交界面，由于 TableView 的复用问题，有了很多的坑，在此做一些记录<br><a id="more"></a></p>
+<h1 id="入坑前"><a href="#入坑前" class="headerlink" title="入坑前"></a>入坑前</h1><p>你的页面可能是这个样子的，很常规的，左边名称，右边输入相关的内容。然后你输入了相关的内容，上下滑动页面，然后再划回去。textField 可能清理掉了你输入的值<br><img src="https://upload-images.jianshu.io/upload_images/2239937-1750e1763419e818.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="表单"></p>
+<h2 id="摆出问题"><a href="#摆出问题" class="headerlink" title="摆出问题"></a>摆出问题</h2><ol>
+<li>自动填充textField<br>你可能需要从某个 VC 或者网络接口请求数据，然后自动填充到相关的输入框中，你的 tableView 因为 cell 的复用，导致你修改了自动填充的内容，当你上下滑动表格的时候，它又恢复到了没有修改之前的值。那么你去提交表单的时候，你需要遍历这个表的每一个 textField,然后去取出相应的内容。接下来包成一个 JSON,传给后台</li>
+</ol>
+<h3 id="自动填充的一些想法"><a href="#自动填充的一些想法" class="headerlink" title="自动填充的一些想法"></a>自动填充的一些想法</h3><ol>
+<li>自动填充 textField<br>界面加载完成后，传统的 MVC 中我们有个 model 来提供数据 。然后通知 UITableView 进行 <code>reloadData</code>,接着调用这个万恶的函数，恰恰就是这个函数让 cell 在复用的过程中，没能正确的显示自动填充的内容。<code>dequeueReusableCellWithIdentifier</code>这个万恶的单元格复用。</li>
+</ol>
+<pre><code>-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;cell&quot;];
+
+        //do something
+}
+</code></pre><p>如果你不使用同一个identifier，那么 tableView 会注册更多的 identifier,可以避免这个问题，但是再次的创建 cell 是需要时间和空间的，如果你的输入框越来越多，难道还要创建越来越多的 cell 么</p>
+<h3 id="自动填充的实现思路"><a href="#自动填充的实现思路" class="headerlink" title="自动填充的实现思路"></a>自动填充的实现思路</h3><p>我的想法是在 textField 输入和 textField 的显示中间，添加 model 作为数据的代理，具体的分为三个部分</p>
+<ol>
+<li>监听 textField 的输入，然后通知 model</li>
+<li>更新 model</li>
+<li>reloadData</li>
+</ol>
+<p>具体的分为 cell 和 vc 两个部分 ，</p>
+<h4 id="cell-h"><a href="#cell-h" class="headerlink" title="cell.h"></a>cell.h</h4><pre><code>@class cellModel;
+typedef void(^reloadOperation)(void);
+
+@interface TableViewCell : UITableViewCell
+//更新cell 数据，并且在 field 的内容完成输入的时候，通知 VC
+- (void)updateWithModel:(cellModel *)model FinishLoad:(reloadOperation)reload;
+</code></pre><h4 id="cell-m"><a href="#cell-m" class="headerlink" title="cell.m"></a>cell.m</h4><pre><code>#import &quot;TableViewCell.h&quot;
+#import &quot;cellModel.h&quot;
+typedef void(^endEditing) (NSString *text);
+@interface TableViewCell ()&lt;UITextFieldDelegate&gt;
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UITextField *field;
+@property (copy, nonatomic) endEditing endEditing;
+
+@end
+
+@implementation TableViewCell
+
+
+
+-(void)updateWithModel:(cellModel *)model FinishLoad:(reloadOperation)reload{
+    self.name.text = model.name;
+    self.field.text = model.url;
+    self.field.delegate = self;
+    self.endEditing = ^(NSString *text) {
+      //在输入结束的回调中，更新 model 的相关输入
+        model.url = text;
+      //通知 VC 需要进行数据的刷新了
+        reload();
+};
+}
+
+
+//在输入完成的时候，通知 cell 完成了 field 的输入
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    self.endEditing(textField.text);
+}
+</code></pre><h4 id="vc-m"><a href="#vc-m" class="headerlink" title="vc.m"></a>vc.m</h4><pre><code>-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;cell&quot;];
+    cellModel *model = self.dataArray[indexPath.row];
+    [cell updateWithModel:model FinishLoad:^{
+        NSLog(@&quot;model.text is %@&quot;,model.url);
+        //回调 刷新数据
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }];
+
+return cell;
+}
+</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>tableView 作为一个 iOS 中最常用的控件，还是不希望大家在重用 cell 的时候创建那么多的 identifier。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/16/把博客从简书搬出来/" class="archive-article-date">
-  	<time datetime="2019-03-16T11:05:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/16/把博客从简书搬出来/">把博客从简书搬出来</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/16/iOS-中-CSV格式文件读写/" class="archive-article-date">
-  	<time datetime="2019-03-16T09:09:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/16/iOS-中-CSV格式文件读写/">iOS 中 CSV格式文件读写</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/27/NSArray 之 SEL 的保存/" class="archive-article-date">
-  	<time datetime="2019-02-27T10:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/27/NSArray 之 SEL 的保存/">NSArray 之 SEL 的保存</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/18/UITableView reloadData 滑不到底部/" class="archive-article-date">
-  	<time datetime="2019-02-18T10:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/18/UITableView reloadData 滑不到底部/">UITableView reloadData 滑不到底部</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -303,57 +282,110 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LikeeCat.github.io/2018/09/11/UITableView 之 表单的自动填充 /" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" class="archive-article-date">
-  	<time datetime="2019-01-07T18:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-08</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Xcode10 【libray not found for -lstdc++.6.0.9 】
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/">Xcode10 【libray not found for -lstdc++.6.0.9 】</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/iOS//" class="article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -376,8 +408,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
