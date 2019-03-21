@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://LikeeCat.github.io">
-  <title>Archives: 2019/3 | LikeeCat&#39;s Blog</title>
+  <title>UITableView 之 UITextView 自动行高的实现 | LikeeCat&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
-<meta name="keywords" content="iOS">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LikeeCat&#39;s Blog">
-<meta property="og:url" content="http://LikeeCat.github.io/archives/2019/03/index.html">
+  <meta name="description" content="简介开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?">
+<meta name="keywords" content="UITableView">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UITableView 之 UITextView 自动行高的实现">
+<meta property="og:url" content="http://LikeeCat.github.io/2018/07/19/UITableView 之 UITextView 自动行高的实现/index.html">
 <meta property="og:site_name" content="LikeeCat&#39;s Blog">
-<meta property="og:description" content="Hello，我是Likee,一个 iOS 开发者">
+<meta property="og:description" content="简介开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-21T03:16:54.464Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LikeeCat&#39;s Blog">
-<meta name="twitter:description" content="Hello，我是Likee,一个 iOS 开发者">
+<meta name="twitter:title" content="UITableView 之 UITextView 自动行高的实现">
+<meta name="twitter:description" content="简介开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?">
   
     <link rel="alternative" href="/atom.xml" title="LikeeCat&#39;s Blog" type="application/atom+xml">
   
@@ -144,98 +145,260 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-UITableView 之 UITextView 自动行高的实现" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/16/把博客从简书搬出来/" class="archive-article-date">
-  	<time datetime="2019-03-16T11:05:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/16/把博客从简书搬出来/">把博客从简书搬出来</a>
+    <h1 class="article-title" itemprop="name">
+      UITableView 之 UITextView 自动行高的实现
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" class="archive-article-date">
+  	<time datetime="2018-07-19T06:33:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?<br><a id="more"></a></p>
+<h1 id="为什么要写这个"><a href="#为什么要写这个" class="headerlink" title="为什么要写这个"></a>为什么要写这个</h1><p>因为我自己也找了好久，参照过别人写的一些，但是到我这里都不是特别的实用，尤其是进行数据刷新的时候，如果你的行高需要改变，你去 <code>reloadData</code>这个时候，键盘会失去响应。就算你这个时候再次将键盘设置为 firstResponser,这个时候你的键盘还是会闪一下，不是很自然。所以写了一些小的 demo ，下面的具体代码也是针对这个 demo 的，<a href="https://github.com/xiangtaiduo/TableViewRefresh" target="_blank" rel="noopener">点击这里下载</a></p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ol>
+<li>首先对 TextView 的输入进行监听，判断输入的字数的多少  <ol start="2">
+<li>根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame</li>
+<li>监听 UITextView 的高度变化，如果 UITextView 比你的 cell 还要高的时候，你需要动态的去更新你的 UITableViewCell 的高度</li>
+</ol>
+</li>
+</ol>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="1-对-UITextView-的输入进行监听，判断输入的字数的多少"><a href="#1-对-UITextView-的输入进行监听，判断输入的字数的多少" class="headerlink" title="1.对 UITextView 的输入进行监听，判断输入的字数的多少"></a>1.对 UITextView 的输入进行监听，判断输入的字数的多少</h2><p>前人已经有了现成的轮子，所以不需要你重复的造轮子。这里找到一个很好的<a href="https://github.com/WZBbiao/UITextView-WZB" target="_blank" rel="noopener">自动换行的 TextView</a>我们需要使用这个来完成我们接下来的工作</p>
+<pre><code>   [textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
+     //在此处我们已经对 UITextView 完成了监听，接下来我们就可以修改 UITextView 的 frame 了
+}];
+</code></pre><h2 id="2-根据-UITextView-的字数的多少去动态的修改-UITextView-的-frame"><a href="#2-根据-UITextView-的字数的多少去动态的修改-UITextView-的-frame" class="headerlink" title="2.根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame"></a>2.根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame</h2><pre><code>__weak typeof (self)WeakSelf = self;
+__weak typeof (textView)WeakTextView = textView;    
+[textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
+    CGRect frame = WeakTextView.frame;
+    frame.size.height = currentTextViewHeight;
+    [UIView animateWithDuration:0.2 animations:^{
+        WeakTextView.frame = frame;
+
+    } completion:^(BOOL finished) {
+    }];
+
+ }];
+</code></pre><h2 id="3-动态的修改cell-的高度"><a href="#3-动态的修改cell-的高度" class="headerlink" title="3.动态的修改cell 的高度"></a>3.动态的修改cell 的高度</h2><p>我们需要对单元格的高度进行保存，然后在刷新行高的时候把高度取出来赋值。所以我们还需要一个保存高度的字典<code>dicHeight</code></p>
+<pre><code> __weak typeof (self)WeakSelf = self;
+__weak typeof (textView)WeakTextView = textView;
+// 最大高度为300 改变高度的 block
+[textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
+    CGRect frame = WeakTextView.frame;
+    frame.size.height = currentTextViewHeight;
+    [UIView animateWithDuration:0.2 animations:^{
+        WeakTextView.frame = frame;
+
+    } completion:^(BOOL finished) {
+    }];
+
+    NSString *key = [NSString stringWithFormat:@&quot;%@&quot;,indexPath];
+    NSNumber *height = [NSNumber numberWithFloat:currentTextViewHeight];
+    if (WeakSelf.dicHeight[key]) {
+        NSNumber *oldHeight = self.dicHeight[key];
+        if (oldHeight.floatValue != height.floatValue) {
+            [WeakSelf.dicHeight setObject:height forKey:key];
+        }
+    }
+    else{
+        [WeakSelf.dicHeight setObject:height forKey:key];
+
+    }
+
+    [WeakSelf.tableview beginUpdates];
+    [WeakSelf.tableview endUpdates];
+
+}];
+</code></pre><p>我们使用<code>beginUpdates</code> 和 <code>endUpdates</code> 。不使用 <code>reloadData</code>。具体的原因看我之前写的<a href="https://www.jianshu.com/p/35faf5aa524b" target="_blank" rel="noopener">为什么不用 ReloadData</a>。</p>
+<p>接下来就可以修改行高了</p>
+<pre><code>-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *key = [NSString stringWithFormat:@&quot;%@&quot;,indexPath];
+    if(self.dicHeight[key]){
+      NSNumber *number = self.dicHeight[key];
+      if (number.floatValue &gt; 44) {
+          return number.floatValue;
+          }
+      }
+      return 44;
+  }
+</code></pre><h1 id="小彩蛋"><a href="#小彩蛋" class="headerlink" title="小彩蛋"></a>小彩蛋</h1><p>通过这个你就可以简单的知道为什么不能用 <code>reloadData</code>了。使用的时候把自动行高的哪里注释掉。简单的输入一些东西做一些尝试吧。</p>
+<pre><code>  //模拟数据刷新
+-(void)textViewDidChange:(UITextView *)textView{
+
+//1.reloadData
+//[self.tableview reloadData];
+
+ //2.reloadindexpath
+ //    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+ //    [self.tableview reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationTop];
+
+
+//3.beginupdate &amp; endupdate
+//    [self.tableview beginUpdates];
+//    [self.tableview endUpdates];
+
+}
+</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>UITableView 作为 iOS 开发中用到的比较多的控件，在具体的使用中总会出现各种各样的问题，自动行高这里总算是脱坑了。先写到这里</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">UITableView</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LikeeCat.github.io/2018/07/19/UITableView 之 UITextView 自动行高的实现/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/16/iOS-中-CSV格式文件读写/" class="archive-article-date">
-  	<time datetime="2019-03-16T09:09:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2018/09/11/UITableView 之 表单的自动填充 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          UITableView 之 表单的自动填充
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/17/UITableView 之 正确的 reloadData/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">UITableView 之 正确的 reloadData</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/16/iOS-中-CSV格式文件读写/">iOS 中 CSV格式文件读写</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -258,8 +421,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
