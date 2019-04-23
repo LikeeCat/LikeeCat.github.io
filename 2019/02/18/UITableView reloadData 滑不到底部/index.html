@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="LikeeCat&#39;s Blog">
 <meta property="og:description" content="简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档  layoutSubviews setNeedsLayout layoutIfNeeded">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-20T09:48:37.119Z">
+<meta property="og:updated_time" content="2019-04-23T06:16:12.898Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UITableView reloadData 滑不到底部">
 <meta name="twitter:description" content="简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档  layoutSubviews setNeedsLayout layoutIfNeeded">
@@ -169,10 +169,10 @@
 <ol>
 <li>layoutSubviews</li>
 <li>setNeedsLayout</li>
-<li>layoutIfNeeded<a id="more"></a>
-<h3 id="layoutSubviews"><a href="#layoutSubviews" class="headerlink" title="layoutSubviews"></a>layoutSubviews</h3></li>
+<li>layoutIfNeeded</li>
 </ol>
-<p>Lays out subviews.</p>
+<a id="more"></a>
+<h3 id="layoutSubviews"><a href="#layoutSubviews" class="headerlink" title="layoutSubviews"></a>layoutSubviews</h3><p>Lays out subviews.</p>
 <h4 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h4><p>Subclasses can override this method as needed to perform more precise layout of their subviews. You should override this method only if the autoresizing and constraint-based behaviors of the subviews do not offer the behavior you want. You can use your implementation to set the frame rectangles of your subviews directly.</p>
 <p>You should not call this method directly. If you want to force a layout update, call the <code>setNeedsLayout</code> method instead to do so prior to the next drawing update. If you want to update the layout of your views immediately, call the <code>layoutIfNeeded</code> method.</p>
 <p>在子类中，如果你需要更加准确的定位，你可以重写这个方法。如果 autoresizing 和 constraint不能为你提供你想要做的。你可以自己设置subviews的 frame。<br>你不应该直接调用这个方法，如果你想要强制更新布局，应该调用<code>setNeedsLayout</code>,在下一次绘图更新之前，如果你想要立刻的更新布局，需要调用 <code>layoutIfNeeded</code></p>
@@ -223,6 +223,11 @@ NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOf
                   <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
                     
                   </div>
                 </span>
@@ -251,57 +256,6 @@ NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOf
 
       
 
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://LikeeCat.github.io/2019/02/18/UITableView reloadData 滑不到底部/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
