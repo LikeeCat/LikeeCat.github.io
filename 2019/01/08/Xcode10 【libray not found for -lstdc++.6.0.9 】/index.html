@@ -331,7 +331,22 @@
 		
 		
 
+	
+    <span class="leancloud_visitors" id="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/_visitors" data-url="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" data-title="Xcode10 【libray not found for -lstdc++.6.0.9 】">
+       	<i class="fa fa-eye"></i>
+       	热度
+        <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
+    </span>
+    
 
+
+
+	
+    <span class="leancloud_likes" id="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/_likes" data-url="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" data-title="Xcode10 【libray not found for -lstdc++.6.0.9 】" rel="unlike">
+        <i class="fa fa-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
 
 	</div>
 
@@ -696,6 +711,14 @@ lay...
 -->
 
 
+
+	<script>
+		var appid = 'VJwCgWQYIPacfeOI7pxpXSgp-gzGzoHsz',
+            appkey = '4LsyJc4v7hyG3u4yoDadrLBR';	  
+        AnnieLeancloud(appid, appkey);         
+	</script>
+    
+
 	
 
 
@@ -939,6 +962,23 @@ lay...
 		<div class="local-search-footer">
 			<div class="topN-post">				
 				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title="热门文章"></div> 
+	</div>
+	
+    <script>
+        var appid = 'VJwCgWQYIPacfeOI7pxpXSgp-gzGzoHsz',
+            appkey = '4LsyJc4v7hyG3u4yoDadrLBR',
+            limitCount = 10;
+        if( $('#topN').length ){
+            AV.initialize(appid, appkey);
+            var Counter = AV.Object.extend("Counter");  
+            topNPost(Counter, limitCount);
+        }
+    </script>
+   
 								
 			</div>
 		</div>

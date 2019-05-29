@@ -331,7 +331,22 @@
 		
 		
 
+	
+    <span class="leancloud_visitors" id="/2018/07/17/UITableView 之 正确的 reloadData/_visitors" data-url="/2018/07/17/UITableView 之 正确的 reloadData/" data-title="UITableView 之 正确的 reloadData">
+       	<i class="fa fa-eye"></i>
+       	热度
+        <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
+    </span>
+    
 
+
+
+	
+    <span class="leancloud_likes" id="/2018/07/17/UITableView 之 正确的 reloadData/_likes" data-url="/2018/07/17/UITableView 之 正确的 reloadData/" data-title="UITableView 之 正确的 reloadData" rel="unlike">
+        <i class="fa fa-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
 
 	</div>
 
@@ -684,6 +699,14 @@ CSV其实就是一个纯文本,那么对应到 Ob...
 -->
 
 
+
+	<script>
+		var appid = 'VJwCgWQYIPacfeOI7pxpXSgp-gzGzoHsz',
+            appkey = '4LsyJc4v7hyG3u4yoDadrLBR';	  
+        AnnieLeancloud(appid, appkey);         
+	</script>
+    
+
 	
 
 
@@ -927,6 +950,23 @@ CSV其实就是一个纯文本,那么对应到 Ob...
 		<div class="local-search-footer">
 			<div class="topN-post">				
 				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title="热门文章"></div> 
+	</div>
+	
+    <script>
+        var appid = 'VJwCgWQYIPacfeOI7pxpXSgp-gzGzoHsz',
+            appkey = '4LsyJc4v7hyG3u4yoDadrLBR',
+            limitCount = 10;
+        if( $('#topN').length ){
+            AV.initialize(appid, appkey);
+            var Counter = AV.Object.extend("Counter");  
+            topNPost(Counter, limitCount);
+        }
+    </script>
+   
 								
 			</div>
 		</div>
