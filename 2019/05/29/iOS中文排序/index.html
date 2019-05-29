@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      UITableView 之 UITextView 自动行高的实现 | LikeeCat&#39;s Blog
+      iOS 中文排序 | LikeeCat&#39;s Blog
     
   </title>
   <meta name="author" content="LikeeCat">
@@ -160,7 +160,7 @@
 	<!-- Page title -->
 	<p>
 		
-			当前文章&nbsp;:&nbsp;《UITableView 之 UITextView 自动行高的实现》
+			当前文章&nbsp;:&nbsp;《iOS 中文排序》
 		
 	</p>
 
@@ -247,8 +247,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
-		UITableView 之 UITextView 自动行高的实现
+	<a href="/2019/05/29/iOS中文排序/" itemprop="url">
+		iOS 中文排序
 	</a>
 
 	</div>
@@ -261,9 +261,9 @@
 
 	发布于
 
-	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
-		<time datetime="2018-07-19T06:33:13.000Z" itemprop="datePublished">
-	  		2018-07-19
+	<a href="/2019/05/29/iOS中文排序/" itemprop="url">
+		<time datetime="2019-05-29T11:05:58.000Z" itemprop="datePublished">
+	  		2019-05-29
 	  </time>
 	</a>
 	&nbsp;
@@ -279,8 +279,8 @@
 
 	更新于
 
-	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
-		<time datetime="2018-07-19T06:33:13.000Z" itemprop="dateUpdated">
+	<a href="/2019/05/29/iOS中文排序/" itemprop="url">
+		<time datetime="2019-05-29T11:05:58.000Z" itemprop="dateUpdated">
 	  		2019-05-29
 	  </time>
 	</a> 
@@ -292,8 +292,8 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/UITableView/" class=" ">
-			UITableView
+		<a href="/tags/tip/" class=" ">
+			tip
 		</a>
 	
 		
@@ -302,7 +302,7 @@
 		
 
 	
-    <span class="leancloud_visitors" id="/2018/07/19/UITableView 之 UITextView 自动行高的实现/_visitors" data-url="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" data-title="UITableView 之 UITextView 自动行高的实现">
+    <span class="leancloud_visitors" id="/2019/05/29/iOS中文排序/_visitors" data-url="/2019/05/29/iOS中文排序/" data-title="iOS 中文排序">
        	<i class="fa fa-eye"></i>
        	热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
@@ -312,7 +312,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2018/07/19/UITableView 之 UITextView 自动行高的实现/_likes" data-url="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" data-title="UITableView 之 UITextView 自动行高的实现" rel="unlike">
+    <span class="leancloud_likes" id="/2019/05/29/iOS中文排序/_likes" data-url="/2019/05/29/iOS中文排序/" data-title="iOS 中文排序" rel="unlike">
         <i class="fa fa-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -321,92 +321,30 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?<br><a id="more"></a></p>
-<h1 id="为什么要写这个"><a href="#为什么要写这个" class="headerlink" title="为什么要写这个"></a>为什么要写这个</h1><p>因为我自己也找了好久，参照过别人写的一些，但是到我这里都不是特别的实用，尤其是进行数据刷新的时候，如果你的行高需要改变，你去 <code>reloadData</code>这个时候，键盘会失去响应。就算你这个时候再次将键盘设置为 firstResponser,这个时候你的键盘还是会闪一下，不是很自然。所以写了一些小的 demo ，下面的具体代码也是针对这个 demo 的，<a href="https://github.com/xiangtaiduo/TableViewRefresh" target="_blank" rel="noopener">点击这里下载</a></p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ol>
-<li>首先对 TextView 的输入进行监听，判断输入的字数的多少  <ol start="2">
-<li>根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame</li>
-<li>监听 UITextView 的高度变化，如果 UITextView 比你的 cell 还要高的时候，你需要动态的去更新你的 UITableViewCell 的高度</li>
-</ol>
-</li>
-</ol>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="1-对-UITextView-的输入进行监听，判断输入的字数的多少"><a href="#1-对-UITextView-的输入进行监听，判断输入的字数的多少" class="headerlink" title="1.对 UITextView 的输入进行监听，判断输入的字数的多少"></a>1.对 UITextView 的输入进行监听，判断输入的字数的多少</h2><p>前人已经有了现成的轮子，所以不需要你重复的造轮子。这里找到一个很好的<a href="https://github.com/WZBbiao/UITextView-WZB" target="_blank" rel="noopener">自动换行的 TextView</a>我们需要使用这个来完成我们接下来的工作</p>
-<pre><code>   [textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
-     //在此处我们已经对 UITextView 完成了监听，接下来我们就可以修改 UITextView 的 frame 了
-}];
-</code></pre><h2 id="2-根据-UITextView-的字数的多少去动态的修改-UITextView-的-frame"><a href="#2-根据-UITextView-的字数的多少去动态的修改-UITextView-的-frame" class="headerlink" title="2.根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame"></a>2.根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame</h2><pre><code>__weak typeof (self)WeakSelf = self;
-__weak typeof (textView)WeakTextView = textView;    
-[textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
-    CGRect frame = WeakTextView.frame;
-    frame.size.height = currentTextViewHeight;
-    [UIView animateWithDuration:0.2 animations:^{
-        WeakTextView.frame = frame;
+		<h1 id="排序方法"><a href="#排序方法" class="headerlink" title="排序方法"></a>排序方法</h1><h2 id="localizedCompare"><a href="#localizedCompare" class="headerlink" title="localizedCompare(_:)"></a>localizedCompare(_:)</h2><p>Compares the string and a given string using a localized comparison.</p>
+<blockquote>
+<p>在NSString 的 API 中有这个方法,假设你的手机使用的是中文,就可以根据中文排序</p>
+</blockquote>
+<h2 id="NSSortDescriptor"><a href="#NSSortDescriptor" class="headerlink" title="NSSortDescriptor"></a>NSSortDescriptor</h2><p>An immutable description of how to order a collection of objects based on a property common to all the objects.</p>
+<blockquote>
+<p>可以根据集合中的对象的某一个属性对这个集合进行排序</p>
+</blockquote>
+<h2 id="initWithKey-ascending-selector"><a href="#initWithKey-ascending-selector" class="headerlink" title="initWithKey:ascending:selector:"></a>initWithKey:ascending:selector:</h2><pre><code>- (instancetype)initWithKey:(NSString *)key 
+              ascending:(BOOL)ascending 
+               selector:(SEL)selector;
 
-    } completion:^(BOOL finished) {
-    }];
-
- }];
-</code></pre><h2 id="3-动态的修改cell-的高度"><a href="#3-动态的修改cell-的高度" class="headerlink" title="3.动态的修改cell 的高度"></a>3.动态的修改cell 的高度</h2><p>我们需要对单元格的高度进行保存，然后在刷新行高的时候把高度取出来赋值。所以我们还需要一个保存高度的字典<code>dicHeight</code></p>
-<pre><code> __weak typeof (self)WeakSelf = self;
-__weak typeof (textView)WeakTextView = textView;
-// 最大高度为300 改变高度的 block
-[textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
-    CGRect frame = WeakTextView.frame;
-    frame.size.height = currentTextViewHeight;
-    [UIView animateWithDuration:0.2 animations:^{
-        WeakTextView.frame = frame;
-
-    } completion:^(BOOL finished) {
-    }];
-
-    NSString *key = [NSString stringWithFormat:@&quot;%@&quot;,indexPath];
-    NSNumber *height = [NSNumber numberWithFloat:currentTextViewHeight];
-    if (WeakSelf.dicHeight[key]) {
-        NSNumber *oldHeight = self.dicHeight[key];
-        if (oldHeight.floatValue != height.floatValue) {
-            [WeakSelf.dicHeight setObject:height forKey:key];
-        }
-    }
-    else{
-        [WeakSelf.dicHeight setObject:height forKey:key];
-
-    }
-
-    [WeakSelf.tableview beginUpdates];
-    [WeakSelf.tableview endUpdates];
-
-}];
-</code></pre><p>我们使用<code>beginUpdates</code> 和 <code>endUpdates</code> 。不使用 <code>reloadData</code>。具体的原因看我之前写的<a href="https://www.jianshu.com/p/35faf5aa524b" target="_blank" rel="noopener">为什么不用 ReloadData</a>。</p>
-<p>接下来就可以修改行高了</p>
-<pre><code>-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *key = [NSString stringWithFormat:@&quot;%@&quot;,indexPath];
-    if(self.dicHeight[key]){
-      NSNumber *number = self.dicHeight[key];
-      if (number.floatValue &gt; 44) {
-          return number.floatValue;
-          }
-      }
-      return 44;
-  }
-</code></pre><h1 id="小彩蛋"><a href="#小彩蛋" class="headerlink" title="小彩蛋"></a>小彩蛋</h1><p>通过这个你就可以简单的知道为什么不能用 <code>reloadData</code>了。使用的时候把自动行高的哪里注释掉。简单的输入一些东西做一些尝试吧。</p>
-<pre><code>  //模拟数据刷新
--(void)textViewDidChange:(UITextView *)textView{
-
-//1.reloadData
-//[self.tableview reloadData];
-
- //2.reloadindexpath
- //    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
- //    [self.tableview reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationTop];
-
-
-//3.beginupdate &amp; endupdate
-//    [self.tableview beginUpdates];
-//    [self.tableview endUpdates];
-
-}
-</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>UITableView 作为 iOS 开发中用到的比较多的控件，在具体的使用中总会出现各种各样的问题，自动行高这里总算是脱坑了。先写到这里</p>
-	
+根据给出的key 升序还是降序 还有使用selector来初始化
+</code></pre><h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><h2 id="定义对象"><a href="#定义对象" class="headerlink" title="定义对象"></a>定义对象</h2><pre><code>@interface person : NSObject
+@property (nonatomic,strong)NSString *name;
+@property (nonatomic,strong)NSString *phone;
+@end
+</code></pre><h2 id="定义对象的集合"><a href="#定义对象的集合" class="headerlink" title="定义对象的集合"></a>定义对象的集合</h2><pre><code>person *p = [[person alloc]initWithName:@&quot;小小&quot; phone:@&quot;13322223333&quot;];
+person *p1 = [[person alloc]initWithName:@&quot;小二&quot; phone:@&quot;13322223333&quot;];
+person *p2 = [[person alloc]initWithName:@&quot;校小&quot; phone:@&quot;13322223333&quot;];
+NSMutableArray *arr  = [NSMutableArray arrayWithArray:@[p,p1,p2]];
+</code></pre><h2 id="定义排序方法"><a href="#定义排序方法" class="headerlink" title="定义排序方法"></a>定义排序方法</h2><pre><code>NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@&quot;name&quot; ascending:YES selector:@selector(localizedCompare:)]];
+</code></pre><h2 id="进行排序"><a href="#进行排序" class="headerlink" title="进行排序"></a>进行排序</h2><pre><code>[arr sortUsingDescriptors:sortDescriptors];
+</code></pre>	
 	</div>
 	
 	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -424,12 +362,8 @@ __weak typeof (textView)WeakTextView = textView;
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充" rel="prev">
-				&laquo;上一篇
-			</a>
 		
-		
-			<a href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData" rel="next">
+			<a href="/2019/04/16/OC中函数的一些理解/" title="OC中函数的一些小技巧" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -447,105 +381,6 @@ __weak typeof (textView)WeakTextView = textView;
 <div class="relate-post">
 	
 		<ul>
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">
-								UITableView reloadData 滑不到底部			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 18日, 2019				
-							</p>
-							<p class="relate-post-content">
-								简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档
-
-layoutSubviews
-setNeedsLayout
-lay...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView reloadData 滑不到底部">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充">
-								UITableView 之 表单的自动填充			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								九月 11日, 2018				
-							</p>
-							<p class="relate-post-content">
-								简介最近在做一些复杂的表单提交界面，由于 TableView 的复用问题，有了很多的坑，在此做一些记录
-入坑前你的页面可能是这个样子的，很常规的，左边名称，右边输入相关的内容。然后你输入了相关的内容，上下滑动页面，然后再划回去。tex...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView 之 表单的自动填充">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData">
-								UITableView 之 正确的 reloadData			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								七月 17日, 2018				
-							</p>
-							<p class="relate-post-content">
-								1. tableview reloadData假设你有一个 tableview ，你的 cell 中有 UITextField 或者 UITextView,而且你在编辑这一行的数据。此时对文本框进行监听，然后调用了 reloadDat...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView 之 正确的 reloadData">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/05/29/iOS中文排序/" title="iOS 中文排序">
-								iOS 中文排序			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 29日, 2019				
-							</p>
-							<p class="relate-post-content">
-								排序方法localizedCompare(_:)Compares the string and a given string using a localized comparison.
-
-在NSString 的 API 中有这个方法,...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/05/29/iOS中文排序/" title="iOS 中文排序">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="iOS 中文排序">
-							</a>
-						</div>
-					</li>											
-			
 			
 					<li>
 						<div class="relate-post-text">
@@ -647,6 +482,33 @@ CSV其实就是一个纯文本,那么对应到 Ob...
 			
 					<li>
 						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">
+								UITableView reloadData 滑不到底部			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 18日, 2019				
+							</p>
+							<p class="relate-post-content">
+								简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档
+
+layoutSubviews
+setNeedsLayout
+lay...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView reloadData 滑不到底部">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
 							<a class="relate-post-title" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" title="Xcode10 【libray not found for -lstdc++.6.0.9 】">
 								Xcode10 【libray not found for -lstdc++.6.0.9 】			
 							</a>
@@ -688,6 +550,76 @@ CSV其实就是一个纯文本,那么对应到 Ob...
 							<a href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SDWebImage 不能及时更新图片">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充">
+								UITableView 之 表单的自动填充			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 11日, 2018				
+							</p>
+							<p class="relate-post-content">
+								简介最近在做一些复杂的表单提交界面，由于 TableView 的复用问题，有了很多的坑，在此做一些记录
+入坑前你的页面可能是这个样子的，很常规的，左边名称，右边输入相关的内容。然后你输入了相关的内容，上下滑动页面，然后再划回去。tex...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView 之 表单的自动填充">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" title="UITableView 之 UITextView 自动行高的实现">
+								UITableView 之 UITextView 自动行高的实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 19日, 2018				
+							</p>
+							<p class="relate-post-content">
+								简介开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" title="UITableView 之 UITextView 自动行高的实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView 之 UITextView 自动行高的实现">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData">
+								UITableView 之 正确的 reloadData			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 17日, 2018				
+							</p>
+							<p class="relate-post-content">
+								1. tableview reloadData假设你有一个 tableview ，你的 cell 中有 UITextField 或者 UITextView,而且你在编辑这一行的数据。此时对文本框进行监听，然后调用了 reloadDat...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView 之 正确的 reloadData">
 							</a>
 						</div>
 					</li>											
