@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      UITableView 之 UITextView 自动行高的实现 | LikeeCat&#39;s Blog
+      离屏渲染 | LikeeCat&#39;s Blog
     
   </title>
   <meta name="author" content="LikeeCat">
@@ -160,7 +160,7 @@
 	<!-- Page title -->
 	<p>
 		
-			当前文章&nbsp;:&nbsp;《UITableView 之 UITextView 自动行高的实现》
+			当前文章&nbsp;:&nbsp;《离屏渲染》
 		
 	</p>
 
@@ -247,8 +247,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
-		UITableView 之 UITextView 自动行高的实现
+	<a href="/2018/08/20/离屏渲染/" itemprop="url">
+		离屏渲染
 	</a>
 
 	</div>
@@ -261,9 +261,9 @@
 
 	发布于
 
-	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
-		<time datetime="2018-07-19T06:33:13.000Z" itemprop="datePublished">
-	  		2018-07-19
+	<a href="/2018/08/20/离屏渲染/" itemprop="url">
+		<time datetime="2018-08-20T10:05:13.000Z" itemprop="datePublished">
+	  		2018-08-20
 	  </time>
 	</a>
 	&nbsp;
@@ -279,9 +279,9 @@
 
 	更新于
 
-	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
-		<time datetime="2018-07-19T06:33:13.000Z" itemprop="dateUpdated">
-	  		2019-05-29
+	<a href="/2018/08/20/离屏渲染/" itemprop="url">
+		<time datetime="2018-08-20T10:05:13.000Z" itemprop="dateUpdated">
+	  		2019-06-05
 	  </time>
 	</a> 
 
@@ -292,8 +292,8 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/UITableView/" class=" ">
-			UITableView
+		<a href="/tags/UIView/" class=" ">
+			UIView
 		</a>
 	
 		
@@ -302,7 +302,7 @@
 		
 
 	
-    <span class="leancloud_visitors" id="/2018/07/19/UITableView 之 UITextView 自动行高的实现/_visitors" data-url="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" data-title="UITableView 之 UITextView 自动行高的实现">
+    <span class="leancloud_visitors" id="/2018/08/20/离屏渲染/_visitors" data-url="/2018/08/20/离屏渲染/" data-title="离屏渲染">
        	<i class="fa fa-eye"></i>
        	热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
@@ -312,7 +312,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2018/07/19/UITableView 之 UITextView 自动行高的实现/_likes" data-url="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" data-title="UITableView 之 UITextView 自动行高的实现" rel="unlike">
+    <span class="leancloud_likes" id="/2018/08/20/离屏渲染/_likes" data-url="/2018/08/20/离屏渲染/" data-title="离屏渲染" rel="unlike">
         <i class="fa fa-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -321,91 +321,67 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?<br><a id="more"></a></p>
-<h1 id="为什么要写这个"><a href="#为什么要写这个" class="headerlink" title="为什么要写这个"></a>为什么要写这个</h1><p>因为我自己也找了好久，参照过别人写的一些，但是到我这里都不是特别的实用，尤其是进行数据刷新的时候，如果你的行高需要改变，你去 <code>reloadData</code>这个时候，键盘会失去响应。就算你这个时候再次将键盘设置为 firstResponser,这个时候你的键盘还是会闪一下，不是很自然。所以写了一些小的 demo ，下面的具体代码也是针对这个 demo 的，<a href="https://github.com/xiangtaiduo/TableViewRefresh" target="_blank" rel="noopener">点击这里下载</a></p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ol>
-<li>首先对 TextView 的输入进行监听，判断输入的字数的多少  <ol start="2">
-<li>根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame</li>
-<li>监听 UITextView 的高度变化，如果 UITextView 比你的 cell 还要高的时候，你需要动态的去更新你的 UITableViewCell 的高度</li>
-</ol>
-</li>
-</ol>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="1-对-UITextView-的输入进行监听，判断输入的字数的多少"><a href="#1-对-UITextView-的输入进行监听，判断输入的字数的多少" class="headerlink" title="1.对 UITextView 的输入进行监听，判断输入的字数的多少"></a>1.对 UITextView 的输入进行监听，判断输入的字数的多少</h2><p>前人已经有了现成的轮子，所以不需要你重复的造轮子。这里找到一个很好的<a href="https://github.com/WZBbiao/UITextView-WZB" target="_blank" rel="noopener">自动换行的 TextView</a>我们需要使用这个来完成我们接下来的工作</p>
-<pre><code>   [textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
-     //在此处我们已经对 UITextView 完成了监听，接下来我们就可以修改 UITextView 的 frame 了
-}];
-</code></pre><h2 id="2-根据-UITextView-的字数的多少去动态的修改-UITextView-的-frame"><a href="#2-根据-UITextView-的字数的多少去动态的修改-UITextView-的-frame" class="headerlink" title="2.根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame"></a>2.根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame</h2><pre><code>__weak typeof (self)WeakSelf = self;
-__weak typeof (textView)WeakTextView = textView;    
-[textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
-    CGRect frame = WeakTextView.frame;
-    frame.size.height = currentTextViewHeight;
-    [UIView animateWithDuration:0.2 animations:^{
-        WeakTextView.frame = frame;
-
-    } completion:^(BOOL finished) {
-    }];
-
- }];
-</code></pre><h2 id="3-动态的修改cell-的高度"><a href="#3-动态的修改cell-的高度" class="headerlink" title="3.动态的修改cell 的高度"></a>3.动态的修改cell 的高度</h2><p>我们需要对单元格的高度进行保存，然后在刷新行高的时候把高度取出来赋值。所以我们还需要一个保存高度的字典<code>dicHeight</code></p>
-<pre><code> __weak typeof (self)WeakSelf = self;
-__weak typeof (textView)WeakTextView = textView;
-// 最大高度为300 改变高度的 block
-[textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
-    CGRect frame = WeakTextView.frame;
-    frame.size.height = currentTextViewHeight;
-    [UIView animateWithDuration:0.2 animations:^{
-        WeakTextView.frame = frame;
-
-    } completion:^(BOOL finished) {
-    }];
-
-    NSString *key = [NSString stringWithFormat:@&quot;%@&quot;,indexPath];
-    NSNumber *height = [NSNumber numberWithFloat:currentTextViewHeight];
-    if (WeakSelf.dicHeight[key]) {
-        NSNumber *oldHeight = self.dicHeight[key];
-        if (oldHeight.floatValue != height.floatValue) {
-            [WeakSelf.dicHeight setObject:height forKey:key];
-        }
-    }
-    else{
-        [WeakSelf.dicHeight setObject:height forKey:key];
-
-    }
-
-    [WeakSelf.tableview beginUpdates];
-    [WeakSelf.tableview endUpdates];
-
-}];
-</code></pre><p>我们使用<code>beginUpdates</code> 和 <code>endUpdates</code> 。不使用 <code>reloadData</code>。具体的原因看我之前写的<a href="https://www.jianshu.com/p/35faf5aa524b" target="_blank" rel="noopener">为什么不用 ReloadData</a>。</p>
-<p>接下来就可以修改行高了</p>
-<pre><code>-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *key = [NSString stringWithFormat:@&quot;%@&quot;,indexPath];
-    if(self.dicHeight[key]){
-      NSNumber *number = self.dicHeight[key];
-      if (number.floatValue &gt; 44) {
-          return number.floatValue;
-          }
-      }
-      return 44;
-  }
-</code></pre><h1 id="小彩蛋"><a href="#小彩蛋" class="headerlink" title="小彩蛋"></a>小彩蛋</h1><p>通过这个你就可以简单的知道为什么不能用 <code>reloadData</code>了。使用的时候把自动行高的哪里注释掉。简单的输入一些东西做一些尝试吧。</p>
-<pre><code>  //模拟数据刷新
--(void)textViewDidChange:(UITextView *)textView{
-
-//1.reloadData
-//[self.tableview reloadData];
-
- //2.reloadindexpath
- //    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
- //    [self.tableview reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationTop];
-
-
-//3.beginupdate &amp; endupdate
-//    [self.tableview beginUpdates];
-//    [self.tableview endUpdates];
-
-}
-</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>UITableView 作为 iOS 开发中用到的比较多的控件，在具体的使用中总会出现各种各样的问题，自动行高这里总算是脱坑了。先写到这里</p>
+		<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在看一些离屏渲染的东西，接触到一些新的名词，轻量级别的 CALayer 代替 UIView ，mask ，bitmap 整理下这部分的内容</p>
+<h1 id="UIView"><a href="#UIView" class="headerlink" title="UIView"></a>UIView</h1><p>我们先来看看 UIView 的说明</p>
+<pre><code>@interface UIView : UIResponder &lt;NSCoding, UIAppearance, UIAppearanceContainer, UIDynamicItem, UITraitEnvironment, UICoordinateSpace, UIFocusItem, CALayerDelegate&gt;
+</code></pre><p>UIView 继承了UIResponder，所以 UIView 可以响应用户的一些操作。而且 UIView 遵循代理 CALayerDelegate 。和 CALayer 有了一点点的联系</p>
+<h2 id="layer属性"><a href="#layer属性" class="headerlink" title="layer属性"></a>layer属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic, readonly, strong) CALayer *layer;</span><br></pre></td></tr></table></figure>
+<h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><p>This property is never nil. The actual class of the object is determined by the value returned in the layerClass property. The view is the layer’s delegate.</p>
+<blockquote>
+<p>Warning<br>Because the view is the layer’s delegate, never make the view the delegate of another CALayer object. Additionally, never change the delegate of this layer object.</p>
+</blockquote>
+<p>从文档中可以看出的是，每一个 view.layer都不是 nil,而且这个 view 是 layer 的 <code>&lt;CALayerDelegate&gt;</code> delegate。而且永远不要去改变 这个 layer 的代理</p>
+<h1 id="CALayer"><a href="#CALayer" class="headerlink" title="CALayer"></a>CALayer</h1><pre><code>@interface CALayer : NSObject &lt;NSSecureCoding, CAMediaTiming&gt;
+</code></pre><p>CALayer继承于 NSObject ，无法响应用户的操作。</p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><blockquote>
+<p>A layer’s main job is to manage the visual content that you provide but the layer itself has visual attributes that can be set, such as a background color, border, and shadow. In addition to managing visual content, the layer also maintains information about the geometry of its content (such as its position, size, and transform) that is used to present that content onscreen.<br>If the layer object was created by a view, the view typically assigns itself as the layer’s delegate automatically, and you should not change that relationship. </p>
+</blockquote>
+<p>从 Overview 中截取了一部分，layer 的首要任务就是管理你提供的那些内容，当然它本身也可以设置一些显示的属性，比如 color、border、shadow 等。当然 layer 也帮助你管理显示在屏幕的内容。像是位置、大小和一些变换的东西</p>
+<h3 id="layer-中一些触发离屏渲染的属性"><a href="#layer-中一些触发离屏渲染的属性" class="headerlink" title="layer 中一些触发离屏渲染的属性"></a>layer 中一些触发离屏渲染的属性</h3><h4 id="mask"><a href="#mask" class="headerlink" title="mask"></a>mask</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(strong) CALayer *mask;</span><br></pre></td></tr></table></figure>
+<p>The layer’s alpha channel determines how much of the layer’s content and background shows through. Fully or partially opaque pixels allow the underlying content to show through but fully transparent pixels block that content.</p>
+<p>mask 也是一个 CALayer, mask 代表着怎么样的像素能够穿过 mask 被显示出来。你一定写过这样的代码。</p>
+<pre><code>imageView.image.layer.cornerRadius = 5;
+imageView.image.layer.masksToBounds = YES;
+</code></pre><p>我们来分别看看这两行代码代表什么，设置圆角，然后进行裁剪显示出来圆角</p>
+<h5 id="1-cornerRadius"><a href="#1-cornerRadius" class="headerlink" title="1.cornerRadius"></a>1.cornerRadius</h5><blockquote>
+<p>Setting the radius to a value greater than 0.0 causes the layer to begin drawing rounded corners on its background. By default, the corner radius does not apply to the image in the layer’s contents property; it applies only to the background color and border of the layer. However, setting the masksToBounds property to YES causes the content to be clipped to the rounded corners.</p>
+</blockquote>
+<p>划重点，在默认情况下，cornerRadius 不会对 layer 的内容是 image 生效的，但是只要你设置 masksToBounds 为 YES,那么这样就是可行的</p>
+<h5 id="2-masksToBounds"><a href="#2-masksToBounds" class="headerlink" title="2.masksToBounds"></a>2.masksToBounds</h5><blockquote>
+<p>When the value of this property is YES, Core Animation creates an implicit clipping mask that matches the bounds of the layer and includes any corner radius effects. If a value for the mask property is also specified, the two masks are multiplied to get the final mask value.<br>如果设置了masksToBounds 为 YES，那么 Core Animation 就会隐式的创建一个 与 layer 的 bounds 相匹配的并且裁切过的 mask，这个 mask 就可以实现圆角的效果</p>
+</blockquote>
+<h5 id="shadow"><a href="#shadow" class="headerlink" title="shadow"></a>shadow</h5><h6 id="1-shadowOpacity"><a href="#1-shadowOpacity" class="headerlink" title="1. shadowOpacity"></a>1. shadowOpacity</h6><blockquote>
+<p>The opacity of the layer’s shadow. Animatable.<br>设置 layer 的不透明度</p>
+</blockquote>
+<h6 id="2-shadowRadius"><a href="#2-shadowRadius" class="headerlink" title="2.shadowRadius"></a>2.shadowRadius</h6><blockquote>
+<p>The blur radius (in points) used to render the layer’s shadow. Animatable.<br>用来进行阴影半径渲染的模糊半径</p>
+</blockquote>
+<h6 id="3-shadowOffset"><a href="#3-shadowOffset" class="headerlink" title="3. shadowOffset"></a>3. shadowOffset</h6><blockquote>
+<p>The offset (in points) of the layer’s shadow. Animatable.<br>设置 layer 的阴影偏移量</p>
+</blockquote>
+<h5 id="edgeAntialiasing"><a href="#edgeAntialiasing" class="headerlink" title="edgeAntialiasing"></a>edgeAntialiasing</h5><h6 id="edgeAntialiasingMask"><a href="#edgeAntialiasingMask" class="headerlink" title="edgeAntialiasingMask"></a>edgeAntialiasingMask</h6><blockquote>
+<p>This property specifies which edges of the layer are antialiased and is a combination of the constants defined in <code>CAEdgeAntialiasingMask</code>. You can enable or disable antialiasing for each edge (top, left, bottom, right) separately. By default antialiasing is enabled for all edges.<br>通过这个属性可以对某一个或者某几个边启用或者不启用抗锯齿，当然默认是对所有的生效</p>
+</blockquote>
+<h6 id="allowsEdgeAntialiasing"><a href="#allowsEdgeAntialiasing" class="headerlink" title="allowsEdgeAntialiasing"></a>allowsEdgeAntialiasing</h6><blockquote>
+<p>When the value is <code>YES</code>, the layer is allowed to antialias its edges, as requested by the value in the layer’s <code>edgeAntialiasingMask</code> property. The default value is read from the boolean <code>UIViewEdgeAntialiasing</code> property in the main bundle’s <code>Info.plist</code> file. If no value is found, the default value is <code>NO</code>.<br>开启了抗锯齿的话，就回去访问<code>edgeAntialiasingMask</code>，看看会有那些边开启抗锯齿</p>
+</blockquote>
+<h4 id="group-opacity"><a href="#group-opacity" class="headerlink" title="group opacity"></a>group opacity</h4><h5 id="allowsGroupOpacity"><a href="#allowsGroupOpacity" class="headerlink" title="allowsGroupOpacity"></a>allowsGroupOpacity</h5><pre><code>@property BOOL allowsGroupOpacity;
+</code></pre><blockquote>
+<p>When the value is YES and the layer’s opacity property value is less than 1.0, the layer is allowed to composite itself as a group separate from its parent. This gives correct results when the layer contains multiple opaque components, but may reduce performance.<br>如果设置 <code>allowsGroupOpacity</code>为 YES 并且 layer 的opacity小于1，那么该layer将 被允许将其自身合并为一个组，并且是与他的parent分开的。而且需要注意的是，如果这个 layer 还包含很多的不透明的子 layer 的话，那么就会牺牲一些性能。而在 iOS 7＋ ,这个属性默认为 YES 。</p>
+</blockquote>
+<h4 id="bitmap"><a href="#bitmap" class="headerlink" title="bitmap"></a>bitmap</h4><p>layer 中有个属性 contents </p>
+<h2 id="Declaration"><a href="#Declaration" class="headerlink" title="Declaration"></a>Declaration</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(strong) id contents;</span><br></pre></td></tr></table></figure>
+<h5 id="Discussion-1"><a href="#Discussion-1" class="headerlink" title="Discussion"></a>Discussion</h5><blockquote>
+<p>If you are using the layer to display a static image, you can set this property to the <code>CGImageRef</code>containing the image you want to display. (In macOS 10.6 and later, you can also set the property to an <code>NSImage</code> Assigning a value to this property causes the layer to use your image rather than create a separate backing store.</p>
+</blockquote>
+<p>contents 可以设置一个静态的图片，传入一个<code>CGImageRef</code>。打开这个<code>CGImageRef</code>会发现这样的一段描述</p>
+<h6 id="CGImageRef"><a href="#CGImageRef" class="headerlink" title="CGImageRef"></a>CGImageRef</h6><p>Structure<br>A bitmap image or image mask.</p>
+<pre><code>typedef struct CF_BRIDGED_TYPE(id) CGImage *CGImageRef;
+</code></pre><p>这是个指向 CGImage 结构体的指针</p>
+<h6 id="CGImage"><a href="#CGImage" class="headerlink" title="CGImage"></a>CGImage</h6><blockquote>
+<p>A bitmap (or sampled) image is a rectangular array of pixels, with each pixel representing a single sample or data point in a source image.<br> 一个 bitmap image 就是一个矩形像素阵列，每个像素表示源图像中的单个样本或数据点。</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最近在接触一些离屏渲染的东西，看到这些陌生的名词。先动手整理了下，方便以后查看。先写到这里，各位大佬轻拍</p>
 	
 	</div>
 	
@@ -424,12 +400,12 @@ __weak typeof (textView)WeakTextView = textView;
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2018/08/17/ 微信分享长图/" title="微信分享长图" rel="prev">
+			<a href="/2018/08/31/Block的一些简单理解/" title="block的一些理解" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData" rel="next">
+			<a href="/2018/08/17/ 微信分享长图/" title="微信分享长图" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -450,73 +426,23 @@ __weak typeof (textView)WeakTextView = textView;
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">
-								UITableView reloadData 滑不到底部			
+							<a class="relate-post-title" href="/2018/08/17/ 微信分享长图/" title="微信分享长图">
+								微信分享长图			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								二月 18日, 2019				
+								八月 17日, 2018				
 							</p>
 							<p class="relate-post-content">
-								简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档
-
-layoutSubviews
-setNeedsLayout
-lay...
+								#1.简介项目中有微信分享的相关内容，要求分享长截图到微信，要求截取 tableView 的全部内容并且底部加上二维码。做的过程中有一些问题，做下记录。
+#2.步骤1.截取 tableView 的内容，并且生成一张图片2.生成底部的分...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">				
+							<a href="/2018/08/17/ 微信分享长图/" title="微信分享长图">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView reloadData 滑不到底部">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充">
-								UITableView 之 表单的自动填充			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								九月 11日, 2018				
-							</p>
-							<p class="relate-post-content">
-								简介最近在做一些复杂的表单提交界面，由于 TableView 的复用问题，有了很多的坑，在此做一些记录
-入坑前你的页面可能是这个样子的，很常规的，左边名称，右边输入相关的内容。然后你输入了相关的内容，上下滑动页面，然后再划回去。tex...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView 之 表单的自动填充">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData">
-								UITableView 之 正确的 reloadData			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								七月 17日, 2018				
-							</p>
-							<p class="relate-post-content">
-								1. tableview reloadData假设你有一个 tableview ，你的 cell 中有 UITextField 或者 UITextView,而且你在编辑这一行的数据。此时对文本框进行监听，然后调用了 reloadDat...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView 之 正确的 reloadData">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="微信分享长图">
 							</a>
 						</div>
 					</li>											
@@ -695,6 +621,33 @@ CSV其实就是一个纯文本,那么对应到 Ob...
 			
 					<li>
 						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">
+								UITableView reloadData 滑不到底部			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 18日, 2019				
+							</p>
+							<p class="relate-post-content">
+								简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档
+
+layoutSubviews
+setNeedsLayout
+lay...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView reloadData 滑不到底部">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
 							<a class="relate-post-title" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" title="Xcode10 【libray not found for -lstdc++.6.0.9 】">
 								Xcode10 【libray not found for -lstdc++.6.0.9 】			
 							</a>
@@ -712,6 +665,30 @@ CSV其实就是一个纯文本,那么对应到 Ob...
 							<a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" title="Xcode10 【libray not found for -lstdc++.6.0.9 】">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Xcode10 【libray not found for -lstdc++.6.0.9 】">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">
+								SDWebImage 不能及时更新图片			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 3日, 2018				
+							</p>
+							<p class="relate-post-content">
+								问题最近刚好有写到图片需要及时更新的问题，由于 SDWebImage 中的存在缓存，在用户更新了网络头像后，其他人的手机上还是显示了之前的头像，想到了缓存的问题
+解决方法后来查到了这种解决方法，SDWebImageDownloader...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SDWebImage 不能及时更新图片">
 							</a>
 						</div>
 					</li>											

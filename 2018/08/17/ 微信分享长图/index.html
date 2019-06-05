@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      UITableView 之 UITextView 自动行高的实现 | LikeeCat&#39;s Blog
+      微信分享长图 | LikeeCat&#39;s Blog
     
   </title>
   <meta name="author" content="LikeeCat">
@@ -160,7 +160,7 @@
 	<!-- Page title -->
 	<p>
 		
-			当前文章&nbsp;:&nbsp;《UITableView 之 UITextView 自动行高的实现》
+			当前文章&nbsp;:&nbsp;《微信分享长图》
 		
 	</p>
 
@@ -247,8 +247,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
-		UITableView 之 UITextView 自动行高的实现
+	<a href="/2018/08/17/ 微信分享长图/" itemprop="url">
+		微信分享长图
 	</a>
 
 	</div>
@@ -261,9 +261,9 @@
 
 	发布于
 
-	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
-		<time datetime="2018-07-19T06:33:13.000Z" itemprop="datePublished">
-	  		2018-07-19
+	<a href="/2018/08/17/ 微信分享长图/" itemprop="url">
+		<time datetime="2018-08-17T10:05:13.000Z" itemprop="datePublished">
+	  		2018-08-17
 	  </time>
 	</a>
 	&nbsp;
@@ -279,9 +279,9 @@
 
 	更新于
 
-	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
-		<time datetime="2018-07-19T06:33:13.000Z" itemprop="dateUpdated">
-	  		2019-05-29
+	<a href="/2018/08/17/ 微信分享长图/" itemprop="url">
+		<time datetime="2018-08-17T10:05:13.000Z" itemprop="dateUpdated">
+	  		2019-06-05
 	  </time>
 	</a> 
 
@@ -292,8 +292,8 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/UITableView/" class=" ">
-			UITableView
+		<a href="/tags/UIView/" class=" ">
+			UIView
 		</a>
 	
 		
@@ -302,7 +302,7 @@
 		
 
 	
-    <span class="leancloud_visitors" id="/2018/07/19/UITableView 之 UITextView 自动行高的实现/_visitors" data-url="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" data-title="UITableView 之 UITextView 自动行高的实现">
+    <span class="leancloud_visitors" id="/2018/08/17/ 微信分享长图/_visitors" data-url="/2018/08/17/ 微信分享长图/" data-title="微信分享长图">
        	<i class="fa fa-eye"></i>
        	热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
@@ -312,7 +312,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2018/07/19/UITableView 之 UITextView 自动行高的实现/_likes" data-url="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" data-title="UITableView 之 UITextView 自动行高的实现" rel="unlike">
+    <span class="leancloud_likes" id="/2018/08/17/ 微信分享长图/_likes" data-url="/2018/08/17/ 微信分享长图/" data-title="微信分享长图" rel="unlike">
         <i class="fa fa-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -321,92 +321,64 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?<br><a id="more"></a></p>
-<h1 id="为什么要写这个"><a href="#为什么要写这个" class="headerlink" title="为什么要写这个"></a>为什么要写这个</h1><p>因为我自己也找了好久，参照过别人写的一些，但是到我这里都不是特别的实用，尤其是进行数据刷新的时候，如果你的行高需要改变，你去 <code>reloadData</code>这个时候，键盘会失去响应。就算你这个时候再次将键盘设置为 firstResponser,这个时候你的键盘还是会闪一下，不是很自然。所以写了一些小的 demo ，下面的具体代码也是针对这个 demo 的，<a href="https://github.com/xiangtaiduo/TableViewRefresh" target="_blank" rel="noopener">点击这里下载</a></p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ol>
-<li>首先对 TextView 的输入进行监听，判断输入的字数的多少  <ol start="2">
-<li>根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame</li>
-<li>监听 UITextView 的高度变化，如果 UITextView 比你的 cell 还要高的时候，你需要动态的去更新你的 UITableViewCell 的高度</li>
-</ol>
-</li>
-</ol>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="1-对-UITextView-的输入进行监听，判断输入的字数的多少"><a href="#1-对-UITextView-的输入进行监听，判断输入的字数的多少" class="headerlink" title="1.对 UITextView 的输入进行监听，判断输入的字数的多少"></a>1.对 UITextView 的输入进行监听，判断输入的字数的多少</h2><p>前人已经有了现成的轮子，所以不需要你重复的造轮子。这里找到一个很好的<a href="https://github.com/WZBbiao/UITextView-WZB" target="_blank" rel="noopener">自动换行的 TextView</a>我们需要使用这个来完成我们接下来的工作</p>
-<pre><code>   [textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
-     //在此处我们已经对 UITextView 完成了监听，接下来我们就可以修改 UITextView 的 frame 了
-}];
-</code></pre><h2 id="2-根据-UITextView-的字数的多少去动态的修改-UITextView-的-frame"><a href="#2-根据-UITextView-的字数的多少去动态的修改-UITextView-的-frame" class="headerlink" title="2.根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame"></a>2.根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame</h2><pre><code>__weak typeof (self)WeakSelf = self;
-__weak typeof (textView)WeakTextView = textView;    
-[textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
-    CGRect frame = WeakTextView.frame;
-    frame.size.height = currentTextViewHeight;
-    [UIView animateWithDuration:0.2 animations:^{
-        WeakTextView.frame = frame;
+		<p>#1.简介<br>项目中有微信分享的相关内容，要求分享长截图到微信，要求截取 tableView 的全部内容并且底部加上二维码。做的过程中有一些问题，做下记录。</p>
+<p>#2.步骤<br>1.截取 tableView 的内容，并且生成一张图片<br>2.生成底部的分享二维码的图片<br>3.对这些图片进行拼接<br>4.分享</p>
+<p>#3.过程中遇到的一些问题</p>
+<p>##1.如何生成 tableView 的长截图<br><a href="https://github.com/TonyReet/TYSnapshotScroll" target="_blank" rel="noopener">TYSnapshotScroll</a>，前人已经为你准备好了工具，直接使用即可</p>
+<h3 id="如何自己绘制这张长截图"><a href="#如何自己绘制这张长截图" class="headerlink" title="如何自己绘制这张长截图"></a>如何自己绘制这张长截图</h3><p>我们可以使用  Quartz2D 提供的相关 API进行绘制。下文中的 <code>self</code>指代的是 tableView</p>
+<blockquote>
+<p>1.创建上下文，设置这个 bitmap 的size 、opaque和scale。<br>注:(scale 建议设置为 <code>[UIScreen mainScreen].scale</code>)，如果 <code>scale</code>设置的不对，那么你最后得到的图片就会很模糊。    </p>
+</blockquote>
+<pre><code>UIGraphicsBeginImageContextWithOptions(self.bounds.size,NO,[UIScreen mainScreen].scale);
+</code></pre><blockquote>
+<p>2.将 layer 渲染到当前的上下文中</p>
+</blockquote>
+<pre><code>[self.layer renderInContext: UIGraphicsGetCurrentContext()];
+</code></pre><blockquote>
+<p>3.从上下文获取制作好的图片，这就是你需要的</p>
+</blockquote>
+<pre><code>snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+</code></pre><blockquote>
+<p>4.关闭这个上下文</p>
+</blockquote>
+<pre><code>UIGraphicsEndImageContext();
+</code></pre><h2 id="2-我们的二维码是UI给的图，我们需要做的就是将这两个-image-合成为一张"><a href="#2-我们的二维码是UI给的图，我们需要做的就是将这两个-image-合成为一张" class="headerlink" title="2.我们的二维码是UI给的图，我们需要做的就是将这两个 image 合成为一张"></a>2.我们的二维码是UI给的图，我们需要做的就是将这两个 image 合成为一张</h2><h3 id="如何合成"><a href="#如何合成" class="headerlink" title="如何合成"></a>如何合成</h3><p>直接使用<a href="https://github.com/TonyReet/TYSnapshotScroll" target="_blank" rel="noopener">TYSnapshotScroll</a>,有个 UIImage 的扩展方法，可以直接使用图片集合将好几张图合成为一张。（这里有个坑，就是两张 image 可以合成，但是他们都会保持自己的大小,你可能会发现你的截屏图片的宽度==屏幕宽度，但是 UI 给的二维码图  ！= 屏幕宽度）</p>
+<h3 id="徒手绘制"><a href="#徒手绘制" class="headerlink" title="徒手绘制"></a>徒手绘制</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>1.创建一个 size ,计算两个图片的总长度<br>2.创建一个用来绘制的上下文<br>3.绘制这两张图片到上下文<br>4.拿出合成后的图片<br>5.关闭上下文</p>
+<pre><code>CGSize contentSize = CGSizeMake(snapshotImage.size.width, snapshotImage.size.height + 80);
 
-    } completion:^(BOOL finished) {
-    }];
+UIGraphicsBeginImageContextWithOptions(contentSize, NO, [UIScreen mainScreen].scale);
 
- }];
-</code></pre><h2 id="3-动态的修改cell-的高度"><a href="#3-动态的修改cell-的高度" class="headerlink" title="3.动态的修改cell 的高度"></a>3.动态的修改cell 的高度</h2><p>我们需要对单元格的高度进行保存，然后在刷新行高的时候把高度取出来赋值。所以我们还需要一个保存高度的字典<code>dicHeight</code></p>
-<pre><code> __weak typeof (self)WeakSelf = self;
-__weak typeof (textView)WeakTextView = textView;
-// 最大高度为300 改变高度的 block
-[textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {
-    CGRect frame = WeakTextView.frame;
-    frame.size.height = currentTextViewHeight;
-    [UIView animateWithDuration:0.2 animations:^{
-        WeakTextView.frame = frame;
+[snapshotImage drawInRect:CGRectMake(0, 0, snapshotImage.size.width, snapshotImage.size.height)];
 
-    } completion:^(BOOL finished) {
-    }];
+[footerImage drawInRect:CGRectMake(0,snapshotImage.size.height, snapshotImage.size.width, 80)];
 
-    NSString *key = [NSString stringWithFormat:@&quot;%@&quot;,indexPath];
-    NSNumber *height = [NSNumber numberWithFloat:currentTextViewHeight];
-    if (WeakSelf.dicHeight[key]) {
-        NSNumber *oldHeight = self.dicHeight[key];
-        if (oldHeight.floatValue != height.floatValue) {
-            [WeakSelf.dicHeight setObject:height forKey:key];
-        }
-    }
-    else{
-        [WeakSelf.dicHeight setObject:height forKey:key];
+UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
 
-    }
+UIGraphicsEndImageContext();
+</code></pre><h3 id="如何在-debug-的时候查看绘制好的这个图片"><a href="#如何在-debug-的时候查看绘制好的这个图片" class="headerlink" title="如何在 debug 的时候查看绘制好的这个图片"></a>如何在 debug 的时候查看绘制好的这个图片<img src="https://upload-images.jianshu.io/upload_images/2239937-8c6efe811c373945.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击这个小眼睛就可以看到了，还可以用预览打开"></h3><h2 id="4-微信分享"><a href="#4-微信分享" class="headerlink" title="4.微信分享"></a>4.微信分享</h2><pre><code>- (void)WXShareImageWithSence:(BOOL)isSession{
 
-    [WeakSelf.tableview beginUpdates];
-    [WeakSelf.tableview endUpdates];
+    WXMediaMessage *message = [WXMediaMessage message];
 
-}];
-</code></pre><p>我们使用<code>beginUpdates</code> 和 <code>endUpdates</code> 。不使用 <code>reloadData</code>。具体的原因看我之前写的<a href="https://www.jianshu.com/p/35faf5aa524b" target="_blank" rel="noopener">为什么不用 ReloadData</a>。</p>
-<p>接下来就可以修改行高了</p>
-<pre><code>-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *key = [NSString stringWithFormat:@&quot;%@&quot;,indexPath];
-    if(self.dicHeight[key]){
-      NSNumber *number = self.dicHeight[key];
-      if (number.floatValue &gt; 44) {
-          return number.floatValue;
-          }
-      }
-      return 44;
-  }
-</code></pre><h1 id="小彩蛋"><a href="#小彩蛋" class="headerlink" title="小彩蛋"></a>小彩蛋</h1><p>通过这个你就可以简单的知道为什么不能用 <code>reloadData</code>了。使用的时候把自动行高的哪里注释掉。简单的输入一些东西做一些尝试吧。</p>
-<pre><code>  //模拟数据刷新
--(void)textViewDidChange:(UITextView *)textView{
+    WXImageObject *ext = [WXImageObject object];
+    //图片
+    NSData *imageData = UIImagePNGRepresentation(self.shareImage);
+    //缩略图
+    UIImage *tubmbImage =  [self compressImage:self.shareImage toByte:31 *1024];
 
-//1.reloadData
-//[self.tableview reloadData];
+    ext.imageData = imageData;
+    // 缩略图 小于32KB
+    message.mediaObject = ext;
 
- //2.reloadindexpath
- //    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
- //    [self.tableview reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationTop];
+    [message setThumbImage:tubmbImage];
 
-
-//3.beginupdate &amp; endupdate
-//    [self.tableview beginUpdates];
-//    [self.tableview endUpdates];
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.scene = isSession ? WXSceneSession : WXSceneTimeline;
+    req.message = message;
+    [WXApi sendReq:req];
 
 }
-</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>UITableView 作为 iOS 开发中用到的比较多的控件，在具体的使用中总会出现各种各样的问题，自动行高这里总算是脱坑了。先写到这里</p>
-	
+</code></pre>	
 	</div>
 	
 	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -424,12 +396,12 @@ __weak typeof (textView)WeakTextView = textView;
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2018/08/17/ 微信分享长图/" title="微信分享长图" rel="prev">
+			<a href="/2018/08/20/离屏渲染/" title="离屏渲染" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData" rel="next">
+			<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" title="UITableView 之 UITextView 自动行高的实现" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -450,73 +422,24 @@ __weak typeof (textView)WeakTextView = textView;
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">
-								UITableView reloadData 滑不到底部			
+							<a class="relate-post-title" href="/2018/08/20/离屏渲染/" title="离屏渲染">
+								离屏渲染			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								二月 18日, 2019				
+								八月 20日, 2018				
 							</p>
 							<p class="relate-post-content">
-								简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档
-
-layoutSubviews
-setNeedsLayout
-lay...
+								简介最近在看一些离屏渲染的东西，接触到一些新的名词，轻量级别的 CALayer 代替 UIView ，mask ，bitmap 整理下这部分的内容
+UIView我们先来看看 UIView 的说明
+@interface UIView :...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">				
+							<a href="/2018/08/20/离屏渲染/" title="离屏渲染">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView reloadData 滑不到底部">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充">
-								UITableView 之 表单的自动填充			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								九月 11日, 2018				
-							</p>
-							<p class="relate-post-content">
-								简介最近在做一些复杂的表单提交界面，由于 TableView 的复用问题，有了很多的坑，在此做一些记录
-入坑前你的页面可能是这个样子的，很常规的，左边名称，右边输入相关的内容。然后你输入了相关的内容，上下滑动页面，然后再划回去。tex...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView 之 表单的自动填充">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData">
-								UITableView 之 正确的 reloadData			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								七月 17日, 2018				
-							</p>
-							<p class="relate-post-content">
-								1. tableview reloadData假设你有一个 tableview ，你的 cell 中有 UITextField 或者 UITextView,而且你在编辑这一行的数据。此时对文本框进行监听，然后调用了 reloadDat...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView 之 正确的 reloadData">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="离屏渲染">
 							</a>
 						</div>
 					</li>											
@@ -695,6 +618,33 @@ CSV其实就是一个纯文本,那么对应到 Ob...
 			
 					<li>
 						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">
+								UITableView reloadData 滑不到底部			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 18日, 2019				
+							</p>
+							<p class="relate-post-content">
+								简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档
+
+layoutSubviews
+setNeedsLayout
+lay...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView reloadData 滑不到底部">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
 							<a class="relate-post-title" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" title="Xcode10 【libray not found for -lstdc++.6.0.9 】">
 								Xcode10 【libray not found for -lstdc++.6.0.9 】			
 							</a>
@@ -712,6 +662,30 @@ CSV其实就是一个纯文本,那么对应到 Ob...
 							<a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" title="Xcode10 【libray not found for -lstdc++.6.0.9 】">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Xcode10 【libray not found for -lstdc++.6.0.9 】">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">
+								SDWebImage 不能及时更新图片			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 3日, 2018				
+							</p>
+							<p class="relate-post-content">
+								问题最近刚好有写到图片需要及时更新的问题，由于 SDWebImage 中的存在缓存，在用户更新了网络头像后，其他人的手机上还是显示了之前的头像，想到了缓存的问题
+解决方法后来查到了这种解决方法，SDWebImageDownloader...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SDWebImage 不能及时更新图片">
 							</a>
 						</div>
 					</li>											
