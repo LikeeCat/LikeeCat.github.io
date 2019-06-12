@@ -281,7 +281,7 @@
 
 	<a href="/2019/02/27/NSArray 之 SEL 的保存/" itemprop="url">
 		<time datetime="2019-02-27T10:05:13.000Z" itemprop="dateUpdated">
-	  		2019-05-29
+	  		2019-06-12
 	  </time>
 	</a> 
 
@@ -292,8 +292,8 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/iOS/" class=" ">
-			iOS
+		<a href="/tags/NSArray/" class=" ">
+			NSArray
 		</a>
 	
 		
@@ -407,22 +407,25 @@ NSArray *arr = @[A,B,C];
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/04/16/OC中函数的一些理解/" title="OC中函数的一些小技巧">
-								OC中函数的一些小技巧			
+							<a class="relate-post-title" href="/2019/06/11/NSArray之深浅拷贝/" title="NSArray之深浅拷贝">
+								NSArray之深浅拷贝			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								四月 16日, 2019				
+								六月 11日, 2019				
 							</p>
 							<p class="relate-post-content">
-								简介最近在做一个复杂的界面，涉及到 UINavigationController 、UITabBarController、UIViewController、之间的函数调用，需要把原先在UIViewController中的功能转移到UI...
+								1. 自定义对象
+假设我有一个Student类
+@interface Student()&lt;NSCopying,NSMutableCopying&gt;
+@property (nonatomic,copy)NSString *na...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2019/04/16/OC中函数的一些理解/" title="OC中函数的一些小技巧">				
+							<a href="/2019/06/11/NSArray之深浅拷贝/" title="NSArray之深浅拷贝">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/5.jpg" alt="OC中函数的一些小技巧">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/5.jpg" alt="NSArray之深浅拷贝">
 							</a>
 						</div>
 					</li>											
@@ -430,48 +433,25 @@ NSArray *arr = @[A,B,C];
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/03/16/iOS-中-CSV格式文件读写/" title="iOS 中 CSV格式文件读写">
-								iOS 中 CSV格式文件读写			
+							<a class="relate-post-title" href="/2019/06/12/面试问题汇总/" title="面试问题汇总">
+								面试问题汇总			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								三月 16日, 2019				
+								六月 12日, 2019				
 							</p>
 							<p class="relate-post-content">
-								CSV逗号分隔值（Comma-Separated Values，CSV，有时也称为字符分隔值，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）
+								关于离屏渲染的问题
+什么是mask
 
-CSV其实就是一个纯文本,那么对应到 Ob...
+一个图层可以有一个和它相关的mask(蒙版),mask是一个拥有alpha的位图,当像素和它下面的像素合成之前都会把mask应用到图层的像素上面,当你要设置一个图层的圆角半径的时候,你可以有效的在...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2019/03/16/iOS-中-CSV格式文件读写/" title="iOS 中 CSV格式文件读写">				
+							<a href="/2019/06/12/面试问题汇总/" title="面试问题汇总">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/2.jpg" alt="iOS 中 CSV格式文件读写">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">
-								SDWebImage 不能及时更新图片			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								十二月 3日, 2018				
-							</p>
-							<p class="relate-post-content">
-								问题最近刚好有写到图片需要及时更新的问题，由于 SDWebImage 中的存在缓存，在用户更新了网络头像后，其他人的手机上还是显示了之前的头像，想到了缓存的问题
-解决方法后来查到了这种解决方法，SDWebImageDownloader...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SDWebImage 不能及时更新图片">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="面试问题汇总">
 							</a>
 						</div>
 					</li>											
@@ -552,6 +532,29 @@ option + c...
 			
 					<li>
 						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/04/16/OC中函数的一些理解/" title="OC中函数的一些小技巧">
+								OC中函数的一些小技巧			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 16日, 2019				
+							</p>
+							<p class="relate-post-content">
+								简介最近在做一个复杂的界面，涉及到 UINavigationController 、UITabBarController、UIViewController、之间的函数调用，需要把原先在UIViewController中的功能转移到UI...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/04/16/OC中函数的一些理解/" title="OC中函数的一些小技巧">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/5.jpg" alt="OC中函数的一些小技巧">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
 							<a class="relate-post-title" href="/2019/03/16/把博客从简书搬出来/" title="把博客从简书搬出来">
 								把博客从简书搬出来			
 							</a>
@@ -569,6 +572,31 @@ option + c...
 							<a href="/2019/03/16/把博客从简书搬出来/" title="把博客从简书搬出来">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/1.jpg" alt="把博客从简书搬出来">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/03/16/iOS-中-CSV格式文件读写/" title="iOS 中 CSV格式文件读写">
+								iOS 中 CSV格式文件读写			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 16日, 2019				
+							</p>
+							<p class="relate-post-content">
+								CSV逗号分隔值（Comma-Separated Values，CSV，有时也称为字符分隔值，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）
+
+CSV其实就是一个纯文本,那么对应到 Ob...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/03/16/iOS-中-CSV格式文件读写/" title="iOS 中 CSV格式文件读写">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/2.jpg" alt="iOS 中 CSV格式文件读写">
 							</a>
 						</div>
 					</li>											
@@ -627,51 +655,23 @@ lay...
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充">
-								UITableView 之 表单的自动填充			
+							<a class="relate-post-title" href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">
+								SDWebImage 不能及时更新图片			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								九月 11日, 2018				
+								十二月 3日, 2018				
 							</p>
 							<p class="relate-post-content">
-								简介最近在做一些复杂的表单提交界面，由于 TableView 的复用问题，有了很多的坑，在此做一些记录
-入坑前你的页面可能是这个样子的，很常规的，左边名称，右边输入相关的内容。然后你输入了相关的内容，上下滑动页面，然后再划回去。tex...
+								问题最近刚好有写到图片需要及时更新的问题，由于 SDWebImage 中的存在缓存，在用户更新了网络头像后，其他人的手机上还是显示了之前的头像，想到了缓存的问题
+解决方法后来查到了这种解决方法，SDWebImageDownloader...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2018/09/11/UITableView 之 表单的自动填充 /" title="UITableView 之 表单的自动填充">				
+							<a href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView 之 表单的自动填充">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/08/31/Block的一些简单理解/" title="block的一些理解">
-								block的一些理解			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								八月 31日, 2018				
-							</p>
-							<p class="relate-post-content">
-								Block 与局部变量int global = 100;
-void(^myBlock)(void) = ^{
-    NSLog(@&quot;global = %d&quot;,global);
-};
-global = 101;
-m...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2018/08/31/Block的一些简单理解/" title="block的一些理解">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="block的一些理解">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SDWebImage 不能及时更新图片">
 							</a>
 						</div>
 					</li>											

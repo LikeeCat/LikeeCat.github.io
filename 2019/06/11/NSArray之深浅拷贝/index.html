@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      离屏渲染 | LikeeCat&#39;s Blog
+      NSArray之深浅拷贝 | LikeeCat&#39;s Blog
     
   </title>
   <meta name="author" content="LikeeCat">
@@ -160,7 +160,7 @@
 	<!-- Page title -->
 	<p>
 		
-			当前文章&nbsp;:&nbsp;《离屏渲染》
+			当前文章&nbsp;:&nbsp;《NSArray之深浅拷贝》
 		
 	</p>
 
@@ -247,8 +247,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2018/08/20/离屏渲染/" itemprop="url">
-		离屏渲染
+	<a href="/2019/06/11/NSArray之深浅拷贝/" itemprop="url">
+		NSArray之深浅拷贝
 	</a>
 
 	</div>
@@ -261,9 +261,9 @@
 
 	发布于
 
-	<a href="/2018/08/20/离屏渲染/" itemprop="url">
-		<time datetime="2018-08-20T10:05:13.000Z" itemprop="datePublished">
-	  		2018-08-20
+	<a href="/2019/06/11/NSArray之深浅拷贝/" itemprop="url">
+		<time datetime="2019-06-11T10:05:13.000Z" itemprop="datePublished">
+	  		2019-06-11
 	  </time>
 	</a>
 	&nbsp;
@@ -279,9 +279,9 @@
 
 	更新于
 
-	<a href="/2018/08/20/离屏渲染/" itemprop="url">
-		<time datetime="2018-08-20T10:05:13.000Z" itemprop="dateUpdated">
-	  		2019-06-05
+	<a href="/2019/06/11/NSArray之深浅拷贝/" itemprop="url">
+		<time datetime="2019-06-11T10:05:13.000Z" itemprop="dateUpdated">
+	  		2019-06-12
 	  </time>
 	</a> 
 
@@ -292,8 +292,8 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/UIView/" class=" ">
-			UIView
+		<a href="/tags/NSArray/" class=" ">
+			NSArray
 		</a>
 	
 		
@@ -302,7 +302,7 @@
 		
 
 	
-    <span class="leancloud_visitors" id="/2018/08/20/离屏渲染/_visitors" data-url="/2018/08/20/离屏渲染/" data-title="离屏渲染">
+    <span class="leancloud_visitors" id="/2019/06/11/NSArray之深浅拷贝/_visitors" data-url="/2019/06/11/NSArray之深浅拷贝/" data-title="NSArray之深浅拷贝">
        	<i class="fa fa-eye"></i>
        	热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
@@ -312,7 +312,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2018/08/20/离屏渲染/_likes" data-url="/2018/08/20/离屏渲染/" data-title="离屏渲染" rel="unlike">
+    <span class="leancloud_likes" id="/2019/06/11/NSArray之深浅拷贝/_likes" data-url="/2019/06/11/NSArray之深浅拷贝/" data-title="NSArray之深浅拷贝" rel="unlike">
         <i class="fa fa-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -321,71 +321,118 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在看一些离屏渲染的东西，接触到一些新的名词，轻量级别的 CALayer 代替 UIView ，mask ，bitmap 整理下这部分的内容</p>
-<h1 id="UIView"><a href="#UIView" class="headerlink" title="UIView"></a>UIView</h1><p>我们先来看看 UIView 的说明</p>
-<pre><code>@interface UIView : UIResponder &lt;NSCoding, UIAppearance, UIAppearanceContainer, UIDynamicItem, UITraitEnvironment, UICoordinateSpace, UIFocusItem, CALayerDelegate&gt;
-</code></pre><p>UIView 继承了UIResponder，所以 UIView 可以响应用户的一些操作。而且 UIView 遵循代理 CALayerDelegate 。和 CALayer 有了一点点的联系</p>
-<h2 id="layer属性"><a href="#layer属性" class="headerlink" title="layer属性"></a>layer属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic, readonly, strong) CALayer *layer;</span><br></pre></td></tr></table></figure>
-<h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><p>This property is never nil. The actual class of the object is determined by the value returned in the layerClass property. The view is the layer’s delegate.</p>
-<blockquote>
-<p>Warning<br>Because the view is the layer’s delegate, never make the view the delegate of another CALayer object. Additionally, never change the delegate of this layer object.</p>
-</blockquote>
-<p>从文档中可以看出的是，每一个 view.layer都不是 nil,而且这个 view 是 layer 的 <code>&lt;CALayerDelegate&gt;</code> delegate。而且永远不要去改变 这个 layer 的代理</p>
-<h1 id="CALayer"><a href="#CALayer" class="headerlink" title="CALayer"></a>CALayer</h1><pre><code>@interface CALayer : NSObject &lt;NSSecureCoding, CAMediaTiming&gt;
-</code></pre><p>CALayer继承于 NSObject ，无法响应用户的操作。</p>
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><blockquote>
-<p>A layer’s main job is to manage the visual content that you provide but the layer itself has visual attributes that can be set, such as a background color, border, and shadow. In addition to managing visual content, the layer also maintains information about the geometry of its content (such as its position, size, and transform) that is used to present that content onscreen.<br>If the layer object was created by a view, the view typically assigns itself as the layer’s delegate automatically, and you should not change that relationship. </p>
-</blockquote>
-<p>从 Overview 中截取了一部分，layer 的首要任务就是管理你提供的那些内容，当然它本身也可以设置一些显示的属性，比如 color、border、shadow 等。当然 layer 也帮助你管理显示在屏幕的内容。像是位置、大小和一些变换的东西</p>
-<h3 id="layer-中一些触发离屏渲染的属性"><a href="#layer-中一些触发离屏渲染的属性" class="headerlink" title="layer 中一些触发离屏渲染的属性"></a>layer 中一些触发离屏渲染的属性</h3><h4 id="mask"><a href="#mask" class="headerlink" title="mask"></a>mask</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(strong) CALayer *mask;</span><br></pre></td></tr></table></figure>
-<p>The layer’s alpha channel determines how much of the layer’s content and background shows through. Fully or partially opaque pixels allow the underlying content to show through but fully transparent pixels block that content.</p>
-<p>mask 也是一个 CALayer, mask 代表着怎么样的像素能够穿过 mask 被显示出来。你一定写过这样的代码。</p>
-<pre><code>imageView.image.layer.cornerRadius = 5;
-imageView.image.layer.masksToBounds = YES;
-</code></pre><p>我们来分别看看这两行代码代表什么，设置圆角，然后进行裁剪显示出来圆角</p>
-<h5 id="1-cornerRadius"><a href="#1-cornerRadius" class="headerlink" title="1.cornerRadius"></a>1.cornerRadius</h5><blockquote>
-<p>Setting the radius to a value greater than 0.0 causes the layer to begin drawing rounded corners on its background. By default, the corner radius does not apply to the image in the layer’s contents property; it applies only to the background color and border of the layer. However, setting the masksToBounds property to YES causes the content to be clipped to the rounded corners.</p>
-</blockquote>
-<p>划重点，在默认情况下，cornerRadius 不会对 layer 的内容是 image 生效的，但是只要你设置 masksToBounds 为 YES,那么这样就是可行的</p>
-<h5 id="2-masksToBounds"><a href="#2-masksToBounds" class="headerlink" title="2.masksToBounds"></a>2.masksToBounds</h5><blockquote>
-<p>When the value of this property is YES, Core Animation creates an implicit clipping mask that matches the bounds of the layer and includes any corner radius effects. If a value for the mask property is also specified, the two masks are multiplied to get the final mask value.<br>如果设置了masksToBounds 为 YES，那么 Core Animation 就会隐式的创建一个 与 layer 的 bounds 相匹配的并且裁切过的 mask，这个 mask 就可以实现圆角的效果</p>
-</blockquote>
-<h5 id="shadow"><a href="#shadow" class="headerlink" title="shadow"></a>shadow</h5><h6 id="1-shadowOpacity"><a href="#1-shadowOpacity" class="headerlink" title="1. shadowOpacity"></a>1. shadowOpacity</h6><blockquote>
-<p>The opacity of the layer’s shadow. Animatable.<br>设置 layer 的不透明度</p>
-</blockquote>
-<h6 id="2-shadowRadius"><a href="#2-shadowRadius" class="headerlink" title="2.shadowRadius"></a>2.shadowRadius</h6><blockquote>
-<p>The blur radius (in points) used to render the layer’s shadow. Animatable.<br>用来进行阴影半径渲染的模糊半径</p>
-</blockquote>
-<h6 id="3-shadowOffset"><a href="#3-shadowOffset" class="headerlink" title="3. shadowOffset"></a>3. shadowOffset</h6><blockquote>
-<p>The offset (in points) of the layer’s shadow. Animatable.<br>设置 layer 的阴影偏移量</p>
-</blockquote>
-<h5 id="edgeAntialiasing"><a href="#edgeAntialiasing" class="headerlink" title="edgeAntialiasing"></a>edgeAntialiasing</h5><h6 id="edgeAntialiasingMask"><a href="#edgeAntialiasingMask" class="headerlink" title="edgeAntialiasingMask"></a>edgeAntialiasingMask</h6><blockquote>
-<p>This property specifies which edges of the layer are antialiased and is a combination of the constants defined in <code>CAEdgeAntialiasingMask</code>. You can enable or disable antialiasing for each edge (top, left, bottom, right) separately. By default antialiasing is enabled for all edges.<br>通过这个属性可以对某一个或者某几个边启用或者不启用抗锯齿，当然默认是对所有的生效</p>
-</blockquote>
-<h6 id="allowsEdgeAntialiasing"><a href="#allowsEdgeAntialiasing" class="headerlink" title="allowsEdgeAntialiasing"></a>allowsEdgeAntialiasing</h6><blockquote>
-<p>When the value is <code>YES</code>, the layer is allowed to antialias its edges, as requested by the value in the layer’s <code>edgeAntialiasingMask</code> property. The default value is read from the boolean <code>UIViewEdgeAntialiasing</code> property in the main bundle’s <code>Info.plist</code> file. If no value is found, the default value is <code>NO</code>.<br>开启了抗锯齿的话，就回去访问<code>edgeAntialiasingMask</code>，看看会有那些边开启抗锯齿</p>
-</blockquote>
-<h4 id="group-opacity"><a href="#group-opacity" class="headerlink" title="group opacity"></a>group opacity</h4><h5 id="allowsGroupOpacity"><a href="#allowsGroupOpacity" class="headerlink" title="allowsGroupOpacity"></a>allowsGroupOpacity</h5><pre><code>@property BOOL allowsGroupOpacity;
+		<h2 id="1-自定义对象"><a href="#1-自定义对象" class="headerlink" title="1. 自定义对象"></a>1. 自定义对象</h2><ol>
+<li><p>假设我有一个Student类</p>
+<pre><code>@interface Student()&lt;NSCopying,NSMutableCopying&gt;
+@property (nonatomic,copy)NSString *name;
+@property (nonatomic,assign)NSInteger age;
+@end
+</code></pre></li>
+<li><p>生成两个Student对象</p>
+<pre><code> Student *stu = [[Student alloc]initWithName:@&quot;a&quot; age:1];
+Student *stu1 = [[Student alloc]initWithName:@&quot;b&quot; age:2];
+</code></pre></li>
+<li><p>用NSArray去把这两个对象加进数组,分别对数组进行copy 和 mutableCopy</p>
+<pre><code>NSArray *arr = [NSArray arrayWithObjects:stu,stu1, nil];
+NSArray *arrCopy =  [arr copy] ;
+NSMutableArray *arrMuCopy = [arr mutableCopy];
+</code></pre></li>
+<li><p>在arrMuCopy之后打断点查看结果</p>
+<pre><code> po arr
+&lt;__NSArrayI 0x102900290&gt;(
+&lt;Student: 0x100646bc0&gt;,
+&lt;Student: 0x100647300&gt;
+)
+
+ po arrCopy
+&lt;__NSArrayI 0x102900290&gt;(
+&lt;Student: 0x100646bc0&gt;,
+&lt;Student: 0x100647300&gt;
+)
+po arrMuCopy
+&lt;__NSArrayM 0x1029056f0&gt;(
+&lt;Student: 0x100646bc0&gt;,
+&lt;Student: 0x100647300&gt;
+)
 </code></pre><blockquote>
-<p>When the value is YES and the layer’s opacity property value is less than 1.0, the layer is allowed to composite itself as a group separate from its parent. This gives correct results when the layer contains multiple opaque components, but may reduce performance.<br>如果设置 <code>allowsGroupOpacity</code>为 YES 并且 layer 的opacity小于1，那么该layer将 被允许将其自身合并为一个组，并且是与他的parent分开的。而且需要注意的是，如果这个 layer 还包含很多的不透明的子 layer 的话，那么就会牺牲一些性能。而在 iOS 7＋ ,这个属性默认为 YES 。</p>
+<p>从结果上来说,copy只是复制了一个指针,arr 和 arrCopy 在堆上的对象是同一个.而arrMuCopy则是创建了新的内存地址,即创建了一个新的NSMutableArray的对象,但是array中包含的自定义对象没有复制.</p>
 </blockquote>
-<h4 id="bitmap"><a href="#bitmap" class="headerlink" title="bitmap"></a>bitmap</h4><p>layer 中有个属性 contents </p>
-<h2 id="Declaration"><a href="#Declaration" class="headerlink" title="Declaration"></a>Declaration</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(strong) id contents;</span><br></pre></td></tr></table></figure>
-<h5 id="Discussion-1"><a href="#Discussion-1" class="headerlink" title="Discussion"></a>Discussion</h5><blockquote>
-<p>If you are using the layer to display a static image, you can set this property to the <code>CGImageRef</code>containing the image you want to display. (In macOS 10.6 and later, you can also set the property to an <code>NSImage</code> Assigning a value to this property causes the layer to use your image rather than create a separate backing store.</p>
-</blockquote>
-<p>contents 可以设置一个静态的图片，传入一个<code>CGImageRef</code>。打开这个<code>CGImageRef</code>会发现这样的一段描述</p>
-<h6 id="CGImageRef"><a href="#CGImageRef" class="headerlink" title="CGImageRef"></a>CGImageRef</h6><p>Structure<br>A bitmap image or image mask.</p>
-<pre><code>typedef struct CF_BRIDGED_TYPE(id) CGImage *CGImageRef;
-</code></pre><p>这是个指向 CGImage 结构体的指针</p>
-<h6 id="CGImage"><a href="#CGImage" class="headerlink" title="CGImage"></a>CGImage</h6><blockquote>
-<p>A bitmap (or sampled) image is a rectangular array of pixels, with each pixel representing a single sample or data point in a source image.<br> 一个 bitmap image 就是一个矩形像素阵列，每个像素表示源图像中的单个样本或数据点。</p>
-</blockquote>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最近在接触一些离屏渲染的东西，看到这些陌生的名词。先动手整理了下，方便以后查看。先写到这里，各位大佬轻拍</p>
+</li>
+<li><p>重写Student的description方法</p>
+<pre><code>-(NSString *)description{
+ return [NSString stringWithFormat:@&quot;name:%@\n age :%d&quot;,self.name,self.age];
+ }
+</code></pre></li>
+<li><p>在copy 和 mutableCopy 结束后打断点</p>
+<pre><code>  NSArray *arr = [NSArray arrayWithObjects:stu,stu1, nil];
+NSArray *arrCopy =  [arr copy] ;
+NSMutableArray *arrMuCopy = [arr mutableCopy];
+[stu changeName:@&quot;ccc&quot;];
+
+ po arr
+&lt;__NSArrayI 0x1029002c0&gt;(
+name:ccc
+ age :1,
+name:b
+ age :2
+)
+ po arrCopy
+&lt;__NSArrayI 0x1029002c0&gt;(
+name:ccc
+ age :1,
+name:b
+ age :2
+)
+po arrMuCopy
+&lt;__NSArrayM 0x102909590&gt;(
+name:ccc
+ age :1,
+name:b
+ age :2
+)
+</code></pre></li>
+</ol>
+<p>结果也论证了这一点,mutableCopy后并没有将array中的对象进行复制</p>
+<h2 id="NSString"><a href="#NSString" class="headerlink" title="NSString"></a>NSString</h2><ol>
+<li><p>用NSArray去把这两个对象加进数组,分别对数组进行copy 和 mutableCopy</p>
+<pre><code>NSArray *arr = [NSArray arrayWithObjects:@&quot;aaa&quot;,@&quot;bbb&quot;, nil];
+NSArray *arrCopy =  [arr copy] ;
+NSMutableArray *arrMuCopy = [arr mutableCopy];
+</code></pre></li>
+<li><p>在copy 和 mutableCopy 结束后打断点</p>
+<pre><code>po arr
+&lt;__NSArrayI 0x100504700&gt;(
+aaa,
+bbb
+)
+
+po arrCopy
+&lt;__NSArrayI 0x100504700&gt;(
+aaa,
+bbb
+)
+
+po arrMuCopy
+&lt;__NSArrayM 0x100503290&gt;(
+aaa,
+bbb
+)
+
+ p arr[0]
+(__NSCFConstantString *) $4 = 0x00000001000020d0 @&quot;aaa&quot;
+
+p arrCopy[0]
+(__NSCFConstantString *) $7 = 0x00000001000020d0 @&quot;aaa&quot;
+
+p arrMuCopy[0]
+(__NSCFConstantString *) $6 = 0x00000001000020d0 @&quot;aaa&quot;
+</code></pre></li>
+</ol>
+<p>结果也论证了这一点,mutableCopy后并没有将array中的对象进行复制</p>
 	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+	<div id="current-post-cover" data-scr="/assets/img/5.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -400,12 +447,12 @@ imageView.image.layer.masksToBounds = YES;
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2018/08/31/Block的一些简单理解/" title="block的一些理解" rel="prev">
+			<a href="/2019/06/12/面试问题汇总/" title="面试问题汇总" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2018/08/17/ 微信分享长图/" title="微信分享长图" rel="next">
+			<a href="/2019/05/30/Xcode 快捷操作/" title="Xcode快捷键" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -426,23 +473,25 @@ imageView.image.layer.masksToBounds = YES;
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/08/17/ 微信分享长图/" title="微信分享长图">
-								微信分享长图			
+							<a class="relate-post-title" href="/2019/02/27/NSArray 之 SEL 的保存/" title="NSArray 之 SEL 的保存">
+								NSArray 之 SEL 的保存			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								八月 17日, 2018				
+								二月 27日, 2019				
 							</p>
 							<p class="relate-post-content">
-								#1.简介项目中有微信分享的相关内容，要求分享长截图到微信，要求截取 tableView 的全部内容并且底部加上二维码。做的过程中有一些问题，做下记录。
-#2.步骤1.截取 tableView 的内容，并且生成一张图片2.生成底部的分...
+								简介最近在初始化类的时候，会有很多没有返回值的初始化方法需要调用，每次都需要再写一遍，所以想把函数装进 NSArray 中可以自动调用。结果查了一下真的可以，所以做个笔记记一下
+
+- (void)viewDidLoad {
+    [...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2018/08/17/ 微信分享长图/" title="微信分享长图">				
+							<a href="/2019/02/27/NSArray 之 SEL 的保存/" title="NSArray 之 SEL 的保存">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="微信分享长图">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/4.jpg" alt="NSArray 之 SEL 的保存">
 							</a>
 						</div>
 					</li>											
@@ -469,32 +518,6 @@ imageView.image.layer.masksToBounds = YES;
 							<a href="/2019/06/12/面试问题汇总/" title="面试问题汇总">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="面试问题汇总">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/06/11/NSArray之深浅拷贝/" title="NSArray之深浅拷贝">
-								NSArray之深浅拷贝			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								六月 11日, 2019				
-							</p>
-							<p class="relate-post-content">
-								1. 自定义对象
-假设我有一个Student类
-@interface Student()&lt;NSCopying,NSMutableCopying&gt;
-@property (nonatomic,copy)NSString *na...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/06/11/NSArray之深浅拷贝/" title="NSArray之深浅拷贝">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/5.jpg" alt="NSArray之深浅拷贝">
 							</a>
 						</div>
 					</li>											
@@ -647,32 +670,6 @@ CSV其实就是一个纯文本,那么对应到 Ob...
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/02/27/NSArray 之 SEL 的保存/" title="NSArray 之 SEL 的保存">
-								NSArray 之 SEL 的保存			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 27日, 2019				
-							</p>
-							<p class="relate-post-content">
-								简介最近在初始化类的时候，会有很多没有返回值的初始化方法需要调用，每次都需要再写一遍，所以想把函数装进 NSArray 中可以自动调用。结果查了一下真的可以，所以做个笔记记一下
-
-- (void)viewDidLoad {
-    [...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/02/27/NSArray 之 SEL 的保存/" title="NSArray 之 SEL 的保存">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/4.jpg" alt="NSArray 之 SEL 的保存">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
 							<a class="relate-post-title" href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">
 								UITableView reloadData 滑不到底部			
 							</a>
@@ -693,6 +690,54 @@ lay...
 							<a href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView reloadData 滑不到底部">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" title="Xcode10 【libray not found for -lstdc++.6.0.9 】">
+								Xcode10 【libray not found for -lstdc++.6.0.9 】			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 8日, 2019				
+							</p>
+							<p class="relate-post-content">
+								简介上周在打包上传后，报了一个警告，大致的意思就是这样的：2019年3月必须使用Xcode 10.1或更高版本，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10
+开始采坑1、升级完成后直接报了libray n...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" title="Xcode10 【libray not found for -lstdc++.6.0.9 】">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Xcode10 【libray not found for -lstdc++.6.0.9 】">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">
+								SDWebImage 不能及时更新图片			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 3日, 2018				
+							</p>
+							<p class="relate-post-content">
+								问题最近刚好有写到图片需要及时更新的问题，由于 SDWebImage 中的存在缓存，在用户更新了网络头像后，其他人的手机上还是显示了之前的头像，想到了缓存的问题
+解决方法后来查到了这种解决方法，SDWebImageDownloader...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2018/12/03/SDWebImage 不能及时更新图片/" title="SDWebImage 不能及时更新图片">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SDWebImage 不能及时更新图片">
 							</a>
 						</div>
 					</li>											
