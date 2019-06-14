@@ -39,9 +39,11 @@
 	<div id="preloader">
 		<div class="pre-container">
 			
-				<div class="spinner">
-					<div class="double-bounce1"></div>
-					<div class="double-bounce2"></div>
+				<div class="cyclic">
+					<div><span></span></div>
+					<div><span></span></div>
+					<div><span></span></div>
+					<div><span></span></div>
 				</div>
 						
 		</div>
@@ -225,39 +227,59 @@
 
 
 
-	<!--cart style-->
-	<div class="layout-cart">
-	<div id="layout-cart">
-		
+	<!--pure style-->
+	<div class="layout-pure">
+	<div id="layout-pure">	
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/2019/06/12/面试问题汇总/" title=" 面试问题汇总 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					六月 12日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/2019/06/12/面试问题汇总/" title="面试问题汇总">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/2019/06/12/面试问题汇总/" itemprop="url">
 		面试问题汇总
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						关于离屏渲染的问题
 什么是mask
 
-一个图层可以有一个和它相关的mask(蒙版),mask是一个拥有alpha的位图,当像素和它下面的像素合成之前都会把...
+一个图层可以有一个和它相关的mask(蒙版),mask是一个拥有alpha的位图,当像素和它下面的像素合成之前都会把mask应用到图层的像素上面,当你要设置一个图层的圆角半径的时候,你可以有效的在图层上设置一个mask,最终只有mask中显示出来的部分才会被渲染出来
+
+
+设置圆角的时候是什么触发了离屏渲染,为什么会触发离屏渲染
+
+是因为mask,layer的圆角将mask应用到一个图层上,core Animation为了应用这个mask,会强制进行屏幕外的渲染.这对GPU产生重负.
+
+
+离屏渲染为什么消耗性能
+离屏渲染合成计算是非常昂贵的,直接将图层...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/2019/06/12/面试问题汇总/" itemprop="url">
+		<time datetime="2019-06-12T10:05:13.000Z" itemprop="datePublished">
+	  		2019-06-12
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 	
@@ -309,38 +331,61 @@
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/2019/06/12/面试问题汇总/" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/2019/06/11/NSArray之深浅拷贝/" title=" NSArray之深浅拷贝 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/5.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					六月 11日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/2019/06/11/NSArray之深浅拷贝/" title="NSArray之深浅拷贝">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/2019/06/11/NSArray之深浅拷贝/" itemprop="url">
 		NSArray之深浅拷贝
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						1. 自定义对象
 假设我有一个Student类
-@interface Student()&lt;NSCopying,NSMutableCopying&gt...
+@interface Student()&lt;NSCopying,NSMutableCopying&gt;
+@property (nonatomic,copy)NSString *name;
+@property (nonatomic,assign)NSInteger age;
+@end
+
+生成两个Student对象
+ Student *stu = [[Student alloc]initWithName:@&quot;a&quot; age:1];
+Student *stu1 = [[Student alloc]initWithName:...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/2019/06/11/NSArray之深浅拷贝/" itemprop="url">
+		<time datetime="2019-06-11T10:05:13.000Z" itemprop="datePublished">
+	  		2019-06-11
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 	
@@ -392,31 +437,27 @@
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/2019/06/11/NSArray之深浅拷贝/" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/2019/05/30/Xcode 快捷操作/" title=" Xcode快捷键 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/1.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					五月 30日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/2019/05/30/Xcode 快捷操作/" title="Xcode快捷键">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/2019/05/30/Xcode 快捷操作/" itemprop="url">
 		Xcode快捷键
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						编辑的快捷键
 
@@ -436,10 +477,69 @@ command +  ↓
 
 
 command + [
-...
+向左移动代码
+
+
+command + ]
+向右移动代码
+
+
+option + command + [
+向上移动代码
+
+
+option + command + ]
+向下移动代码
+
+
+command + /
+快速注释或者取消注释
+
+
+Ctrl + A
+移动光标到本行行首 
+
+
+Ctrl + E
+移动光标到本行行尾 
+
+
+option + →
+移动光标到下一个单词
+
+
+option +  ←
+移动光标到上一个单词
+
+
+
+视图快捷键
+
+
+快捷键...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/2019/05/30/Xcode 快捷操作/" itemprop="url">
+		<time datetime="2019-05-30T01:05:58.000Z" itemprop="datePublished">
+	  		2019-05-30
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 	
@@ -491,36 +591,60 @@ command + [
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/2019/05/30/Xcode 快捷操作/" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/2019/05/29/iOS中文排序/" title=" iOS 中文排序 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/3.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					五月 29日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/2019/05/29/iOS中文排序/" title="iOS 中文排序">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/2019/05/29/iOS中文排序/" itemprop="url">
 		iOS 中文排序
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
-						排序方法localizedCompare(_:)Compares the string and a given string using a locali...
+						排序方法localizedCompare(_:)Compares the string and a given string using a localized comparison.
+
+在NSString 的 API 中有这个方法,假设你的手机使用的是中文,就可以根据中文排序
+
+NSSortDescriptorAn immutable description of how to order a collection of objects based on a property common to all the objects.
+
+可以根据集合中的对象的某一个属性对这个集合进行排序
+
+...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/2019/05/29/iOS中文排序/" itemprop="url">
+		<time datetime="2019-05-29T11:05:58.000Z" itemprop="datePublished">
+	  		2019-05-29
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 	
@@ -572,36 +696,54 @@ command + [
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/2019/05/29/iOS中文排序/" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/2019/04/16/OC中函数的一些理解/" title=" OC中函数的一些小技巧 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/5.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					四月 16日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/2019/04/16/OC中函数的一些理解/" title="OC中函数的一些小技巧">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/2019/04/16/OC中函数的一些理解/" itemprop="url">
 		OC中函数的一些小技巧
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
-						简介最近在做一个复杂的界面，涉及到 UINavigationController 、UITabBarController、UIViewController...
+						简介最近在做一个复杂的界面，涉及到 UINavigationController 、UITabBarController、UIViewController、之间的函数调用，需要把原先在UIViewController中的功能转移到UITabBarController 或者 UINavigationController中，这就导致了界面产生冲突，我已经在UIViewController中完成了这个方法，怎么在UINavigationController中调用
+
+关于objc_msgSend在对象上调用方法是 Objective-C 中经常使用的功能。用 Objective-C 的术语来说叫...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/2019/04/16/OC中函数的一些理解/" itemprop="url">
+		<time datetime="2019-04-16T03:18:13.000Z" itemprop="datePublished">
+	  		2019-04-16
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 	
@@ -653,12 +795,17 @@ command + [
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/2019/04/16/OC中函数的一些理解/" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
-	</div>
 	
+	</div>
+
 	
 	<div id="pagination">
 		
@@ -669,7 +816,7 @@ command + [
 	
 
 </div>
-	
+
 
 		</main>
 

@@ -39,9 +39,11 @@
 	<div id="preloader">
 		<div class="pre-container">
 			
-				<div class="spinner">
-					<div class="double-bounce1"></div>
-					<div class="double-bounce2"></div>
+				<div class="cyclic">
+					<div><span></span></div>
+					<div><span></span></div>
+					<div><span></span></div>
+					<div><span></span></div>
 				</div>
 						
 		</div>
@@ -225,36 +227,48 @@
 
 
 
-	<!--cart style-->
-	<div class="layout-cart">
-	<div id="layout-cart">
-		
+	<!--pure style-->
+	<div class="layout-pure">
+	<div id="layout-pure">	
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" title=" UITableView 之 UITextView 自动行高的实现 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					七月 19日, 2018
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" title="UITableView 之 UITextView 自动行高的实现">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
 		UITableView 之 UITextView 自动行高的实现
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
-						简介开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的...
+						简介开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?
+为什么要写这个因为我自己也找了好久，参照过别人写的一些，但是到我这里都不是特别的实用，尤其是进行数据刷新的时候，如果你的行高需要改变，你去 reloadData这个时候，键盘会失去响应。就算你这个时候再次将键盘设置为 firstResponser,这个时候你的键盘还是会闪一下，不是很自然。所以写了一些小的 demo ，下面的...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" itemprop="url">
+		<time datetime="2018-07-19T06:33:13.000Z" itemprop="datePublished">
+	  		2018-07-19
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 	
@@ -306,36 +320,57 @@
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/2018/07/17/UITableView 之 正确的 reloadData/" title=" UITableView 之 正确的 reloadData ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					七月 17日, 2018
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/2018/07/17/UITableView 之 正确的 reloadData/" title="UITableView 之 正确的 reloadData">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/2018/07/17/UITableView 之 正确的 reloadData/" itemprop="url">
 		UITableView 之 正确的 reloadData
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
-						1. tableview reloadData假设你有一个 tableview ，你的 cell 中有 UITextField 或者 UITextView...
+						1. tableview reloadData假设你有一个 tableview ，你的 cell 中有 UITextField 或者 UITextView,而且你在编辑这一行的数据。此时对文本框进行监听，然后调用了 reloadData，键盘就消失了。
+/*Reloads everything from scratch. Redisplays visible rows. 
+   Note that this will cause any existing drop placeholder rows
+   to be removed.*/
+- (void)reloadData;
+api里面...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/2018/07/17/UITableView 之 正确的 reloadData/" itemprop="url">
+		<time datetime="2018-07-17T06:33:13.000Z" itemprop="datePublished">
+	  		2018-07-17
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 	
@@ -387,12 +422,17 @@
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/2018/07/17/UITableView 之 正确的 reloadData/" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
-	</div>
 	
+	</div>
+
 	
 	<div id="pagination">
 		
@@ -401,7 +441,7 @@
 	
 
 </div>
-	
+
 
 		</main>
 
