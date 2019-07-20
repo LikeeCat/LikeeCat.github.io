@@ -1,316 +1,71 @@
-<!--
-	作者：Sariay
-	时间：2018-09-25
-	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
--->
 <!DOCTYPE html>
-<html class="html-loading">
-		
-
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.8.0">
-	<meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-  <title>
-    
-      微信分享长图 | LikeeCat&#39;s Blog
-    
-  </title>
-  <meta name="author" content="LikeeCat">
-  <meta name="keywords" content="iOS">
-  <meta name="description" content="知君仙骨无寒暑 千载相逢犹旦暮">
-	<!-- favicon -->
-  <link rel="shortcut icon" href="/img/favicon.ico">
-
-  <!-- css -->
-  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/Annie.css">
+  <meta charset="utf-8">
   
-  <!-- jquery -->
-	<script src="/js/jquery.min.js"></script>
-
-  <!-- leancloud -->
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-<script src="/js/leancloud.js"></script>
+  
+    <meta name="keywords" content="iOS">
+  
+  
+    <meta name="description" content="Hello，我是Likee,一个小白 iOS 开发者">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    微信分享长图 |
+    
+    LikeeCat&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
 </head>
-	<body>
-		<!-- Preloader -->
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post- 微信分享长图" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
-
-<!-- header -->
-<header class="fixbackground" data-img-mode="random" data-normal-src="/img/1.jpg" data-random-max="110" data-random-src="https://sariay.github.io/Random-img/">
-	<div class="mask">
-		<!-- Logo and navigation -->
-		<div class="h-header">
-			<div id="logo">
-				<a href="/">
-					
-						likeeCat
-					
-				</a>
-			</div>
-			
-			<div id="navigation-show">
-				<ul>
-	
-		<li class="menu-home">
-			<a href="/" class="menu-item-home">主页</a>
-		</li>
-	
-		<li class="menu-archive">
-			<a href="/archives" class="menu-item-archive">归档</a>
-		</li>
-	
-		<li class="menu-categories">
-			<a href="/categories" class="menu-item-categories">分类</a>
-		</li>
-	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags">标签</a>
-		</li>
-	
-		<li class="menu-about">
-			<a href="/about" class="menu-item-about">关于</a>
-		</li>
-	
-
-	
-		<li class="menu-search">
-			<a href="javascript:;" class="popup-trigger">搜索</a>
-		</li>
-	
-</ul>
-			</div>				
-		</div>
-
-		<!-- motto -->
-		<div class="h-body">	
-			
-				<p class="motto"></p>
-			
-		</div>
-		
-		<!-- others: such as time... -->			
-		<div class="h-footer">
-			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
-			</a>
-
-			
-				<!-- 
-	This is only a demo, please go to "https://time.is" to set your city time! 
--->
-<style type="text/css">
-	.header-date {
-		font-size: 1.6rem;
-		color: #fff;
-		position: absolute;
-		bottom: 5px;
-		right: 1rem;
-		writing-mode: tb-rl;
-	}	
-	
-	.header-date a {
-		border-bottom: none;
-	}
-
-	@media only screen and (max-width: 768 ) {
-		.header-date {
-			font-size: 1rem;
-		}			
-	}
-</style>
-<div class="header-date">
-	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow"></a>
-	<span id="Beijing_z43d"></span>
-</div>
-<script src="//widget.time.is/zh.js"></script>
-<script>
-	time_is_widget.init({
-		Beijing_z43d:{
-			template:"DATE", 
-			date_format:"year年 monthname dnum日"
-		}
-	});
-</script>
-			
-		</div>
-	</div>
-</header>
-
-<div id="navigation-hide">
-	<!-- Progress bar -->
-	<div id="progress-bar"></div>
-
-	<!-- Progress percent -->
-	<div id="progress-percentage"><h1>0.0%</h1></div>
-
-	<div class="toc-switch"><span class="switch-button">目录</span></div>
-
-	<!-- Page title -->
-	<p>
-		
-			当前文章&nbsp;:&nbsp;《微信分享长图》
-		
-	</p>
-
-	<!-- Nav trigger for navigation-H-->
-	<a class="nav-trigger"><span></span></a>
-</div>
-
-<!-- Navigation in div(id="navigation-H") -->
-<nav class="nav-container" id="cd-nav">
-	<div class="nav-header">
-		<h3>Navigation</h3>
-		<a href="javascript:;" class="nav-close"></a>
-	</div>
-	<div class="nav-body">
-		<ul>
-	
-		<li class="menu-home">
-			<a href="/" class="menu-item-home">主页</a>
-		</li>
-	
-		<li class="menu-archive">
-			<a href="/archives" class="menu-item-archive">归档</a>
-		</li>
-	
-		<li class="menu-categories">
-			<a href="/categories" class="menu-item-categories">分类</a>
-		</li>
-	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags">标签</a>
-		</li>
-	
-		<li class="menu-about">
-			<a href="/about" class="menu-item-about">关于</a>
-		</li>
-	
-
-	
-		<li class="menu-search">
-			<a href="javascript:;" class="popup-trigger">搜索</a>
-		</li>
-	
-</ul>
-	</div>
-	<div class="nav-footer">
-		<ul>
-	
-		<li>
-			<a href="https://github.com/LikeeCat" target="_blank">
-				<i class="fa fa-github"></i>
-			</a>
-		</li>
-			
-</ul>
-
-	</div>
-</nav>
-			
-		<!--main-->
-		<main>
-			<!--
-	时间：2018-11-17
-	描述：
-		插件名称：katelog.min.js
-		插件作者：KELEN
-		插件来源: https://github.com/KELEN/katelog
--->
-
-	
-		<div class="layout-toc">
-			<div id="layout-toc">
-				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
-			</div>
-		</div>
-
-		
-		<script src="/plugin/toc/katelog.min.js"></script>
-
-		
-	 
-
-<div class="layout-post">
-	<div id="layout-post">
-	<div class="article-title">
-		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-		
-	<a href="/2018/08/17/ 微信分享长图/" itemprop="url">
-		微信分享长图
-	</a>
-
-	</div>
-
-	<div class="article-meta">
-		<span>
-			<i class="fa fa-calendar"></i>
-			
-
-
-	发布于
-
-	<a href="/2018/08/17/ 微信分享长图/" itemprop="url">
-		<time datetime="2018-08-17T10:05:13.000Z" itemprop="datePublished">
-	  		2018-08-17
-	  </time>
-	</a>
-	&nbsp;
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微信分享长图
+    </h1>
+  
+  
 
 
 
 
-
-			
-
-
-
-
-	更新于
-
-	<a href="/2018/08/17/ 微信分享长图/" itemprop="url">
-		<time datetime="2018-08-17T10:05:13.000Z" itemprop="dateUpdated">
-	  		2019-06-05
-	  </time>
-	</a> 
-
-
-
-		</span>
-		<span>
-			<i class="fa fa-tags"></i>
-			
-	
-		<a href="/tags/UIView/" class=" ">
-			UIView
-		</a>
-	
-		
-		</span>
-		
-		
-
-	
-    <span class="leancloud_visitors" id="/2018/08/17/ 微信分享长图/_visitors" data-url="/2018/08/17/ 微信分享长图/" data-title="微信分享长图">
-       	<i class="fa fa-eye"></i>
-       	热度
-        <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
-    </span>
+      </header>
     
 
+    
+      <div class="article-meta">
+        <a href="/2018/08/17/ 微信分享长图/" class="article-date">
+  <time datetime="2018-08-17T10:05:13.000Z" itemprop="datePublished">2018-08-17</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/UIView/">UIView</a>
+  </div>
 
+      </div>
+    
 
-	
-    <span class="leancloud_likes" id="/2018/08/17/ 微信分享长图/_likes" data-url="/2018/08/17/ 微信分享长图/" data-title="微信分享长图" rel="unlike">
-        <i class="fa fa-heart"></i>
-        喜欢
-        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
-    </span>
+    <div class="article-entry" itemprop="articleBody">
+      
 
-	</div>
+      
 
-	<div class="article-content" id="article-content">
-		<p>#1.简介<br>项目中有微信分享的相关内容，要求分享长截图到微信，要求截取 tableView 的全部内容并且底部加上二维码。做的过程中有一些问题，做下记录。</p>
+      
+        <p>#1.简介<br>项目中有微信分享的相关内容，要求分享长截图到微信，要求截取 tableView 的全部内容并且底部加上二维码。做的过程中有一些问题，做下记录。</p>
 <p>#2.步骤<br>1.截取 tableView 的内容，并且生成一张图片<br>2.生成底部的分享二维码的图片<br>3.对这些图片进行拼接<br>4.分享</p>
 <p>#3.过程中遇到的一些问题</p>
 <p>##1.如何生成 tableView 的长截图<br><a href="https://github.com/TonyReet/TYSnapshotScroll" target="_blank" rel="noopener">TYSnapshotScroll</a>，前人已经为你准备好了工具，直接使用即可</p>
@@ -367,685 +122,147 @@ UIGraphicsEndImageContext();
     [WXApi sendReq:req];
 
 }
-</code></pre>	
-	</div>
-	
-	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2018/08/17/ 微信分享长图/" data-id="cjyb0jk770005xm8z5d99856f" class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIView/">UIView</a></li></ul>
 
-	<!-- relate post, comment...-->
-	<div class="investment-container">
-		<div class="investment-header">
-			<div class="investment-title-1">
-				<div class="on">相关文章</div>
-				<div>评论</div>
-				<div>分享</div>
-			</div>
-			<div class="investment-title-2">	            
-				
-	<span>
-		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
-		
-			<a href="/2018/08/20/离屏渲染/" title="离屏渲染" rel="prev">
-				&laquo;上一篇
-			</a>
-		
-		
-			<a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" title="UITableView 之 UITextView 自动行高的实现" rel="next">
-				下一篇&raquo;
-			</a>
-			
-	</span>
+    </footer>
 
+  </div>
 
-      		
-			</div>	
-		</div>
-		
-		<div class="investment-content">
-			<div class="investment-content-list">
-				
-
-<div class="relate-post">
-	
-		<ul>
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2018/08/20/离屏渲染/" title="离屏渲染">
-								离屏渲染			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								八月 20日, 2018				
-							</p>
-							<p class="relate-post-content">
-								简介最近在看一些离屏渲染的东西，接触到一些新的名词，轻量级别的 CALayer 代替 UIView ，mask ，bitmap 整理下这部分的内容
-UIView我们先来看看 UIView 的说明
-@interface UIView :...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2018/08/20/离屏渲染/" title="离屏渲染">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="离屏渲染">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/06/12/面试问题汇总/" title="面试问题汇总">
-								面试问题汇总			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								六月 12日, 2019				
-							</p>
-							<p class="relate-post-content">
-								关于离屏渲染的问题
-什么是mask
-
-一个图层可以有一个和它相关的mask(蒙版),mask是一个拥有alpha的位图,当像素和它下面的像素合成之前都会把mask应用到图层的像素上面,当你要设置一个图层的圆角半径的时候,你可以有效的在...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/06/12/面试问题汇总/" title="面试问题汇总">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="面试问题汇总">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/06/11/NSArray之深浅拷贝/" title="NSArray之深浅拷贝">
-								NSArray之深浅拷贝			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								六月 11日, 2019				
-							</p>
-							<p class="relate-post-content">
-								1. 自定义对象
-假设我有一个Student类
-@interface Student()&lt;NSCopying,NSMutableCopying&gt;
-@property (nonatomic,copy)NSString *na...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/06/11/NSArray之深浅拷贝/" title="NSArray之深浅拷贝">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/5.jpg" alt="NSArray之深浅拷贝">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/05/30/Xcode 快捷操作/" title="Xcode快捷键">
-								Xcode快捷键			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 30日, 2019				
-							</p>
-							<p class="relate-post-content">
-								编辑的快捷键
-
-
-快捷键名称
-作用
-
-
-
-
-command + ↑
-到达文件头部
-
-
-command +  ↓
-到达文件尾部
-
-
-command + [
-向左移动代码
-
-
-command + ]
-向右移动代码
-
-
-option + c...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/05/30/Xcode 快捷操作/" title="Xcode快捷键">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/1.jpg" alt="Xcode快捷键">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/05/29/iOS中文排序/" title="iOS 中文排序">
-								iOS 中文排序			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 29日, 2019				
-							</p>
-							<p class="relate-post-content">
-								排序方法localizedCompare(_:)Compares the string and a given string using a localized comparison.
-
-在NSString 的 API 中有这个方法,...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/05/29/iOS中文排序/" title="iOS 中文排序">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/3.jpg" alt="iOS 中文排序">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/04/16/OC中函数的一些理解/" title="OC中函数的一些小技巧">
-								OC中函数的一些小技巧			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								四月 16日, 2019				
-							</p>
-							<p class="relate-post-content">
-								简介最近在做一个复杂的界面，涉及到 UINavigationController 、UITabBarController、UIViewController、之间的函数调用，需要把原先在UIViewController中的功能转移到UI...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/04/16/OC中函数的一些理解/" title="OC中函数的一些小技巧">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/5.jpg" alt="OC中函数的一些小技巧">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/03/16/把博客从简书搬出来/" title="把博客从简书搬出来">
-								把博客从简书搬出来			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								三月 16日, 2019				
-							</p>
-							<p class="relate-post-content">
-								起忽然觉得大多数的写作的地方都太浮躁了，自己想找个安静的角落，写一写关于技术、生活、旅游方面的姑且认为是文章啦，于是就有了想自己做一个静态网站的想法。
-接下来花了一周的时间想了很久，最终还是在 GitHub 上安家了，离开自己的舒服区...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/03/16/把博客从简书搬出来/" title="把博客从简书搬出来">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/1.jpg" alt="把博客从简书搬出来">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/03/16/iOS-中-CSV格式文件读写/" title="iOS 中 CSV格式文件读写">
-								iOS 中 CSV格式文件读写			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								三月 16日, 2019				
-							</p>
-							<p class="relate-post-content">
-								CSV逗号分隔值（Comma-Separated Values，CSV，有时也称为字符分隔值，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）
-
-CSV其实就是一个纯文本,那么对应到 Ob...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/03/16/iOS-中-CSV格式文件读写/" title="iOS 中 CSV格式文件读写">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/2.jpg" alt="iOS 中 CSV格式文件读写">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/02/27/NSArray 之 SEL 的保存/" title="NSArray 之 SEL 的保存">
-								NSArray 之 SEL 的保存			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 27日, 2019				
-							</p>
-							<p class="relate-post-content">
-								简介最近在初始化类的时候，会有很多没有返回值的初始化方法需要调用，每次都需要再写一遍，所以想把函数装进 NSArray 中可以自动调用。结果查了一下真的可以，所以做个笔记记一下
-
-- (void)viewDidLoad {
-    [...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/02/27/NSArray 之 SEL 的保存/" title="NSArray 之 SEL 的保存">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/assets/img/4.jpg" alt="NSArray 之 SEL 的保存">
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">
-								UITableView reloadData 滑不到底部			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 18日, 2019				
-							</p>
-							<p class="relate-post-content">
-								简介最近有个需求，在 tableView reloadData结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档
-
-layoutSubviews
-setNeedsLayout
-lay...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/02/18/UITableView reloadData 滑不到底部/" title="UITableView reloadData 滑不到底部">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="UITableView reloadData 滑不到底部">
-							</a>
-						</div>
-					</li>											
-			
-			
-		</ul>
-	
-</div>	
-			</div>
-			<div class="investment-content-list">
-				<div class="layout-comment">
-
-	
-
-		
-
-			<!-- I don't know !!!-->
-			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
-			
-		
-		
-	
-
-</div>
-			</div>
-			<div class="investment-content-list">
-				<div class="layout-share">
-	
-	
-
-		
-			
-			<!-- socialShare share -->
-			<div class="social-share"></div>
-
-<!--  css & js -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
-			
-		
-		
-	
-</div>
-
-
-			</div>
-		</div>	
-	</div>
-	</div>
-</div>
-
-
-
-	<!-- leancloud -->
-	<!--
-	时间：2018-11-27
-	描述：
-		文章访问量：visitors
-		文章喜欢量：likes	
-		文章排行榜：topNPost
-		其他得说明：
-			01-Cookie相关的函数 
-				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
-			02-visitors相关的函数 
-				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
-				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
-			03-topNPost相关的函数
-				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
-			04-likes相关的函数，
-				参考了01 & 02进行简单的设计与实现
--->
-
-
-
-	<script>
-		var appid = 'VJwCgWQYIPacfeOI7pxpXSgp-gzGzoHsz',
-            appkey = '4LsyJc4v7hyG3u4yoDadrLBR';	  
-        AnnieLeancloud(appid, appkey);         
-	</script>
+  
     
+  <nav class="article-nav">
+    
+      <a href="/2018/08/20/离屏渲染/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            离屏渲染
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/07/19/UITableView 之 UITextView 自动行高的实现/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">UITableView 之 UITextView 自动行高的实现</div>
+      </a>
+    
+  </nav>
 
-	
 
+  
 
-<!-- show math formula -->
+  
+    
+  
 
-
-
-	 
-	<script src="/plugin/clipboard/clipboard.js"></script>
-	<script>
-		// Copy code !
-	    function codePreprocessing() {
-	        $("#article-content .highlight").each(function() {
-
-	            $(this).wrap('<div id="post-code"></div>');
-
-	        })
-
-	        $("#article-content #post-code").each(function() {
-
-	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
-
-	        })
-
-	        $("#article-content .copy-nav").each(function() {
-	            var temp = $(this).next().attr('class'),
-	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
-
-	            $(this).find('.code-language').text(language);
-
-	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
-
-	        });
-	    }
-
-		function codeCopy() {
-		    $('#article-content #post-code').each(function(i) {
-		        var codeCopyId = 'codeCopy-' + i;
-
-		        var codeNode = $(this).find('.code'),
-		            copyButton = $(this).find('.copy-btn');
-
-		        codeNode.attr('id', codeCopyId);
-		        copyButton.attr('data-clipboard-target-id', codeCopyId);
-		    })
-
-		    
-			var clipboard = new ClipboardJS('.copy-btn', {
-					target: function(trigger) {
-						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
-					}
-		      	});
-
-			//pure js
-			function showTooltip(elem, msg) {		   
-				elem.setAttribute('aria-label', msg);
-				elem.setAttribute('class', 'copy-btn copy-status');
-				setTimeout(function() {
-					elem.setAttribute('class', 'copy-btn');
-				}, 2000);
-			}
-
-			clipboard.on('success', function(e) {
-			    e.clearSelection();
-			    console.info('Action:', e.action);		   
-			    console.info('Trigger:', e.trigger);
-			    showTooltip(e.trigger, 'Copied!');
-			    
-			});
-			clipboard.on('error', function(e) {
-			    console.error('Action:', e.action);
-			    console.error('Trigger:', e.trigger);
-			});
-		
-
-		}
-
-		if ($('.layout-post').length) {
-		    codePreprocessing();
-		    codeCopy();
-		} 
-	</script>
+</article>
 
 
 
-
-
-<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
-<script src="/plugin/fancybox/jquery.fancybox.js"></script>
-
-<script type="text/javascript">
-	var titleID = $('.article-title a'),
-		imageID = $('.article-content img'),
-		videoID = $('.article-content video');
-
-	var postTitle = titleID.text() ? titleID.text() : "No post title!";
-
-	imageID.each(function() {
-		var imgPath = $(this).attr('src'),
-			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
-
-		//给每个匹配的<img>元素打包, 即添加父元素<a>
-		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
-	});
-
-	videoID.each(function() {
-		var videoPath = $(this).attr('src');
-
-		//给每个匹配的<img>元素打包, 即添加父元素<a>
-		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
-	});
-	//TODO：支持html5 video
-
-	if($('#layout-post').length) {
-		$('[data-fancybox="gallery"]').fancybox({
-			loop: true,
-			buttons: [
-				"zoom",
-				"share",
-				"slideShow",
-				"fullScreen",
-				//"download",
-				"thumbs",
-				"close"
-			],
-			protect: false
-		});
-	}
-</script>
-		</main>
-
-		<!--footer-->
-		<footer>
-	<div class="social">
-		<ul>
-	
-		<li>
-			<a href="https://github.com/LikeeCat" target="_blank">
-				<i class="fa fa-github"></i>
-			</a>
-		</li>
-			
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
 </ul>
-
-	</div>
-		
-	<div class="copyright">
-		<p>
-			 
-				&copy;2017 - 2019, content by LikeeCat. All Rights Reserved.
-			
-			
-			
-
-	<!-- busuanzi -->
-	<!-- busuanzi -->
-
-		
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-	
-
-		<span id="busuanzi_container_page_pv">
-	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-		</span>
-
-	
-
-
-
-
-		</p>
-		<p>
-			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
-			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
-			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
-		</p>
-	</div>		
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2019 LikeeCat&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
 </footer>
-		
-	<!-- set '1' to show motto in all pages! -->
 
-	<script src="/plugin/motto/motto.js"></script>
-	
-	<script type="text/javascript">
-		$(".motto").html( getMingYanContent() );
-	</script>	
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
 
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/favicon.ico" alt="LikeeCat&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
 
-
-
-	<!--
-	时间：2018-10-3
-	描述：
-		插件名称：hexo-generator-search-zip
-		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
-		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
--->
-<div class="popup search-popup local-search-popup">
-	<div class="local-search-container">
-		<span class="popup-btn-close">
-      		ESC
-   		</span>
-		<div class="local-search-header">
-			<div class="input-prompt">				
-			</div>
-			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
-		</div>
-		<div class="local-search-body">
-			<div id="local-search-output"></div>
-		</div>
-		<div class="local-search-footer">
-			<div class="topN-post">				
-				
-
-   
-	<div id="topN">
-		<div class="topN-title" data-title="热门文章"></div> 
-	</div>
-	
-    <script>
-        var appid = 'VJwCgWQYIPacfeOI7pxpXSgp-gzGzoHsz',
-            appkey = '4LsyJc4v7hyG3u4yoDadrLBR',
-            limitCount = 10;
-        if( $('#topN').length ){
-            AV.initialize(appid, appkey);
-            var Counter = AV.Object.extend("Counter");  
-            topNPost(Counter, limitCount);
-        }
-    </script>
-   
-								
-			</div>
-		</div>
-	</div>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
 </div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
 
-<script src="/plugin/search/ziploader.js"></script>
-<script src="/plugin/search/search.js"></script>
-
-<script type="text/javascript">
-	var search_path = 'search.json',
-		zip_Path = '/search.zip',
-		version_Path = '/searchVersion.txt',
-		input_Trigger = 'auto',
-		top_N = '2';
-
-	themeLocalSearch({
-		search_path, 
-		zip_Path, 
-		version_Path, 
-		input_Trigger, 
-		top_N
-	});
-</script>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
 
 
-<!-- love effect -->
-
-
-<!-- back to top -->
-
-	
-	<div id="totop">
-  		<a href="javascript:;" name="TOTOP" class="fa fa-arrow-up"></a>
-	</div>
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
 
 
 
+  <script src="/js/search.js"></script>
 
-<!-- site analysis -->
 
+<script src="/js/ocean.js"></script>
 
-	<!-- site-analysis -->
-	
-	
-	
-	
-	
- 
-
-<script src="/plugin/vibrant/vibrant.js"></script>
-<script src="/plugin/chinese/chinese.js"></script>
-<script src="/plugin/imgLazyLoader/yall.min.js"></script>
-<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
-<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
-<script src="/js/resizediv.js"></script>
-<script src="/js/main.js"></script>
-	</body>	
+</body>
 </html>
