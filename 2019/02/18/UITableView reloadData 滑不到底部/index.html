@@ -111,7 +111,7 @@ NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOf
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2019/02/18/UITableView reloadData 滑不到底部/" data-id="cjyb0jk7f000gxm8z48fwq99o" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2019/02/18/UITableView reloadData 滑不到底部/" data-id="cjycaykem001asl8zjm4s66st" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView/">UITableView</a></li></ul>
 
@@ -145,6 +145,26 @@ NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOf
 
   
     
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'c9b751a1e1d42d823869',
+      clientSecret: '0f805daf744877256f9aa375be74c0af132942c7',
+      repo: 'LikeeCatTalk',
+      owner: 'LikeeCat',
+      admin: ['LikeeCat'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
   
 
 </article>
