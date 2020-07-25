@@ -60,6 +60,197 @@
 
     
       
+        <article id="post-NSArray 之 SEL 的保存" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/02/27/NSArray 之 SEL 的保存/">NSArray 之 SEL 的保存</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/02/27/NSArray 之 SEL 的保存/" class="article-date">
+  <time datetime="2019-02-27T10:05:13.000Z" itemprop="datePublished">2019-02-27</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/NSArray/">NSArray</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在初始化类的时候，会有很多没有返回值的初始化方法需要调用，每次都需要再写一遍，所以想把函数装进 NSArray 中可以自动调用。结果查了一下真的可以，所以做个笔记记一下</p>
+        
+          <a class="article-more-link" href="/2019/02/27/NSArray 之 SEL 的保存/">阅读全文...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2019/02/27/NSArray 之 SEL 的保存/" data-id="cjycaz8sf0002tz8zfe9i8fue" class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSArray/">NSArray</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        <article id="post-UITableView reloadData 滑不到底部" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/02/18/UITableView reloadData 滑不到底部/">UITableView reloadData 滑不到底部</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/02/18/UITableView reloadData 滑不到底部/" class="article-date">
+  <time datetime="2019-02-18T10:05:13.000Z" itemprop="datePublished">2019-02-18</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/UITableView/">UITableView</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近有个需求，在 tableView <code>reloadData</code>结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档</p>
+<ol>
+<li>layoutSubviews</li>
+<li>setNeedsLayout</li>
+<li>layoutIfNeeded</li>
+</ol>
+        
+          <a class="article-more-link" href="/2019/02/18/UITableView reloadData 滑不到底部/">阅读全文...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2019/02/18/UITableView reloadData 滑不到底部/" data-id="cjycaz8so000dtz8zre3eyp2i" class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView/">UITableView</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        <article id="post-Xcode10 【libray not found for -lstdc++.6.0.9 】" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/">Xcode10 【libray not found for -lstdc++.6.0.9 】</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" class="article-date">
+  <time datetime="2019-01-07T18:05:13.000Z" itemprop="datePublished">2019-01-08</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Xcode/">Xcode</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>上周在打包上传后，报了一个警告，大致的意思就是这样的：<code>2019年3月必须使用Xcode 10.1或更高版本</code>，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10<br>
+        
+          <a class="article-more-link" href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/">阅读全文...</a>
+        
+      
+    </p></div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" data-id="cjycaz8sy000qtz8z6vax6btm" class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xcode/">Xcode</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
         <article id="post-SDWebImage 不能及时更新图片" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -105,7 +296,7 @@
       
     </p></div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2018/12/03/SDWebImage 不能及时更新图片/" data-id="cjycaykda0001sl8zh0hjg15k" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2018/12/03/SDWebImage 不能及时更新图片/" data-id="cjycaz8sn0009tz8z4z7phvtt" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
 
@@ -167,465 +358,9 @@
       
     </p></div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2018/09/11/UITableView 之 表单的自动填充 /" data-id="cjycaykel0018sl8zivw4iqkc" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2018/09/11/UITableView 之 表单的自动填充 /" data-id="cjycaz8sv000ktz8z00tazscd" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView/">UITableView</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post-Block的一些简单理解" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2018/08/31/Block的一些简单理解/">block的一些理解</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2018/08/31/Block的一些简单理解/" class="article-date">
-  <time datetime="2018-08-31T10:05:13.000Z" itemprop="datePublished">2018-08-31</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/block/">block</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <h1 id="Block-与局部变量"><a href="#Block-与局部变量" class="headerlink" title="Block 与局部变量"></a>Block 与局部变量</h1><pre><code>int global = 100;
-void(^myBlock)(void) = ^{
-    NSLog(@&quot;global = %d&quot;,global);
-};
-global = 101;
-myBlock();
-</code></pre><p>block 可以捕获局部变量，在你声明 myBlock 后，因为需要在block 内使用了 global 变量，所以 block 为你捕获了这个变量。</p>
-<h2 id="局部变量的使用"><a href="#局部变量的使用" class="headerlink" title="局部变量的使用"></a>局部变量的使用</h2><h3 id="1-如果使用-global-变量"><a href="#1-如果使用-global-变量" class="headerlink" title="1.如果使用 global 变量"></a>1.如果使用 global 变量</h3><p>在使用 clang -rewrite-objc main.m 后查看.cpp 文件可以看到</p>
-<pre><code>struct __main_block_impl_0 {
-  struct __block_impl impl;
-  struct __main_block_desc_0* Desc;
-  int global; //block 捕获了这个变量
-  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int _global, int flags=0) : global(_global) {
-     impl.isa = &amp;_NSConcreteStackBlock;
-    impl.Flags = flags;
-    impl.FuncPtr = fp;
-    Desc = desc;
-  }
-};
-</code></pre><h3 id="2-如果不使用-global-变量"><a href="#2-如果不使用-global-变量" class="headerlink" title="2.如果不使用 global 变量"></a>2.如果不使用 global 变量</h3><pre><code>struct __main_block_impl_0 {
-  struct __block_impl impl;
-  struct __main_block_desc_0* Desc;
-  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int flags=0) {
-    impl.isa = &amp;_NSConcreteStackBlock;
-    impl.Flags = flags;
-    impl.FuncPtr = fp;
-    Desc = desc;
-  }
-};//没有捕获 global
-</code></pre><h2 id="局部变量的修改"><a href="#局部变量的修改" class="headerlink" title="局部变量的修改"></a>局部变量的修改</h2><p><img src="https://upload-images.jianshu.io/upload_images/2239937-3b00d793b8b72a9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="值类型的变量"></p>
-<p>直接修改报错，提示缺少了<strong>block 的修饰符，那么加了</strong>block 修饰符后有什么不一样呢。同样的我们还是查看.cpp 文件来比较<br>使用<strong>block | 不使用<br>|—|—|<br>|   </strong>Block_byref_global_0 <em>global; // by ref      |   int global;|<br>|  __main_block_impl_0(void </em>fp, struct <strong>main_block_desc_0 *desc, </strong>Block_byref_global_0 <em>_global, int flags=0) : global(_global-&gt;<strong>forwarding)  |</strong>main_block_impl_0(void </em>fp, struct __main_block_desc_0 *desc, int _global, int flags=0) : global(_global) </p>
-<p>可以看到 global 由一个值类型变成了一个指针类型的变量，所以使用了__block 后可以修改 global 的值。</p>
-<h2 id="局部变量的修改结果"><a href="#局部变量的修改结果" class="headerlink" title="局部变量的修改结果"></a>局部变量的修改结果</h2><p>1.使用__block 修饰</p>
-<pre><code>__block int global = 100;
-void(^myBlock)(void) = ^{
-     NSLog(@&quot;global = %d&quot;,global);
- };
- global = 101;
- myBlock();
- //运行结果
- global = 101
-</code></pre><p>2.不使用__block 修饰</p>
-<pre><code>int global = 100;
-void(^myBlock)(void) = ^{
-     NSLog(@&quot;global = %d&quot;,global);
- };
- global = 101;
- myBlock();
- //运行结果
- global = 100
-</code></pre><h3 id="修改结果总结"><a href="#修改结果总结" class="headerlink" title="修改结果总结"></a>修改结果总结</h3><ol>
-<li>如果使用__block 修饰，并且在调用 block 之前修改 global ，那么block 内部的 global 也会跟着变。</li>
-<li>如果不使用__block的话，并且在调用 block 之前修改 global，那么 block 内部的 global 不会发生改变。<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3></li>
-<li>使用__block 修饰</li>
-</ol>
-<pre><code>static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
-     __Block_byref_global_0 *global = __cself-&gt;global; // bound by ref
-
-       NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_bq_bv7y3wj94sg1_5ldvtywqy7c0000gn_T_main_b116b4_mi_0,(global-&gt;__forwarding-&gt;global));
-}
-</code></pre><p>2.不使用__block修饰</p>
-<pre><code>static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
-    int global = __cself-&gt;global; // bound by copy
-   NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_bq_bv7y3wj94sg1_5ldvtywqy7c0000gn_T_main_62e250_mi_0,global);
-}
-</code></pre><blockquote>
-<p>  使用<strong>block 修饰:
-         </strong>Block_byref_global_0 *global = <strong>cself-&gt;global; // bound by ref<br> 不使用</strong>block 修饰:<br>        int global = __cself-&gt;global; // bound by copy<br>划重点，因为一个是<code>bound by ref</code> 一个是<code>bound by copy</code>。一个是传递了指针，一个是对当前捕获的值的拷贝</p>
-</blockquote>
-<p>#Block 与 全局变量<br>在外层定义一个全部变量，执行下面的代码</p>
-<pre><code>void(^myBlock)(void) = ^{
-     NSLog(@&quot;global = %d&quot;,global);
- };
- global = 101;
- myBlock();
-  //运行结果
- global = 101
-</code></pre><p>为什么不使用__block 也可以修改，我们打开.cpp 进行查看</p>
-<pre><code>int global = 100;//先定义了一个全局的变量
-
-struct __main_block_impl_0 {
-  struct __block_impl impl;
-  struct __main_block_desc_0* Desc;
-  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int flags=0) {
-    impl.isa = &amp;_NSConcreteStackBlock;
-    impl.Flags = flags;
-    impl.FuncPtr = fp;
-    Desc = desc;
-  }
-};
-</code></pre><p>在block 结构体的上方，已经定义了一个全局的变量，所以直接使用就可以了。不需要像局部变量一样，而且它并没有被 block 所捕获。</p>
-<h2 id="Block-与-静态变量"><a href="#Block-与-静态变量" class="headerlink" title="Block 与 静态变量"></a>Block 与 静态变量</h2><p>定义一个静态变量，执行下面的代码</p>
-<pre><code>static int global = 100;
-
- void(^myBlock)(void) = ^{
-     NSLog(@&quot;global = %d&quot;,global);
- };
- global = 101;
- myBlock();
-
-  //运行结果
-  global = 101
-</code></pre><p>为什么不使用__block 也可以修改，我们打开.cpp 进行查看</p>
-<pre><code>struct __main_block_impl_0 {
-  struct __block_impl impl;
-  struct __main_block_desc_0* Desc;
-  int *global;
-  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int *_global, int flags=0) : global(_global) {
-    impl.isa = &amp;_NSConcreteStackBlock;
-    impl.Flags = flags;
-    impl.FuncPtr = fp;
-    Desc = desc;
-  }
-};
-</code></pre><p>在 global 进行赋值的时候是这样的</p>
-<pre><code>static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
-    int *global = __cself-&gt;global; // bound by copy
-
-     NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_bq_bv7y3wj94sg1_5ldvtywqy7c0000gn_T_main_d41b2e_mi_0,(*global));
- }
-</code></pre><p>它和局部变量不使用__block 修饰看起来很像，所以做了下对比</p>
-<blockquote>
-<p>静态全局变量:<br> int *global = <strong>cself-&gt;global; // bound by copy<br>不使用</strong>block 修饰的局部变量:<br>int global = <strong>cself-&gt;global; // bound by copy<br>划重点，虽然都是 copy，但是静态全局变量 copy 了指针，而不使用</strong>block修改的局部变量进行了值的 copy。</p>
-</blockquote>
-<h2 id="ARC-下的-Block"><a href="#ARC-下的-Block" class="headerlink" title="ARC 下的 Block"></a>ARC 下的 Block</h2><h3 id="1-EXC-BAD-ACCESS-code-1-address-0x10"><a href="#1-EXC-BAD-ACCESS-code-1-address-0x10" class="headerlink" title="1.EXC_BAD_ACCESS (code=1, address=0x10)"></a>1.EXC_BAD_ACCESS (code=1, address=0x10)</h3><p>我有一个 User类</p>
-<h1 id="user-h"><a href="#user-h" class="headerlink" title="user.h"></a>user.h</h1><pre><code>typedef void(^nameBlock)(void);
-@interface User : NSObject
-@property (nonatomic,strong)NSString *name;
-@property (nonatomic,copy)nameBlock block;
--(instancetype)initWithName:(NSString *)name;
-
-@end
-</code></pre><p>#user.m</p>
-<p>#import “User.h”</p>
-<pre><code>@implementation User
--(instancetype)initWithName:(NSString *)name{
-    self = [super init];
-    if (self) {
-         _name = name;
-    }
-    return self;
-}
-@end
-</code></pre><p>如果不赋值直接调用user.block();那么直接就会报错EXC_BAD_ACCESS (code=1, address=0x10)，在使用时要注意<br><img src="https://upload-images.jianshu.io/upload_images/2239937-ebf5b76e231d130d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="不对 block 赋值，直接调用"><br>所以在调用 block 之前需要先赋值然后调用，这样就能解决这个问题</p>
-<h3 id="2-循环引用"><a href="#2-循环引用" class="headerlink" title="2.循环引用"></a>2.循环引用</h3><p><img src="https://upload-images.jianshu.io/upload_images/2239937-a3a11acd4d28c273.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="循环引用"></p>
-<p>user有一个属性是一个 block，并且在内部又调用了 user，造成了循环引用。在编写代码的时候，编译器就给出了上面的黄色警告。</p>
-<h4 id="怎么知道发生了循环引用"><a href="#怎么知道发生了循环引用" class="headerlink" title="怎么知道发生了循环引用"></a>怎么知道发生了循环引用</h4><p>xcode 9 的话，我们可以打断点看，我们在 autoreleasepool 结束的时候打断点<br><img src="https://upload-images.jianshu.io/upload_images/2239937-f4e88b661cfdf66d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="debug memory"><br>点击 Debug Memory 那个选项<br><img src="https://upload-images.jianshu.io/upload_images/2239937-1cbcc51143e085df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="内存的图"><br>本来这个 pool 结束的时候，user 应该被释放掉，但是因为在 block 内部强引用了 user，造成了循环引用。</p>
-<h5 id="如果我们去掉-block-内部的那些代码"><a href="#如果我们去掉-block-内部的那些代码" class="headerlink" title="如果我们去掉 block 内部的那些代码"></a>如果我们去掉 block 内部的那些代码</h5><p><img src="https://upload-images.jianshu.io/upload_images/2239937-3ad42ef81ac485d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没有形成循环引用"></p>
-<p>如果没有了 block 内部对 user 的强引用，那么便不会发生这种情况</p>
-<h5 id="如果我们一定要在-block-内部调用-user"><a href="#如果我们一定要在-block-内部调用-user" class="headerlink" title="如果我们一定要在 block 内部调用 user"></a>如果我们一定要在 block 内部调用 user</h5><p>修改我们的代码</p>
-<pre><code>User *user = [[User alloc]initWithName:@&quot;Likee&quot;];
-__weak typeof(user)weakUser = user;
-user.block = ^{
-    weakUser.name = @&quot;cat&quot;;
-    NSLog(@&quot;name is %@&quot;,weakUser.name);
-};
-NSLog(@&quot;name is %@&quot;,user.name);
-user.block();
-</code></pre><p>在 block的内部使用弱引用，这样的话，就能打破这个环。内存图就像下面这个样子<br><img src="https://upload-images.jianshu.io/upload_images/2239937-397ffb103db40f73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="解决循环引用"></p>
-<h1 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h1><p><a href="https://www.jianshu.com/p/14efa33b3562" target="_blank" rel="noopener">一篇文章看懂iOS代码块Block
-</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2018/08/31/Block的一些简单理解/" data-id="cjycaykea000zsl8zyz9mi06j" class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/block/">block</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post-离屏渲染" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2018/08/20/离屏渲染/">离屏渲染</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2018/08/20/离屏渲染/" class="article-date">
-  <time datetime="2018-08-20T10:05:13.000Z" itemprop="datePublished">2018-08-20</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/UIView/">UIView</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在看一些离屏渲染的东西，接触到一些新的名词，轻量级别的 CALayer 代替 UIView ，mask ，bitmap 整理下这部分的内容</p>
-<h1 id="UIView"><a href="#UIView" class="headerlink" title="UIView"></a>UIView</h1><p>我们先来看看 UIView 的说明</p>
-<pre><code>@interface UIView : UIResponder &lt;NSCoding, UIAppearance, UIAppearanceContainer, UIDynamicItem, UITraitEnvironment, UICoordinateSpace, UIFocusItem, CALayerDelegate&gt;
-</code></pre><p>UIView 继承了UIResponder，所以 UIView 可以响应用户的一些操作。而且 UIView 遵循代理 CALayerDelegate 。和 CALayer 有了一点点的联系</p>
-<h2 id="layer属性"><a href="#layer属性" class="headerlink" title="layer属性"></a>layer属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic, readonly, strong) CALayer *layer;</span><br></pre></td></tr></table></figure>
-<h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><p>This property is never nil. The actual class of the object is determined by the value returned in the layerClass property. The view is the layer’s delegate.</p>
-<blockquote>
-<p>Warning<br>Because the view is the layer’s delegate, never make the view the delegate of another CALayer object. Additionally, never change the delegate of this layer object.</p>
-</blockquote>
-<p>从文档中可以看出的是，每一个 view.layer都不是 nil,而且这个 view 是 layer 的 <code>&lt;CALayerDelegate&gt;</code> delegate。而且永远不要去改变 这个 layer 的代理</p>
-<h1 id="CALayer"><a href="#CALayer" class="headerlink" title="CALayer"></a>CALayer</h1><pre><code>@interface CALayer : NSObject &lt;NSSecureCoding, CAMediaTiming&gt;
-</code></pre><p>CALayer继承于 NSObject ，无法响应用户的操作。</p>
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><blockquote>
-<p>A layer’s main job is to manage the visual content that you provide but the layer itself has visual attributes that can be set, such as a background color, border, and shadow. In addition to managing visual content, the layer also maintains information about the geometry of its content (such as its position, size, and transform) that is used to present that content onscreen.<br>If the layer object was created by a view, the view typically assigns itself as the layer’s delegate automatically, and you should not change that relationship. </p>
-</blockquote>
-<p>从 Overview 中截取了一部分，layer 的首要任务就是管理你提供的那些内容，当然它本身也可以设置一些显示的属性，比如 color、border、shadow 等。当然 layer 也帮助你管理显示在屏幕的内容。像是位置、大小和一些变换的东西</p>
-<h3 id="layer-中一些触发离屏渲染的属性"><a href="#layer-中一些触发离屏渲染的属性" class="headerlink" title="layer 中一些触发离屏渲染的属性"></a>layer 中一些触发离屏渲染的属性</h3><h4 id="mask"><a href="#mask" class="headerlink" title="mask"></a>mask</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(strong) CALayer *mask;</span><br></pre></td></tr></table></figure>
-<p>The layer’s alpha channel determines how much of the layer’s content and background shows through. Fully or partially opaque pixels allow the underlying content to show through but fully transparent pixels block that content.</p>
-<p>mask 也是一个 CALayer, mask 代表着怎么样的像素能够穿过 mask 被显示出来。你一定写过这样的代码。</p>
-<pre><code>imageView.image.layer.cornerRadius = 5;
-imageView.image.layer.masksToBounds = YES;
-</code></pre><p>我们来分别看看这两行代码代表什么，设置圆角，然后进行裁剪显示出来圆角</p>
-<h5 id="1-cornerRadius"><a href="#1-cornerRadius" class="headerlink" title="1.cornerRadius"></a>1.cornerRadius</h5><blockquote>
-<p>Setting the radius to a value greater than 0.0 causes the layer to begin drawing rounded corners on its background. By default, the corner radius does not apply to the image in the layer’s contents property; it applies only to the background color and border of the layer. However, setting the masksToBounds property to YES causes the content to be clipped to the rounded corners.</p>
-</blockquote>
-<p>划重点，在默认情况下，cornerRadius 不会对 layer 的内容是 image 生效的，但是只要你设置 masksToBounds 为 YES,那么这样就是可行的</p>
-<h5 id="2-masksToBounds"><a href="#2-masksToBounds" class="headerlink" title="2.masksToBounds"></a>2.masksToBounds</h5><blockquote>
-<p>When the value of this property is YES, Core Animation creates an implicit clipping mask that matches the bounds of the layer and includes any corner radius effects. If a value for the mask property is also specified, the two masks are multiplied to get the final mask value.<br>如果设置了masksToBounds 为 YES，那么 Core Animation 就会隐式的创建一个 与 layer 的 bounds 相匹配的并且裁切过的 mask，这个 mask 就可以实现圆角的效果</p>
-</blockquote>
-<h5 id="shadow"><a href="#shadow" class="headerlink" title="shadow"></a>shadow</h5><h6 id="1-shadowOpacity"><a href="#1-shadowOpacity" class="headerlink" title="1. shadowOpacity"></a>1. shadowOpacity</h6><blockquote>
-<p>The opacity of the layer’s shadow. Animatable.<br>设置 layer 的不透明度</p>
-</blockquote>
-<h6 id="2-shadowRadius"><a href="#2-shadowRadius" class="headerlink" title="2.shadowRadius"></a>2.shadowRadius</h6><blockquote>
-<p>The blur radius (in points) used to render the layer’s shadow. Animatable.<br>用来进行阴影半径渲染的模糊半径</p>
-</blockquote>
-<h6 id="3-shadowOffset"><a href="#3-shadowOffset" class="headerlink" title="3. shadowOffset"></a>3. shadowOffset</h6><blockquote>
-<p>The offset (in points) of the layer’s shadow. Animatable.<br>设置 layer 的阴影偏移量</p>
-</blockquote>
-<h5 id="edgeAntialiasing"><a href="#edgeAntialiasing" class="headerlink" title="edgeAntialiasing"></a>edgeAntialiasing</h5><h6 id="edgeAntialiasingMask"><a href="#edgeAntialiasingMask" class="headerlink" title="edgeAntialiasingMask"></a>edgeAntialiasingMask</h6><blockquote>
-<p>This property specifies which edges of the layer are antialiased and is a combination of the constants defined in <code>CAEdgeAntialiasingMask</code>. You can enable or disable antialiasing for each edge (top, left, bottom, right) separately. By default antialiasing is enabled for all edges.<br>通过这个属性可以对某一个或者某几个边启用或者不启用抗锯齿，当然默认是对所有的生效</p>
-</blockquote>
-<h6 id="allowsEdgeAntialiasing"><a href="#allowsEdgeAntialiasing" class="headerlink" title="allowsEdgeAntialiasing"></a>allowsEdgeAntialiasing</h6><blockquote>
-<p>When the value is <code>YES</code>, the layer is allowed to antialias its edges, as requested by the value in the layer’s <code>edgeAntialiasingMask</code> property. The default value is read from the boolean <code>UIViewEdgeAntialiasing</code> property in the main bundle’s <code>Info.plist</code> file. If no value is found, the default value is <code>NO</code>.<br>开启了抗锯齿的话，就回去访问<code>edgeAntialiasingMask</code>，看看会有那些边开启抗锯齿</p>
-</blockquote>
-<h4 id="group-opacity"><a href="#group-opacity" class="headerlink" title="group opacity"></a>group opacity</h4><h5 id="allowsGroupOpacity"><a href="#allowsGroupOpacity" class="headerlink" title="allowsGroupOpacity"></a>allowsGroupOpacity</h5><pre><code>@property BOOL allowsGroupOpacity;
-</code></pre><blockquote>
-<p>When the value is YES and the layer’s opacity property value is less than 1.0, the layer is allowed to composite itself as a group separate from its parent. This gives correct results when the layer contains multiple opaque components, but may reduce performance.<br>如果设置 <code>allowsGroupOpacity</code>为 YES 并且 layer 的opacity小于1，那么该layer将 被允许将其自身合并为一个组，并且是与他的parent分开的。而且需要注意的是，如果这个 layer 还包含很多的不透明的子 layer 的话，那么就会牺牲一些性能。而在 iOS 7＋ ,这个属性默认为 YES 。</p>
-</blockquote>
-<h4 id="bitmap"><a href="#bitmap" class="headerlink" title="bitmap"></a>bitmap</h4><p>layer 中有个属性 contents </p>
-<h2 id="Declaration"><a href="#Declaration" class="headerlink" title="Declaration"></a>Declaration</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(strong) id contents;</span><br></pre></td></tr></table></figure>
-<h5 id="Discussion-1"><a href="#Discussion-1" class="headerlink" title="Discussion"></a>Discussion</h5><blockquote>
-<p>If you are using the layer to display a static image, you can set this property to the <code>CGImageRef</code>containing the image you want to display. (In macOS 10.6 and later, you can also set the property to an <code>NSImage</code> Assigning a value to this property causes the layer to use your image rather than create a separate backing store.</p>
-</blockquote>
-<p>contents 可以设置一个静态的图片，传入一个<code>CGImageRef</code>。打开这个<code>CGImageRef</code>会发现这样的一段描述</p>
-<h6 id="CGImageRef"><a href="#CGImageRef" class="headerlink" title="CGImageRef"></a>CGImageRef</h6><p>Structure<br>A bitmap image or image mask.</p>
-<pre><code>typedef struct CF_BRIDGED_TYPE(id) CGImage *CGImageRef;
-</code></pre><p>这是个指向 CGImage 结构体的指针</p>
-<h6 id="CGImage"><a href="#CGImage" class="headerlink" title="CGImage"></a>CGImage</h6><blockquote>
-<p>A bitmap (or sampled) image is a rectangular array of pixels, with each pixel representing a single sample or data point in a source image.<br> 一个 bitmap image 就是一个矩形像素阵列，每个像素表示源图像中的单个样本或数据点。</p>
-</blockquote>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最近在接触一些离屏渲染的东西，看到这些陌生的名词。先动手整理了下，方便以后查看。先写到这里，各位大佬轻拍</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2018/08/20/离屏渲染/" data-id="cjycaykev001qsl8z52i4y4f7" class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIView/">UIView</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post- 微信分享长图" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2018/08/17/ 微信分享长图/">微信分享长图</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2018/08/17/ 微信分享长图/" class="article-date">
-  <time datetime="2018-08-17T10:05:13.000Z" itemprop="datePublished">2018-08-17</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/UIView/">UIView</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <p>#1.简介<br>项目中有微信分享的相关内容，要求分享长截图到微信，要求截取 tableView 的全部内容并且底部加上二维码。做的过程中有一些问题，做下记录。</p>
-<p>#2.步骤<br>1.截取 tableView 的内容，并且生成一张图片<br>2.生成底部的分享二维码的图片<br>3.对这些图片进行拼接<br>4.分享</p>
-<p>#3.过程中遇到的一些问题</p>
-<p>##1.如何生成 tableView 的长截图<br><a href="https://github.com/TonyReet/TYSnapshotScroll" target="_blank" rel="noopener">TYSnapshotScroll</a>，前人已经为你准备好了工具，直接使用即可</p>
-<h3 id="如何自己绘制这张长截图"><a href="#如何自己绘制这张长截图" class="headerlink" title="如何自己绘制这张长截图"></a>如何自己绘制这张长截图</h3><p>我们可以使用  Quartz2D 提供的相关 API进行绘制。下文中的 <code>self</code>指代的是 tableView</p>
-<blockquote>
-<p>1.创建上下文，设置这个 bitmap 的size 、opaque和scale。<br>注:(scale 建议设置为 <code>[UIScreen mainScreen].scale</code>)，如果 <code>scale</code>设置的不对，那么你最后得到的图片就会很模糊。    </p>
-</blockquote>
-<pre><code>UIGraphicsBeginImageContextWithOptions(self.bounds.size,NO,[UIScreen mainScreen].scale);
-</code></pre><blockquote>
-<p>2.将 layer 渲染到当前的上下文中</p>
-</blockquote>
-<pre><code>[self.layer renderInContext: UIGraphicsGetCurrentContext()];
-</code></pre><blockquote>
-<p>3.从上下文获取制作好的图片，这就是你需要的</p>
-</blockquote>
-<pre><code>snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
-</code></pre><blockquote>
-<p>4.关闭这个上下文</p>
-</blockquote>
-<pre><code>UIGraphicsEndImageContext();
-</code></pre><h2 id="2-我们的二维码是UI给的图，我们需要做的就是将这两个-image-合成为一张"><a href="#2-我们的二维码是UI给的图，我们需要做的就是将这两个-image-合成为一张" class="headerlink" title="2.我们的二维码是UI给的图，我们需要做的就是将这两个 image 合成为一张"></a>2.我们的二维码是UI给的图，我们需要做的就是将这两个 image 合成为一张</h2><h3 id="如何合成"><a href="#如何合成" class="headerlink" title="如何合成"></a>如何合成</h3><p>直接使用<a href="https://github.com/TonyReet/TYSnapshotScroll" target="_blank" rel="noopener">TYSnapshotScroll</a>,有个 UIImage 的扩展方法，可以直接使用图片集合将好几张图合成为一张。（这里有个坑，就是两张 image 可以合成，但是他们都会保持自己的大小,你可能会发现你的截屏图片的宽度==屏幕宽度，但是 UI 给的二维码图  ！= 屏幕宽度）</p>
-<h3 id="徒手绘制"><a href="#徒手绘制" class="headerlink" title="徒手绘制"></a>徒手绘制</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>1.创建一个 size ,计算两个图片的总长度<br>2.创建一个用来绘制的上下文<br>3.绘制这两张图片到上下文<br>4.拿出合成后的图片<br>5.关闭上下文</p>
-<pre><code>CGSize contentSize = CGSizeMake(snapshotImage.size.width, snapshotImage.size.height + 80);
-
-UIGraphicsBeginImageContextWithOptions(contentSize, NO, [UIScreen mainScreen].scale);
-
-[snapshotImage drawInRect:CGRectMake(0, 0, snapshotImage.size.width, snapshotImage.size.height)];
-
-[footerImage drawInRect:CGRectMake(0,snapshotImage.size.height, snapshotImage.size.width, 80)];
-
-UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
-
-UIGraphicsEndImageContext();
-</code></pre><h3 id="如何在-debug-的时候查看绘制好的这个图片"><a href="#如何在-debug-的时候查看绘制好的这个图片" class="headerlink" title="如何在 debug 的时候查看绘制好的这个图片"></a>如何在 debug 的时候查看绘制好的这个图片<img src="https://upload-images.jianshu.io/upload_images/2239937-8c6efe811c373945.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击这个小眼睛就可以看到了，还可以用预览打开"></h3><h2 id="4-微信分享"><a href="#4-微信分享" class="headerlink" title="4.微信分享"></a>4.微信分享</h2><pre><code>- (void)WXShareImageWithSence:(BOOL)isSession{
-
-    WXMediaMessage *message = [WXMediaMessage message];
-
-    WXImageObject *ext = [WXImageObject object];
-    //图片
-    NSData *imageData = UIImagePNGRepresentation(self.shareImage);
-    //缩略图
-    UIImage *tubmbImage =  [self compressImage:self.shareImage toByte:31 *1024];
-
-    ext.imageData = imageData;
-    // 缩略图 小于32KB
-    message.mediaObject = ext;
-
-    [message setThumbImage:tubmbImage];
-
-    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.scene = isSession ? WXSceneSession : WXSceneTimeline;
-    req.message = message;
-    [WXApi sendReq:req];
-
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2018/08/17/ 微信分享长图/" data-id="cjycaykdg0006sl8zb431560n" class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIView/">UIView</a></li></ul>
 
     </footer>
 
@@ -662,7 +397,7 @@ UIGraphicsEndImageContext();
 </ul>
     </div>
     <ul class="list-inline">
-      <li>&copy; 2019 LikeeCat&#39;s Blog</li>
+      <li>&copy; 2020 LikeeCat&#39;s Blog</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
     </ul>
