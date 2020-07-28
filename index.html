@@ -60,6 +60,92 @@
 
     
       
+        <article id="post-NSDictionary 使用中的一些问题" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/07/29/NSDictionary 使用中的一些问题/">NSDictionary 使用中的一些问题</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2020/07/29/NSDictionary 使用中的一些问题/" class="article-date">
+  <time datetime="2020-07-29T10:05:13.000Z" itemprop="datePublished">2020-07-29</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/tip/">tip</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="NSDictionary-使用中的一些问题"><a href="#NSDictionary-使用中的一些问题" class="headerlink" title="NSDictionary 使用中的一些问题"></a>NSDictionary 使用中的一些问题</h1><h2 id="1-dictionaryWithObjectsAndKeys"><a href="#1-dictionaryWithObjectsAndKeys" class="headerlink" title="1. dictionaryWithObjectsAndKeys"></a>1. dictionaryWithObjectsAndKeys</h2><pre><code>NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@&quot;12&quot;,@&quot;key&quot;,&quot;11&quot;,@&quot;age&quot;,nil];
+NSLog(@&quot;dic is %@&quot;,dic);
+</code></pre><p>我们在使用<code>dictionaryWithObjectsAndKeys</code>或者一些其他字面量去创建OC对象的时候，参数应该是<strong><em>Objective-C字符串</em></strong>，不是<strong><em>C语言</em></strong>的字符串</p>
+<p>##2. 关于NSDictionary 转 JSON字符串的坑<br>我们经常能在网上搜到下面的内容</p>
+<pre><code>-(NSString*)convertAlfredaJsonString:(NSDictionary *)dic{
+
+    NSString *jsonString = nil;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:&amp;error];
+    if (!jsonData) {
+        return @&quot;&quot;;
+    } 
+    else {
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
+}
+</code></pre><p>##坑<br>在你使用上面代码的时候，你生成的 json字符串中会带有<code>&quot;\n&quot;</code>的换行符，因为这个换行符，因为web、后端可能对换行符进行了一些处理，直接这么传过去，可能会出现问题</p>
+<h2 id="正确的做法"><a href="#正确的做法" class="headerlink" title="正确的做法"></a>正确的做法</h2><pre><code>NSMutableString *occultStr = [NSMutableString stringWithString:jsonString];
+NSRange range = {0,jsonString.length};
+//去掉字符串中的空格
+[occultStr replaceOccurrencesOfString:@&quot; &quot; withString:@&quot;&quot; options:NSLiteralSearch range:range];
+NSRange range2 = {0,occultStr.length};
+[occultStr replaceOccurrencesOfString:@&quot;\n&quot; withString:@&quot;&quot; options:NSLiteralSearch range:range2];
+</code></pre><p>在生成 json字符串后，将其中的<code>&quot;\n&quot;</code>、<code>&quot; &quot;</code>空格去掉，然后再传给后端</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2020/07/29/NSDictionary 使用中的一些问题/" data-id="ckd68805g00051ljgxx6jqcia" class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tip/">tip</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
         <article id="post-iOS中framework的相关命令" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -113,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/07/25/iOS中framework的相关命令/" data-id="ckd19lcjc00103ajfjroieryg" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/07/25/iOS中framework的相关命令/" data-id="ckd68805w000t1ljgu9cmaluo" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">framework</a></li></ul>
 
@@ -178,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/06/23/github下载太慢/" data-id="ckd19lcja000u3ajfspk22n1u" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/06/23/github下载太慢/" data-id="ckd68805u000r1ljgo5fhyc31" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
 
@@ -241,7 +327,7 @@
       
     </p></div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2019/11/17/ Flutter 加载txt文件/" data-id="ckd19lcio00013ajfw4706uui" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2019/11/17/ Flutter 加载txt文件/" data-id="ckd68805b00011ljg2c2z3z0g" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flutter/">Flutter</a></li></ul>
 
@@ -306,77 +392,9 @@
       
     </blockquote></li></ol></div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2019/06/12/面试问题汇总/" data-id="ckd19lcjg001e3ajfngiufz9r" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2019/06/12/面试问题汇总/" data-id="ckd688066001f1ljg9sx6cpgg" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post-NSArray之深浅拷贝" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/06/11/NSArray之深浅拷贝/">NSArray之深浅拷贝</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/06/11/NSArray之深浅拷贝/" class="article-date">
-  <time datetime="2019-06-11T10:05:13.000Z" itemprop="datePublished">2019-06-11</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/NSArray/">NSArray</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <h2 id="1-自定义对象"><a href="#1-自定义对象" class="headerlink" title="1. 自定义对象"></a>1. 自定义对象</h2><ol>
-<li><p>假设我有一个Student类</p>
-<pre><code>@interface Student()&lt;NSCopying,NSMutableCopying&gt;
-@property (nonatomic,copy)NSString *name;
-@property (nonatomic,assign)NSInteger age;
-@end
-</code></pre>
-        
-          <a class="article-more-link" href="/2019/06/11/NSArray之深浅拷贝/">阅读全文...</a>
-        
-      
-    </li></ol></div>
-    <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2019/06/11/NSArray之深浅拷贝/" data-id="ckd19lciv00053ajfhqop8u9s" class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSArray/">NSArray</a></li></ul>
 
     </footer>
 
@@ -397,7 +415,7 @@
   
     <nav class="page-nav">
       
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
     </nav>
   
 </section>

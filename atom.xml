@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://LikeeCat.github.io/"/>
-  <updated>2020-07-25T05:34:15.339Z</updated>
+  <updated>2020-07-28T17:40:21.986Z</updated>
   <id>http://LikeeCat.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NSDictionary 使用中的一些问题</title>
+    <link href="http://LikeeCat.github.io/2020/07/29/NSDictionary%20%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/>
+    <id>http://LikeeCat.github.io/2020/07/29/NSDictionary 使用中的一些问题/</id>
+    <published>2020-07-29T10:05:13.000Z</published>
+    <updated>2020-07-28T17:40:21.986Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="NSDictionary-使用中的一些问题"><a href="#NSDictionary-使用中的一些问题" class="headerlink" title="NSDictionary 使用中的一些问题"></a>NSDictionary 使用中的一些问题</h1><h2 id="1-dictionaryWithObjectsAndKeys"><a href="#1-dictionaryWithObjectsAndKeys" class="headerlink" title="1. dictionaryWithObjectsAndKeys"></a>1. dictionaryWithObjectsAndKeys</h2><pre><code>NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@&quot;12&quot;,@&quot;key&quot;,&quot;11&quot;,@&quot;age&quot;,nil];NSLog(@&quot;dic is %@&quot;,dic);</code></pre><p>我们在使用<code>dictionaryWithObjectsAndKeys</code>或者一些其他字面量去创建OC对象的时候，参数应该是<strong><em>Objective-C字符串</em></strong>，不是<strong><em>C语言</em></strong>的字符串</p><p>##2. 关于NSDictionary 转 JSON字符串的坑<br>我们经常能在网上搜到下面的内容</p><pre><code>-(NSString*)convertAlfredaJsonString:(NSDictionary *)dic{    NSString *jsonString = nil;    NSError *error;    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic                                                   options:NSJSONWritingPrettyPrinted                                                     error:&amp;error];    if (!jsonData) {        return @&quot;&quot;;    }     else {        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];    }    return jsonString;}</code></pre><p>##坑<br>在你使用上面代码的时候，你生成的 json字符串中会带有<code>&quot;\n&quot;</code>的换行符，因为这个换行符，因为web、后端可能对换行符进行了一些处理，直接这么传过去，可能会出现问题</p><h2 id="正确的做法"><a href="#正确的做法" class="headerlink" title="正确的做法"></a>正确的做法</h2><pre><code>NSMutableString *occultStr = [NSMutableString stringWithString:jsonString];NSRange range = {0,jsonString.length};//去掉字符串中的空格[occultStr replaceOccurrencesOfString:@&quot; &quot; withString:@&quot;&quot; options:NSLiteralSearch range:range];NSRange range2 = {0,occultStr.length};[occultStr replaceOccurrencesOfString:@&quot;\n&quot; withString:@&quot;&quot; options:NSLiteralSearch range:range2];</code></pre><p>在生成 json字符串后，将其中的<code>&quot;\n&quot;</code>、<code>&quot; &quot;</code>空格去掉，然后再传给后端</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;NSDictionary-使用中的一些问题&quot;&gt;&lt;a href=&quot;#NSDictionary-使用中的一些问题&quot; class=&quot;headerlink&quot; title=&quot;NSDictionary 使用中的一些问题&quot;&gt;&lt;/a&gt;NSDictionary 使用中的一些问题&lt;/
+      
+    
+    </summary>
+    
+      <category term="tip" scheme="http://LikeeCat.github.io/categories/tip/"/>
+    
+    
+      <category term="tip" scheme="http://LikeeCat.github.io/tags/tip/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS中framework的相关命令</title>
@@ -521,28 +546,6 @@ void(^my
     <summary type="html">
     
       &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?&lt;br&gt;
-    
-    </summary>
-    
-      <category term="UITableView" scheme="http://LikeeCat.github.io/categories/UITableView/"/>
-    
-    
-      <category term="UITableView" scheme="http://LikeeCat.github.io/tags/UITableView/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UITableView 之 正确的 reloadData</title>
-    <link href="http://LikeeCat.github.io/2018/07/17/UITableView%20%E4%B9%8B%20%E6%AD%A3%E7%A1%AE%E7%9A%84%20reloadData/"/>
-    <id>http://LikeeCat.github.io/2018/07/17/UITableView 之 正确的 reloadData/</id>
-    <published>2018-07-17T06:33:13.000Z</published>
-    <updated>2019-05-29T04:37:43.667Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-tableview-reloadData"><a href="#1-tableview-reloadData" class="headerlink" title="1. tableview reloadData"></a>1. tableview reloadData</h2><p>假设你有一个 tableview ，你的 cell 中有 UITextField 或者 UITextView,而且你在编辑这一行的数据。此时对文本框进行监听，然后调用了 <code>reloadData</code>，键盘就消失了。<br><a id="more"></a></p><pre><code>/*Reloads everything from scratch. Redisplays visible rows.    Note that this will cause any existing drop placeholder rows   to be removed.*/- (void)reloadData;</code></pre><p>api里面是这么描述的</p><blockquote><p>Call this method to reload all the data that is used to construct the table, including cells, section headers and footers, index arrays, and so on. For efficiency, the table view redisplays only those rows that are visible. It adjusts offsets if the table shrinks as a result of the reload. The table view’s delegate or data source calls this method when it wants the table view to completely reload its data. It should not be called in the methods that insert or delete rows, especially within an animation block implemented with calls to <code>beginUpdates</code> and  <code>endUpdates</code>.</p></blockquote><p>划重点:Call this method to reload all the data that is used to construct the table, including cells, section headers and footers, index arrays, and so on..<br>在你进行编辑的时候，你的 cell 中的<code>UITextView</code>或者<code>UITextField</code>是 first responder。但是 <code>reloadData</code> reload了所有的数据，包括了你的表头，表尾，单元格等所有的数据。因为你的单元格要被重载，所以你的<code>UITextView</code>和<code>UITextField</code>就不是 first responder。那么相应的表现出来的就是你的键盘会被收起来</p><h2 id="2-tableview-reloadRowsAtIndexPaths-withRowAnimation"><a href="#2-tableview-reloadRowsAtIndexPaths-withRowAnimation" class="headerlink" title="2. tableview reloadRowsAtIndexPaths:withRowAnimation:"></a>2. tableview reloadRowsAtIndexPaths:withRowAnimation:</h2><p>api 里面的描述</p><blockquote><p>Reloading a row causes the table view to ask its data source for a new cell for that row. The table animates that new cell in as it animates the old row out. Call this method if you want to alert the user that the value of a cell is changing. If, however, notifying the user is not important—that is, you just want to change the value that a cell is displaying—you can get the cell for a particular row and set its new value.</p></blockquote><p>划重点：Reloading a row causes the table view to ask its data source for a new cell for that row. The table animates that new cell in as it animates the old row out. </p><p>假设你在编辑 A行的数据，此时A中有和这个数据绑定的刷新,那么你reloadRowsAtIndexPaths:withRowAnimation 。你调用此方法会导致旧的cell消失，而新的 cell出现后并没有被注册成为 first responder 。所以键盘也会消失。 但是在 A行刷新 B行的数据，则不会出现此问题。</p><h2 id="3-table-beginUpdates-amp-endUpdates"><a href="#3-table-beginUpdates-amp-endUpdates" class="headerlink" title="3.table beginUpdates &amp; endUpdates"></a>3.table beginUpdates &amp; endUpdates</h2><p>关于 beginUpdates 的描述</p><blockquote><p>Call this method if you want subsequent insertions, deletion, and selection operations (for example, <code>cellForRowAtIndexPath:</code> and <code>indexPathsForVisibleRows</code>) to be animated simultaneously. You can also use this method followed by the <code>endUpdates</code> method to animate the change in the row heights without reloading the cell. This group of methods must conclude with an invocation of <code>endUpdates</code>. These method pairs can be nested. If you do not make the insertion, deletion, and selection calls inside this block, table attributes such as row count might become invalid. You should not call <code>reloadData</code> within the group; if you call this method within the group, you must perform any animations yourself.</p></blockquote><p>划重点： You can also use this method followed by the <code>endUpdates</code> method to animate the change in the row heights without reloading the cell<br>假设你需要动态的修改 cell 的高度，你可以调用此方法，这样就可以动态的改变单元格的高度。如果你需要一组动画，同时进行插入和删除的话，那么也可以使用这个方法。但是不要在此调用<code>reloadData</code>方法，如果你需要reloadData 在此方法中，那么你需要自己实现动画</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>最近在 tableview中挣扎了好久，闲下来把 tableview 数据刷新的一些坑整理了一下。接下来还有动态单元格，抽空也尽量的都写出来。尽量少让后人采坑</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-tableview-reloadData&quot;&gt;&lt;a href=&quot;#1-tableview-reloadData&quot; class=&quot;headerlink&quot; title=&quot;1. tableview reloadData&quot;&gt;&lt;/a&gt;1. tableview reloadData&lt;/h2&gt;&lt;p&gt;假设你有一个 tableview ，你的 cell 中有 UITextField 或者 UITextView,而且你在编辑这一行的数据。此时对文本框进行监听，然后调用了 &lt;code&gt;reloadData&lt;/code&gt;，键盘就消失了。&lt;br&gt;
     
     </summary>
     
