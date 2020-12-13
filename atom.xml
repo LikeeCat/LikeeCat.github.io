@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://LikeeCat.github.io/"/>
-  <updated>2020-07-28T17:40:21.986Z</updated>
+  <updated>2020-12-13T07:50:05.629Z</updated>
   <id>http://LikeeCat.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>20. Valid Parentheses</title>
+    <link href="http://LikeeCat.github.io/2020/12/13/Valid%20Parentheses/"/>
+    <id>http://LikeeCat.github.io/2020/12/13/Valid Parentheses/</id>
+    <published>2020-12-13T07:05:13.000Z</published>
+    <updated>2020-12-13T07:50:05.629Z</updated>
+    
+    <content type="html"><![CDATA[<p>#题目</p><p><img src="/Users/fanshukang/Desktop/截屏2020-12-13 下午3.29.50.png" alt="图"></p><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从题目给出的意思来看的话,这道题就是用Close brackets 来匹配 Open brackets,那么这个数组的数目必须是偶数个,否则肯定无法匹配</li><li>如果刚开始就是Close bracket那么也无法匹配</li><li>Open brackets 需要优先去匹配离他最近的 Close bracket,且中间不能有其他未匹配完的符号</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p><img src="/Users/fanshukang/Desktop/截屏2020-12-13 下午3.41.53.png" alt="思路"></p><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution {//存放未匹配到Close brackets 的数组var element:[Character] = []//匹配字符串用到的字典let validDic:[String:Character] = [&quot;[&quot;:&quot;]&quot;,&quot;{&quot;:&quot;}&quot;,&quot;(&quot;:&quot;)&quot;]func isValid(_ s: String) -&gt; Bool {    for i in s{            //如果是Open bracket,就放入brackets的数组        if i == &quot;[&quot; || i == &quot;{&quot; || i == &quot;(&quot;{            self.element.append(i)        }        else{                //如果Stack为空,那么就不匹配            if self.element.isEmpty {                return false            }            else{                    //找到栈顶的元素,与当前的i进行对比                let lastElement = String(self.element.last!)                if validDic[String.init(lastElement)] == i  {                    self.element.removeLast()                }                else{                    return false                }            }        }    }    //如果栈中不存在任何的元素,则证明匹配成功    return self.element.isEmpty}}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;#题目&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/Users/fanshukang/Desktop/截屏2020-12-13 下午3.29.50.png&quot; alt=&quot;图&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;一些思考&quot;&gt;&lt;a href=&quot;#一些思考&quot; class=&quot;headerlink&quot; 
+      
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>NSDictionary 使用中的一些问题</title>
@@ -531,28 +558,6 @@ void(^my
     
     
       <category term="UIView" scheme="http://LikeeCat.github.io/tags/UIView/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UITableView 之 UITextView 自动行高的实现</title>
-    <link href="http://LikeeCat.github.io/2018/07/19/UITableView%20%E4%B9%8B%20UITextView%20%E8%87%AA%E5%8A%A8%E8%A1%8C%E9%AB%98%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
-    <id>http://LikeeCat.github.io/2018/07/19/UITableView 之 UITextView 自动行高的实现/</id>
-    <published>2018-07-19T06:33:13.000Z</published>
-    <updated>2019-05-29T04:37:52.080Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?<br><a id="more"></a></p><h1 id="为什么要写这个"><a href="#为什么要写这个" class="headerlink" title="为什么要写这个"></a>为什么要写这个</h1><p>因为我自己也找了好久，参照过别人写的一些，但是到我这里都不是特别的实用，尤其是进行数据刷新的时候，如果你的行高需要改变，你去 <code>reloadData</code>这个时候，键盘会失去响应。就算你这个时候再次将键盘设置为 firstResponser,这个时候你的键盘还是会闪一下，不是很自然。所以写了一些小的 demo ，下面的具体代码也是针对这个 demo 的，<a href="https://github.com/xiangtaiduo/TableViewRefresh" target="_blank" rel="noopener">点击这里下载</a></p><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ol><li>首先对 TextView 的输入进行监听，判断输入的字数的多少  <ol start="2"><li>根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame</li><li>监听 UITextView 的高度变化，如果 UITextView 比你的 cell 还要高的时候，你需要动态的去更新你的 UITableViewCell 的高度</li></ol></li></ol><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="1-对-UITextView-的输入进行监听，判断输入的字数的多少"><a href="#1-对-UITextView-的输入进行监听，判断输入的字数的多少" class="headerlink" title="1.对 UITextView 的输入进行监听，判断输入的字数的多少"></a>1.对 UITextView 的输入进行监听，判断输入的字数的多少</h2><p>前人已经有了现成的轮子，所以不需要你重复的造轮子。这里找到一个很好的<a href="https://github.com/WZBbiao/UITextView-WZB" target="_blank" rel="noopener">自动换行的 TextView</a>我们需要使用这个来完成我们接下来的工作</p><pre><code>   [textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {     //在此处我们已经对 UITextView 完成了监听，接下来我们就可以修改 UITextView 的 frame 了}];</code></pre><h2 id="2-根据-UITextView-的字数的多少去动态的修改-UITextView-的-frame"><a href="#2-根据-UITextView-的字数的多少去动态的修改-UITextView-的-frame" class="headerlink" title="2.根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame"></a>2.根据 UITextView 的字数的多少去动态的修改 UITextView 的 frame</h2><pre><code>__weak typeof (self)WeakSelf = self;__weak typeof (textView)WeakTextView = textView;    [textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {    CGRect frame = WeakTextView.frame;    frame.size.height = currentTextViewHeight;    [UIView animateWithDuration:0.2 animations:^{        WeakTextView.frame = frame;    } completion:^(BOOL finished) {    }]; }];</code></pre><h2 id="3-动态的修改cell-的高度"><a href="#3-动态的修改cell-的高度" class="headerlink" title="3.动态的修改cell 的高度"></a>3.动态的修改cell 的高度</h2><p>我们需要对单元格的高度进行保存，然后在刷新行高的时候把高度取出来赋值。所以我们还需要一个保存高度的字典<code>dicHeight</code></p><pre><code> __weak typeof (self)WeakSelf = self;__weak typeof (textView)WeakTextView = textView;// 最大高度为300 改变高度的 block[textView wzb_autoHeightWithMaxHeight:300 textViewHeightDidChanged:^(CGFloat currentTextViewHeight) {    CGRect frame = WeakTextView.frame;    frame.size.height = currentTextViewHeight;    [UIView animateWithDuration:0.2 animations:^{        WeakTextView.frame = frame;    } completion:^(BOOL finished) {    }];    NSString *key = [NSString stringWithFormat:@&quot;%@&quot;,indexPath];    NSNumber *height = [NSNumber numberWithFloat:currentTextViewHeight];    if (WeakSelf.dicHeight[key]) {        NSNumber *oldHeight = self.dicHeight[key];        if (oldHeight.floatValue != height.floatValue) {            [WeakSelf.dicHeight setObject:height forKey:key];        }    }    else{        [WeakSelf.dicHeight setObject:height forKey:key];    }    [WeakSelf.tableview beginUpdates];    [WeakSelf.tableview endUpdates];}];</code></pre><p>我们使用<code>beginUpdates</code> 和 <code>endUpdates</code> 。不使用 <code>reloadData</code>。具体的原因看我之前写的<a href="https://www.jianshu.com/p/35faf5aa524b" target="_blank" rel="noopener">为什么不用 ReloadData</a>。</p><p>接下来就可以修改行高了</p><pre><code>-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{    NSString *key = [NSString stringWithFormat:@&quot;%@&quot;,indexPath];    if(self.dicHeight[key]){      NSNumber *number = self.dicHeight[key];      if (number.floatValue &gt; 44) {          return number.floatValue;          }      }      return 44;  }</code></pre><h1 id="小彩蛋"><a href="#小彩蛋" class="headerlink" title="小彩蛋"></a>小彩蛋</h1><p>通过这个你就可以简单的知道为什么不能用 <code>reloadData</code>了。使用的时候把自动行高的哪里注释掉。简单的输入一些东西做一些尝试吧。</p><pre><code>  //模拟数据刷新-(void)textViewDidChange:(UITextView *)textView{//1.reloadData//[self.tableview reloadData]; //2.reloadindexpath //    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0]; //    [self.tableview reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationTop];//3.beginupdate &amp; endupdate//    [self.tableview beginUpdates];//    [self.tableview endUpdates];}</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>UITableView 作为 iOS 开发中用到的比较多的控件，在具体的使用中总会出现各种各样的问题，自动行高这里总算是脱坑了。先写到这里</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;开发中会大量的使用 UITableView，当我们有很多的cell,每一行都有一个 UITextView 用来进行稍微重一些的文本编辑，这个时候，你的产品经理突然给你说，我希望这个 UITextView会随着书写内容的长度而自动的增高。(꒪ꇴ꒪(꒪ꇴ꒪ ;)哈?&lt;br&gt;
-    
-    </summary>
-    
-      <category term="UITableView" scheme="http://LikeeCat.github.io/categories/UITableView/"/>
-    
-    
-      <category term="UITableView" scheme="http://LikeeCat.github.io/tags/UITableView/"/>
     
   </entry>
   

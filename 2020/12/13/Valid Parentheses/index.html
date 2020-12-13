@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    iOS中framework的相关命令 |
+    20. Valid Parentheses |
     
     LikeeCat&#39;s Blog</title>
   
@@ -27,7 +27,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-iOS中framework的相关命令" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  <article id="post-Valid Parentheses" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -35,7 +35,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      iOS中framework的相关命令
+      20. Valid Parentheses
     </h1>
   
   
@@ -48,12 +48,12 @@
 
     
       <div class="article-meta">
-        <a href="/2020/07/25/iOS中framework的相关命令/" class="article-date">
-  <time datetime="2020-07-25T10:05:13.000Z" itemprop="datePublished">2020-07-25</time>
+        <a href="/2020/12/13/Valid Parentheses/" class="article-date">
+  <time datetime="2020-12-13T07:05:13.000Z" itemprop="datePublished">2020-12-13</time>
 </a>
         
   <div class="article-category">
-    <a class="article-category-link" href="/categories/frame/">frame</a>
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
   </div>
 
       </div>
@@ -65,67 +65,55 @@
       
 
       
-        <p>#查看framework支持的处理器架构</p>
-<ol>
-<li><p>进入framework的目录下面 </p>
-<pre><code>cd /xxx/xxx.framework
-</code></pre></li>
-<li><p>输入命令</p>
-<pre><code>lipo -info xxxframework //这里的xxxframwork 是指framework中的二进制
-</code></pre></li>
+        <p>#题目</p>
+<p><img src="/Users/fanshukang/Desktop/截屏2020-12-13 下午3.29.50.png" alt="图"></p>
+<h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol>
+<li>从题目给出的意思来看的话,这道题就是用Close brackets 来匹配 Open brackets,那么这个数组的数目必须是偶数个,否则肯定无法匹配</li>
+<li>如果刚开始就是Close bracket那么也无法匹配</li>
+<li>Open brackets 需要优先去匹配离他最近的 Close bracket,且中间不能有其他未匹配完的符号</li>
 </ol>
-<a id="more"></a>
-<h1 id="查看framework是静态库还是动态库"><a href="#查看framework是静态库还是动态库" class="headerlink" title="查看framework是静态库还是动态库"></a>查看framework是静态库还是动态库</h1><ol>
-<li><p>输入命令</p>
-<pre><code>file xxx/xxxframework //这里的xxxframework 是指framework中的二进制
-</code></pre></li>
-</ol>
-<p>#查看framework 中是否包含UIWebView</p>
-<ol>
-<li><p>进入项目目录下面 </p>
-<pre><code>cd /xxx/xxx.framework
-</code></pre></li>
-<li><p>输入命令</p>
-<pre><code>find . -type f | grep -e &quot;.a&quot; -e &quot;.framework&quot; | xargs grep -s UIWebView
-</code></pre></li>
-</ol>
-<p>#xxx.framework contains unsupported architectures ‘[x86_64, i386]’</p>
-<p>这个framework中包含x86_64, i386架构,这个在iOS中是不允许的</p>
-<ol>
-<li>在app对应的target -&gt; build phases -&gt; new Run Script Phase</li>
-<li><p>输入命令</p>
-<pre><code># Without further ado, here’s the script. Add a Run Script step to your build steps, put it after your step to embed frameworks, set it to use /bin/sh and enter the following script:
-APP_PATH=&quot;${TARGET_BUILD_DIR}/${WRAPPER_NAME}&quot;
-# This script loops through the frameworks embedded in the     application and
-# removes unused architectures.
-find &quot;$APP_PATH&quot; -name &apos;*.framework&apos; -type d | while read -r FRAMEWORK
-do
-FRAMEWORK_EXECUTABLE_NAME=$(defaults read &quot;$FRAMEWORK/Info.plist&quot; CFBundleExecutable)
-FRAMEWORK_EXECUTABLE_PATH=&quot;$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME&quot;
-echo &quot;Executable is $FRAMEWORK_EXECUTABLE_PATH&quot;
-EXTRACTED_ARCHS=()
-for ARCH in $ARCHS
-do    
-echo &quot;Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME&quot;
-lipo -extract &quot;$ARCH&quot; &quot;$FRAMEWORK_EXECUTABLE_PATH&quot; -o &quot;$FRAMEWORK_EXECUTABLE_PATH-$ARCH&quot;
-EXTRACTED_ARCHS+=(&quot;$FRAMEWORK_EXECUTABLE_PATH-$ARCH&quot;)
-done
-echo &quot;Merging extracted architectures: ${ARCHS}&quot;
-lipo -o &quot;$FRAMEWORK_EXECUTABLE_PATH-merged&quot; -create &quot;${EXTRACTED_ARCHS[@]}&quot;
-rm &quot;${EXTRACTED_ARCHS[@]}&quot;
-echo &quot;Replacing original executable with thinned version&quot;
-rm &quot;$FRAMEWORK_EXECUTABLE_PATH&quot;
-mv &quot;$FRAMEWORK_EXECUTABLE_PATH-merged&quot; &quot;$FRAMEWORK_EXECUTABLE_PATH&quot;
-done
-</code></pre></li>
-</ol>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p><img src="/Users/fanshukang/Desktop/截屏2020-12-13 下午3.41.53.png" alt="思路"></p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution {
+//存放未匹配到Close brackets 的数组
+var element:[Character] = []
+//匹配字符串用到的字典
+let validDic:[String:Character] = [&quot;[&quot;:&quot;]&quot;,&quot;{&quot;:&quot;}&quot;,&quot;(&quot;:&quot;)&quot;]
 
+func isValid(_ s: String) -&gt; Bool {
+    for i in s{
+            //如果是Open bracket,就放入brackets的数组
+        if i == &quot;[&quot; || i == &quot;{&quot; || i == &quot;(&quot;{
+            self.element.append(i)
+        }
+        else{
+                //如果Stack为空,那么就不匹配
+            if self.element.isEmpty {
+                return false
+            }
+            else{
+                    //找到栈顶的元素,与当前的i进行对比
+                let lastElement = String(self.element.last!)
+                if validDic[String.init(lastElement)] == i  {
+                    self.element.removeLast()
+                }
+                else{
+                    return false
+                }
+            }
+
+        }
+    }
+    //如果栈中不存在任何的元素,则证明匹配成功
+    return self.element.isEmpty
+}
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/07/25/iOS中framework的相关命令/" data-id="ckimtw7wh001ajc8zbjnhu348" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/12/13/Valid Parentheses/" data-id="ckimtw7w7000ojc8zkwikdnyr" class="article-share-link">分享</a>
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">framework</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
 
     </footer>
 
@@ -135,19 +123,10 @@ done
     
   <nav class="article-nav">
     
+    
       <a href="/2020/07/29/NSDictionary 使用中的一些问题/" class="article-nav-link">
-        <strong class="article-nav-caption">前一篇</strong>
-        <div class="article-nav-title">
-          
-            NSDictionary 使用中的一些问题
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2020/06/23/github下载太慢/" class="article-nav-link">
         <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">github下载代码太慢</div>
+        <div class="article-nav-title">NSDictionary 使用中的一些问题</div>
       </a>
     
   </nav>
