@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[101. Symmetric Tree]]></title>
+    <url>%2F2020%2F12%2F13%2F101.%20Symmetric%20Tree%2F</url>
+    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,看这个二叉树是不是一个镜像的二叉树,即它的左子树与右子树之间是对称的 那么他的左子树和右子树是镜像的,对于一个三层的二叉树来说就是,左子树的左侧节点和右子树的右侧节点是一致的,左子树的右侧节点和右子树的左侧节点是一致的 思路 代码/** * Definition for a binary tree node. * public class TreeNode { * public var val: Int * public var left: TreeNode? * public var right: TreeNode? * public init() { self.val = 0; self.left = nil; self.right = nil; } * public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; } * public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) { * self.val = val * self.left = left * self.right = right * } * } */ class Solution { func isMirror(_ left:TreeNode?,_ right:TreeNode?) -&gt; Bool { if left == nil &amp;&amp; right == nil { return true } if left == nil || right == nil { return false } return (left?.val == right?.val) &amp;&amp; isMirror(left?.right, right?.left) &amp;&amp; isMirror(left?.left, right?.right) } func isSymmetric(_ root: TreeNode?) -&gt; Bool { return isMirror(root,root) } } 注这道题的重点还是要理解两个子树之间的关系,即怎样的两个子树即可互为镜像 1. Their two roots have the same value 2. The right subtree of each tree is a mirror reflection of the other tree]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[20. Valid Parentheses]]></title>
     <url>%2F2020%2F12%2F13%2FValid%20Parentheses%2F</url>
     <content type="text"><![CDATA[题目 一些思考 从题目给出的意思来看的话,这道题就是用Close brackets 来匹配 Open brackets,那么这个数组的数目必须是偶数个,否则肯定无法匹配 如果刚开始就是Close bracket那么也无法匹配 Open brackets 需要优先去匹配离他最近的 Close bracket,且中间不能有其他未匹配完的符号 思路 代码class Solution { //存放未匹配到Close brackets 的数组 var element:[Character] = [] //匹配字符串用到的字典 let validDic:[String:Character] = [&quot;[&quot;:&quot;]&quot;,&quot;{&quot;:&quot;}&quot;,&quot;(&quot;:&quot;)&quot;] func isValid(_ s: String) -&gt; Bool { for i in s{ //如果是Open bracket,就放入brackets的数组 if i == &quot;[&quot; || i == &quot;{&quot; || i == &quot;(&quot;{ self.element.append(i) } else{ //如果Stack为空,那么就不匹配 if self.element.isEmpty { return false } else{ //找到栈顶的元素,与当前的i进行对比 let lastElement = String(self.element.last!) if validDic[String.init(lastElement)] == i { self.element.removeLast() } else{ return false } } } } //如果栈中不存在任何的元素,则证明匹配成功 return self.element.isEmpty } }]]></content>

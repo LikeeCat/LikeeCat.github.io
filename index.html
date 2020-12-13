@@ -7,7 +7,7 @@
     <meta name="keywords" content="iOS">
   
   
-    <meta name="description" content="Hello，我是Likee,一个小白 iOS 开发者">
+    <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
@@ -59,6 +59,108 @@
     <h1 class="page-type-title"></h1>
 
     
+      
+        <article id="post-101. Symmetric Tree" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/12/13/101. Symmetric Tree/">101. Symmetric Tree</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2020/12/13/101. Symmetric Tree/" class="article-date">
+  <time datetime="2020-12-13T08:05:13.000Z" itemprop="datePublished">2020-12-13</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="assets/img/101题目.png" alt="题目"></p>
+<h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol>
+<li>从给出的内容来看,看这个二叉树是不是一个镜像的二叉树,即它的左子树与右子树之间是<code>对称</code>的</li>
+<li>那么他的左子树和右子树是镜像的,对于一个三层的二叉树来说就是,左子树的左侧节点和右子树的右侧节点是一致的,左子树的右侧节点和右子树的左侧节点是一致的</li>
+</ol>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p><img src="assets/img/101思路.png" alt="思路"></p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code>/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init() { self.val = 0; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+ *         self.val = val
+ *         self.left = left
+ *         self.right = right
+ *     }
+ * }
+ */
+
+
+ class Solution {
+
+  func isMirror(_ left:TreeNode?,_ right:TreeNode?) -&gt; Bool {
+    if left == nil &amp;&amp; right == nil {
+        return  true
+    }
+    if left == nil || right == nil {
+        return false
+    }
+    return (left?.val == right?.val) &amp;&amp; isMirror(left?.right, right?.left) &amp;&amp; isMirror(left?.left, right?.right)
+
+    }
+
+    func isSymmetric(_ root: TreeNode?) -&gt; Bool {
+            return isMirror(root,root)
+    }
+}
+</code></pre><h1 id="注"><a href="#注" class="headerlink" title="注"></a>注</h1><p>这道题的重点还是要理解两个子树之间的关系,即怎样的两个子树即可互为镜像</p>
+<pre><code>1. Their two roots have the same value
+2. The right subtree of each tree is a mirror reflection of the other tree
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2020/12/13/101. Symmetric Tree/" data-id="ckimvdune00028l8z9v3dz5mo" class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
       
         <article id="post-Valid Parentheses" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
@@ -143,7 +245,7 @@ func isValid(_ s: String) -&gt; Bool {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/12/13/Valid Parentheses/" data-id="ckimu62gx000uwv8ztwogp0tl" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/12/13/Valid Parentheses/" data-id="ckimvdunv000o8l8z56wl2ie0" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
 
@@ -229,7 +331,7 @@ NSRange range2 = {0,occultStr.length};
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/07/29/NSDictionary 使用中的一些问题/" data-id="ckimu62gk0009wv8zksi9as5a" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/07/29/NSDictionary 使用中的一些问题/" data-id="ckimvduo200118l8zx0i263rr" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tip/">tip</a></li></ul>
 
@@ -299,7 +401,7 @@ NSRange range2 = {0,occultStr.length};
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/07/25/iOS中framework的相关命令/" data-id="ckimu62h3001awv8z9e03ewee" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/07/25/iOS中framework的相关命令/" data-id="ckimvduoa001i8l8zab625hkh" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">framework</a></li></ul>
 
@@ -364,72 +466,9 @@ NSRange range2 = {0,occultStr.length};
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/06/23/github下载太慢/" data-id="ckimu62h00010wv8zpcy3kj0u" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/06/23/github下载太慢/" data-id="ckimvduo7001b8l8zvj7h2xba" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post- Flutter 加载txt文件" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/11/17/ Flutter 加载txt文件/">Flutter 加载txt文件</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/11/17/ Flutter 加载txt文件/" class="article-date">
-  <time datetime="2019-11-17T10:05:13.000Z" itemprop="datePublished">2019-11-17</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Flutter/">Flutter</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <h2 id="Flutter-之加载txt文件"><a href="#Flutter-之加载txt文件" class="headerlink" title="Flutter 之加载txt文件"></a>Flutter 之加载txt文件</h2><p>我想要加载工程中的txt文件,网上搜了一圈,没有找到相关的内容,在此做一下脱坑的记录</p>
-<h3 id="1-在工程下新建txt文件"><a href="#1-在工程下新建txt文件" class="headerlink" title="1.在工程下新建txt文件"></a>1.在工程下新建txt文件</h3><p> <img src="/assets/img/flutterpath.png" alt="路径"><br>
-        
-          <a class="article-more-link" href="/2019/11/17/ Flutter 加载txt文件/">阅读全文...</a>
-        
-      
-    </p></div>
-    <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2019/11/17/ Flutter 加载txt文件/" data-id="ckimu62g80000wv8z1vf1jqf0" class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flutter/">Flutter</a></li></ul>
 
     </footer>
 
