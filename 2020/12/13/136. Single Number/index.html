@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    20. Valid Parentheses |
+    136. Single Number |
     
     LikeeCat&#39;s Blog</title>
   
@@ -27,7 +27,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-Valid Parentheses" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  <article id="post-136. Single Number" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -35,7 +35,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      20. Valid Parentheses
+      136. Single Number
     </h1>
   
   
@@ -48,8 +48,8 @@
 
     
       <div class="article-meta">
-        <a href="/2020/12/13/Valid Parentheses/" class="article-date">
-  <time datetime="2020-12-13T07:05:13.000Z" itemprop="datePublished">2020-12-13</time>
+        <a href="/2020/12/13/136. Single Number/" class="article-date">
+  <time datetime="2020-12-13T09:05:13.000Z" itemprop="datePublished">2020-12-13</time>
 </a>
         
   <div class="article-category">
@@ -65,52 +65,43 @@
       
 
       
-        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/20题目.png" alt="图"></p>
+        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/136题目.png" alt="题目"></p>
 <h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol>
-<li>从题目给出的意思来看的话,这道题就是用Close brackets 来匹配 Open brackets,那么这个数组的数目必须是偶数个,否则肯定无法匹配</li>
-<li>如果刚开始就是Close bracket那么也无法匹配</li>
-<li>Open brackets 需要优先去匹配离他最近的 Close bracket,且中间不能有其他未匹配完的符号</li>
+<li>从给出的内容来看,要找到数组中只出现一次的数</li>
+<li>用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target</li>
+<li>题目中还有Follow up,让我们尝试不用多余的内存去做</li>
 </ol>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p><img src="/assets/img/20思路.png" alt="思路"></p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution {
-//存放未匹配到Close brackets 的数组
-var element:[Character] = []
-//匹配字符串用到的字典
-let validDic:[String:Character] = [&quot;[&quot;:&quot;]&quot;,&quot;{&quot;:&quot;}&quot;,&quot;(&quot;:&quot;)&quot;]
-
-func isValid(_ s: String) -&gt; Bool {
-    for i in s{
-            //如果是Open bracket,就放入brackets的数组
-        if i == &quot;[&quot; || i == &quot;{&quot; || i == &quot;(&quot;{
-            self.element.append(i)
-        }
-        else{
-                //如果Stack为空,那么就不匹配
-            if self.element.isEmpty {
-                return false
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><p><img src="/assets/img/136思路2.png" alt="思路1"></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {
+    var dic :[Int:Int] = [:]
+    func singleNumber(_ nums: [Int]) -&gt; Int {
+        for i in nums{
+            if dic.keys.contains(i) {
+                dic.removeValue(forKey: i)
             }
             else{
-                    //找到栈顶的元素,与当前的i进行对比
-                let lastElement = String(self.element.last!)
-                if validDic[String.init(lastElement)] == i  {
-                    self.element.removeLast()
-                }
-                else{
-                    return false
-                }
+                dic[i] = 1;
             }
-
-        }
+            }
+        return Int(dic.keys.first!);
     }
-    //如果栈中不存在任何的元素,则证明匹配成功
-    return self.element.isEmpty
 }
+</code></pre><h2 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h2><p><img src="/assets/img/136思路1.png" alt="思路2"></p>
+<h1 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution {
+func singleNumber(_ nums: [Int]) -&gt; Int {
+    var  a = 0
+    for i in nums{
+        a = a ^ i
+    }
+    return a;
+    }
 }
-</code></pre>
+</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><p>这里用到了异或的计算,计算法则如下,具体的细则可以<a href="https://baike.baidu.com/item/%E5%BC%82%E6%88%96/10993677?fr=aladdin" target="_blank" rel="noopener">点击这里</a><br><img src="/assets/img/136异或运算.png" alt="运算法则"></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/12/13/Valid Parentheses/" data-id="ckimwkiom0016p58zdgr2ehol" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/12/13/136. Single Number/" data-id="ckimwkiny0003p58zdse9lj98" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
 
@@ -122,19 +113,10 @@ func isValid(_ s: String) -&gt; Bool {
     
   <nav class="article-nav">
     
+    
       <a href="/2020/12/13/101. Symmetric Tree/" class="article-nav-link">
-        <strong class="article-nav-caption">前一篇</strong>
-        <div class="article-nav-title">
-          
-            101. Symmetric Tree
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2020/07/29/NSDictionary 使用中的一些问题/" class="article-nav-link">
         <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">NSDictionary 使用中的一些问题</div>
+        <div class="article-nav-title">101. Symmetric Tree</div>
       </a>
     
   </nav>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://LikeeCat.github.io/"/>
-  <updated>2020-12-13T08:38:52.333Z</updated>
+  <updated>2020-12-13T09:08:12.908Z</updated>
   <id>http://LikeeCat.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>136. Single Number</title>
+    <link href="http://LikeeCat.github.io/2020/12/13/136.%20Single%20Number/"/>
+    <id>http://LikeeCat.github.io/2020/12/13/136. Single Number/</id>
+    <published>2020-12-13T09:05:13.000Z</published>
+    <updated>2020-12-13T09:08:12.908Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/136题目.png" alt="题目"></p><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,要找到数组中只出现一次的数</li><li>用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target</li><li>题目中还有Follow up,让我们尝试不用多余的内存去做</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><p><img src="/assets/img/136思路2.png" alt="思路1"></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {    var dic :[Int:Int] = [:]    func singleNumber(_ nums: [Int]) -&gt; Int {        for i in nums{            if dic.keys.contains(i) {                dic.removeValue(forKey: i)            }            else{                dic[i] = 1;            }            }        return Int(dic.keys.first!);    }}</code></pre><h2 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h2><p><img src="/assets/img/136思路1.png" alt="思路2"></p><h1 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution {func singleNumber(_ nums: [Int]) -&gt; Int {    var  a = 0    for i in nums{        a = a ^ i    }    return a;    }}</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><p>这里用到了异或的计算,计算法则如下,具体的细则可以<a href="https://baike.baidu.com/item/%E5%BC%82%E6%88%96/10993677?fr=aladdin" target="_blank" rel="noopener">点击这里</a><br><img src="/assets/img/136异或运算.png" alt="运算法则"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/136题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;一些思考&quot;&gt;&lt;a href=&quot;
+      
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>101. Symmetric Tree</title>
@@ -532,31 +558,6 @@ void(^my
     
     
       <category term="block" scheme="http://LikeeCat.github.io/tags/block/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>离屏渲染</title>
-    <link href="http://LikeeCat.github.io/2018/08/20/%E7%A6%BB%E5%B1%8F%E6%B8%B2%E6%9F%93/"/>
-    <id>http://LikeeCat.github.io/2018/08/20/离屏渲染/</id>
-    <published>2018-08-20T10:05:13.000Z</published>
-    <updated>2019-06-13T02:56:15.508Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在看一些离屏渲染的东西，接触到一些新的名词，轻量级别的 CALayer 代替 UIView ，mask ，bitmap 整理下这部分的内容</p><h1 id="UIView"><a href="#UIView" class="headerlink" title="UIView"></a>UIView</h1><p>我们先来看看 UIView 的说明</p><pre><code>@interface UIView : UIResponder &lt;NSCoding, UIAppearance, UIAppearanceContainer, UIDynamicItem, UITraitEnvironment, UICoordinateSpace, UIFocusItem, CALayerDelegate&gt;</code></pre><p>UIView 继承了UIResponder，所以 UIView 可以响应用户的一些操作。而且 UIView 遵循代理 CALayerDelegate 。和 CALayer 有了一点点的联系</p><h2 id="layer属性"><a href="#layer属性" class="headerlink" title="layer属性"></a>layer属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic, readonly, strong) CALayer *layer;</span><br></pre></td></tr></table></figure><h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><p>This property is never nil. The actual class of the object is determined by the value returned in the layerClass property. The view is the layer’s delegate.</p><blockquote><p>Warning<br>Because the view is the layer’s delegate, never make the view the delegate of another CALayer object. Additionally, never change the delegate of this layer object.</p></blockquote><p>从文档中可以看出的是，每一个 view.layer都不是 nil,而且这个 view 是 layer 的 <code>&lt;CALayerDelegate&gt;</code> delegate。而且永远不要去改变 这个 layer 的代理</p><h1 id="CALayer"><a href="#CALayer" class="headerlink" title="CALayer"></a>CALayer</h1><pre><code>@interface CALayer : NSObject &lt;NSSecureCoding, CAMediaTiming&gt;</code></pre><p>CALayer继承于 NSObject ，无法响应用户的操作。</p><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><blockquote><p>A layer’s main job is to manage the visual content that you provide but the layer itself has visual attributes that can be set, such as a background color, border, and shadow. In addition to managing visual content, the layer also maintains information about the geometry of its content (such as its position, size, and transform) that is used to present that content onscreen.<br>If the layer object was created by a view, the view typically assigns itself as the layer’s delegate automatically, and you should not change that relationship. </p></blockquote><p>从 Overview 中截取了一部分，layer 的首要任务就是管理你提供的那些内容，当然它本身也可以设置一些显示的属性，比如 color、border、shadow 等。当然 layer 也帮助你管理显示在屏幕的内容。像是位置、大小和一些变换的东西</p><h3 id="layer-中一些触发离屏渲染的属性"><a href="#layer-中一些触发离屏渲染的属性" class="headerlink" title="layer 中一些触发离屏渲染的属性"></a>layer 中一些触发离屏渲染的属性</h3><h4 id="mask"><a href="#mask" class="headerlink" title="mask"></a>mask</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(strong) CALayer *mask;</span><br></pre></td></tr></table></figure><p>The layer’s alpha channel determines how much of the layer’s content and background shows through. Fully or partially opaque pixels allow the underlying content to show through but fully transparent pixels block that content.</p><p>mask 也是一个 CALayer, mask 代表着怎么样的像素能够穿过 mask 被显示出来。你一定写过这样的代码。</p><pre><code>imageView.image.layer.cornerRadius = 5;imageView.image.layer.masksToBounds = YES;</code></pre><p>我们来分别看看这两行代码代表什么，设置圆角，然后进行裁剪显示出来圆角</p><h5 id="1-cornerRadius"><a href="#1-cornerRadius" class="headerlink" title="1.cornerRadius"></a>1.cornerRadius</h5><blockquote><p>Setting the radius to a value greater than 0.0 causes the layer to begin drawing rounded corners on its background. By default, the corner radius does not apply to the image in the layer’s contents property; it applies only to the background color and border of the layer. However, setting the masksToBounds property to YES causes the content to be clipped to the rounded corners.</p></blockquote><p>划重点，在默认情况下，cornerRadius 不会对 layer 的内容是 image 生效的，但是只要你设置 masksToBounds 为 YES,那么这样就是可行的</p><h5 id="2-masksToBounds"><a href="#2-masksToBounds" class="headerlink" title="2.masksToBounds"></a>2.masksToBounds</h5><blockquote><p>When the value of this property is YES, Core Animation creates an implicit clipping mask that matches the bounds of the layer and includes any corner radius effects. If a value for the mask property is also specified, the two masks are multiplied to get the final mask value.<br>如果设置了masksToBounds 为 YES，那么 Core Animation 就会隐式的创建一个 与 layer 的 bounds 相匹配的并且裁切过的 mask，这个 mask 就可以实现圆角的效果</p></blockquote><h5 id="shadow"><a href="#shadow" class="headerlink" title="shadow"></a>shadow</h5><h6 id="1-shadowOpacity"><a href="#1-shadowOpacity" class="headerlink" title="1. shadowOpacity"></a>1. shadowOpacity</h6><blockquote><p>The opacity of the layer’s shadow. Animatable.<br>设置 layer 的不透明度</p></blockquote><h6 id="2-shadowRadius"><a href="#2-shadowRadius" class="headerlink" title="2.shadowRadius"></a>2.shadowRadius</h6><blockquote><p>The blur radius (in points) used to render the layer’s shadow. Animatable.<br>用来进行阴影半径渲染的模糊半径</p></blockquote><h6 id="3-shadowOffset"><a href="#3-shadowOffset" class="headerlink" title="3. shadowOffset"></a>3. shadowOffset</h6><blockquote><p>The offset (in points) of the layer’s shadow. Animatable.<br>设置 layer 的阴影偏移量</p></blockquote><h5 id="edgeAntialiasing"><a href="#edgeAntialiasing" class="headerlink" title="edgeAntialiasing"></a>edgeAntialiasing</h5><h6 id="edgeAntialiasingMask"><a href="#edgeAntialiasingMask" class="headerlink" title="edgeAntialiasingMask"></a>edgeAntialiasingMask</h6><blockquote><p>This property specifies which edges of the layer are antialiased and is a combination of the constants defined in <code>CAEdgeAntialiasingMask</code>. You can enable or disable antialiasing for each edge (top, left, bottom, right) separately. By default antialiasing is enabled for all edges.<br>通过这个属性可以对某一个或者某几个边启用或者不启用抗锯齿，当然默认是对所有的生效</p></blockquote><h6 id="allowsEdgeAntialiasing"><a href="#allowsEdgeAntialiasing" class="headerlink" title="allowsEdgeAntialiasing"></a>allowsEdgeAntialiasing</h6><blockquote><p>When the value is <code>YES</code>, the layer is allowed to antialias its edges, as requested by the value in the layer’s <code>edgeAntialiasingMask</code> property. The default value is read from the boolean <code>UIViewEdgeAntialiasing</code> property in the main bundle’s <code>Info.plist</code> file. If no value is found, the default value is <code>NO</code>.<br>开启了抗锯齿的话，就回去访问<code>edgeAntialiasingMask</code>，看看会有那些边开启抗锯齿</p></blockquote><h4 id="group-opacity"><a href="#group-opacity" class="headerlink" title="group opacity"></a>group opacity</h4><h5 id="allowsGroupOpacity"><a href="#allowsGroupOpacity" class="headerlink" title="allowsGroupOpacity"></a>allowsGroupOpacity</h5><pre><code>@property BOOL allowsGroupOpacity;</code></pre><blockquote><p>When the value is YES and the layer’s opacity property value is less than 1.0, the layer is allowed to composite itself as a group separate from its parent. This gives correct results when the layer contains multiple opaque components, but may reduce performance.<br>如果设置 <code>allowsGroupOpacity</code>为 YES 并且 layer 的opacity小于1，那么该layer将 被允许将其自身合并为一个组，并且是与他的parent分开的。而且需要注意的是，如果这个 layer 还包含很多的不透明的子 layer 的话，那么就会牺牲一些性能。而在 iOS 7＋ ,这个属性默认为 YES 。</p></blockquote><h4 id="bitmap"><a href="#bitmap" class="headerlink" title="bitmap"></a>bitmap</h4><p>layer 中有个属性 contents </p><h2 id="Declaration"><a href="#Declaration" class="headerlink" title="Declaration"></a>Declaration</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(strong) id contents;</span><br></pre></td></tr></table></figure><h5 id="Discussion-1"><a href="#Discussion-1" class="headerlink" title="Discussion"></a>Discussion</h5><blockquote><p>If you are using the layer to display a static image, you can set this property to the <code>CGImageRef</code>containing the image you want to display. (In macOS 10.6 and later, you can also set the property to an <code>NSImage</code> Assigning a value to this property causes the layer to use your image rather than create a separate backing store.</p></blockquote><p>contents 可以设置一个静态的图片，传入一个<code>CGImageRef</code>。打开这个<code>CGImageRef</code>会发现这样的一段描述</p><h6 id="CGImageRef"><a href="#CGImageRef" class="headerlink" title="CGImageRef"></a>CGImageRef</h6><p>Structure<br>A bitmap image or image mask.</p><pre><code>typedef struct CF_BRIDGED_TYPE(id) CGImage *CGImageRef;</code></pre><p>这是个指向 CGImage 结构体的指针</p><h6 id="CGImage"><a href="#CGImage" class="headerlink" title="CGImage"></a>CGImage</h6><blockquote><p>A bitmap (or sampled) image is a rectangular array of pixels, with each pixel representing a single sample or data point in a source image.<br> 一个 bitmap image 就是一个矩形像素阵列，每个像素表示源图像中的单个样本或数据点。</p></blockquote><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最近在接触一些离屏渲染的东西，看到这些陌生的名词。先动手整理了下，方便以后查看。先写到这里，各位大佬轻拍</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;最近在看一些离屏渲染的东西，接触到一些新的名词，轻量级别的 CALayer 代替 UIView ，mask ，bitmap 整理下这部分的内
-      
-    
-    </summary>
-    
-      <category term="UIView" scheme="http://LikeeCat.github.io/categories/UIView/"/>
-    
-    
-      <category term="UIView" scheme="http://LikeeCat.github.io/tags/UIView/"/>
     
   </entry>
   

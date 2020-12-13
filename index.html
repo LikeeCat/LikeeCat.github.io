@@ -60,6 +60,97 @@
 
     
       
+        <article id="post-136. Single Number" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/12/13/136. Single Number/">136. Single Number</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2020/12/13/136. Single Number/" class="article-date">
+  <time datetime="2020-12-13T09:05:13.000Z" itemprop="datePublished">2020-12-13</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/136题目.png" alt="题目"></p>
+<h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol>
+<li>从给出的内容来看,要找到数组中只出现一次的数</li>
+<li>用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target</li>
+<li>题目中还有Follow up,让我们尝试不用多余的内存去做</li>
+</ol>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><p><img src="/assets/img/136思路2.png" alt="思路1"></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {
+    var dic :[Int:Int] = [:]
+    func singleNumber(_ nums: [Int]) -&gt; Int {
+        for i in nums{
+            if dic.keys.contains(i) {
+                dic.removeValue(forKey: i)
+            }
+            else{
+                dic[i] = 1;
+            }
+            }
+        return Int(dic.keys.first!);
+    }
+}
+</code></pre><h2 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h2><p><img src="/assets/img/136思路1.png" alt="思路2"></p>
+<h1 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution {
+func singleNumber(_ nums: [Int]) -&gt; Int {
+    var  a = 0
+    for i in nums{
+        a = a ^ i
+    }
+    return a;
+    }
+}
+</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><p>这里用到了异或的计算,计算法则如下,具体的细则可以<a href="https://baike.baidu.com/item/%E5%BC%82%E6%88%96/10993677?fr=aladdin" target="_blank" rel="noopener">点击这里</a><br><img src="/assets/img/136异或运算.png" alt="运算法则"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2020/12/13/136. Single Number/" data-id="ckimwkiny0003p58zdse9lj98" class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
         <article id="post-101. Symmetric Tree" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -145,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/12/13/101. Symmetric Tree/" data-id="ckimvnb7k0006fs8zylhr7q0o" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/12/13/101. Symmetric Tree/" data-id="ckimwkio30007p58zvai3tp3b" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
 
@@ -245,7 +336,7 @@ func isValid(_ s: String) -&gt; Bool {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/12/13/Valid Parentheses/" data-id="ckimvnb7w000ofs8z58acg0hh" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/12/13/Valid Parentheses/" data-id="ckimwkiom0016p58zdgr2ehol" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
 
@@ -331,7 +422,7 @@ NSRange range2 = {0,occultStr.length};
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/07/29/NSDictionary 使用中的一些问题/" data-id="ckimvnb7o0009fs8z0t22n6mo" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/07/29/NSDictionary 使用中的一些问题/" data-id="ckimwkiod000kp58zq25zpnxg" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tip/">tip</a></li></ul>
 
@@ -401,74 +492,9 @@ NSRange range2 = {0,occultStr.length};
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/07/25/iOS中framework的相关命令/" data-id="ckimvnb8a001mfs8zh0ct5m5i" class="article-share-link">分享</a>
+      <a data-url="http://LikeeCat.github.io/2020/07/25/iOS中framework的相关命令/" data-id="ckimwkios001np58z6lzwwx2e" class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">framework</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post-github下载太慢" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/23/github下载太慢/">github下载代码太慢</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2020/06/23/github下载太慢/" class="article-date">
-  <time datetime="2020-06-23T10:05:13.000Z" itemprop="datePublished">2020-06-23</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/github/">github</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>我们总是需要在github去下载一些代码,但是因为一些原因,下载的速度忽快忽慢,而一些第三方的网站号称可以代下载,但是也是会很慢,或者直接就下载不下来,这个时候我们就需要用到<a href="https://gitee.com/" target="_blank" rel="noopener">码云</a>来帮助我们下载.接下来我们以CocoaPods为例</p>
-<pre><code>&lt;!-- more --&gt;
-</code></pre><h2 id="1-获取github的仓库地址"><a href="#1-获取github的仓库地址" class="headerlink" title="1.获取github的仓库地址"></a>1.获取github的仓库地址</h2><p><img src="/assets/img/clone Url.png" alt="仓库地址"></p>
-<h2 id="2-登录码云并选择创建仓库"><a href="#2-登录码云并选择创建仓库" class="headerlink" title="2.登录码云并选择创建仓库"></a>2.登录码云并选择创建仓库</h2><p><img src="/assets/img/创建仓库.png" alt="创建仓库"></p>
-<h2 id="3-导入仓库"><a href="#3-导入仓库" class="headerlink" title="3.导入仓库"></a>3.导入仓库</h2><p><img src="/assets/img/导入仓库.png" alt="创建仓库"><br>输入对应的仓库地址,完成后选择导入</p>
-<h2 id="4-完成导入"><a href="#4-完成导入" class="headerlink" title="4.完成导入"></a>4.完成导入</h2><p>导入完成后你就可以在你的码云仓库中找到对应的仓库,这个时候再下载就会很快了</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/06/23/github下载太慢/" data-id="ckimvnb87001efs8zmmwbnc4e" class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
 
     </footer>
 
