@@ -13,9 +13,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[206. Reverse Linked List]]></title>
-    <url>%2F2020%2F12%2F13%2F206.%20Reverse%20Linked%20List%2F</url>
-    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack 如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接 思路/** * Definition for singly-linked list. * public class ListNode { * public var val: Int * public var next: ListNode? * public init() { self.val = 0; self.next = nil; } * public init(_ val: Int) { self.val = val; self.next = nil; } * public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */ class Solution { var stack :[ListNode] = []; func reverseList(_ head: ListNode?) -&gt; ListNode? { var tmp = head //一直将所有的node压入栈,直到node没有下一个node while tmp != nil{ stack.insert(tmp!, at: 0) tmp = tmp?.next } //开始将各个node按照数组的先后顺序进行连接 for i in stride(from: 0, through: stack.count - 1, by: 1) { let node = stack[i] if(i == stack.count - 1){ node.next = nil; } else{ node.next = stack[i+1]; } } //返回数组的首个元素 return stack.first; } }]]></content>
+    <title><![CDATA[136. Single Number]]></title>
+    <url>%2F2020%2F12%2F13%2F136.%20Single%20Number%2F</url>
+    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,要找到数组中只出现一次的数 用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target 题目中还有Follow up,让我们尝试不用多余的内存去做 思路思路1 代码class Solution { var dic :[Int:Int] = [:] func singleNumber(_ nums: [Int]) -&gt; Int { for i in nums{ if dic.keys.contains(i) { dic.removeValue(forKey: i) } else{ dic[i] = 1; } } return Int(dic.keys.first!); } } 思路2 代码class Solution { func singleNumber(_ nums: [Int]) -&gt; Int { var a = 0 for i in nums{ a = a ^ i } return a; } } 注这里用到了异或的计算,计算法则如下,具体的细则可以点击这里]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
@@ -24,9 +24,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[136. Single Number]]></title>
-    <url>%2F2020%2F12%2F13%2F136.%20Single%20Number%2F</url>
-    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,要找到数组中只出现一次的数 用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target 题目中还有Follow up,让我们尝试不用多余的内存去做 思路思路1 代码class Solution { var dic :[Int:Int] = [:] func singleNumber(_ nums: [Int]) -&gt; Int { for i in nums{ if dic.keys.contains(i) { dic.removeValue(forKey: i) } else{ dic[i] = 1; } } return Int(dic.keys.first!); } } 思路2 代码class Solution { func singleNumber(_ nums: [Int]) -&gt; Int { var a = 0 for i in nums{ a = a ^ i } return a; } } 注这里用到了异或的计算,计算法则如下,具体的细则可以点击这里]]></content>
+    <title><![CDATA[206. Reverse Linked List]]></title>
+    <url>%2F2020%2F12%2F13%2F206.%20Reverse%20Linked%20List%2F</url>
+    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack 如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接 思路/** * Definition for singly-linked list. * public class ListNode { * public var val: Int * public var next: ListNode? * public init() { self.val = 0; self.next = nil; } * public init(_ val: Int) { self.val = val; self.next = nil; } * public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */ class Solution { var stack :[ListNode] = []; func reverseList(_ head: ListNode?) -&gt; ListNode? { var tmp = head //一直将所有的node压入栈,直到node没有下一个node while tmp != nil{ stack.insert(tmp!, at: 0) tmp = tmp?.next } //开始将各个node按照数组的先后顺序进行连接 for i in stride(from: 0, through: stack.count - 1, by: 1) { let node = stack[i] if(i == stack.count - 1){ node.next = nil; } else{ node.next = stack[i+1]; } } //返回数组的首个元素 return stack.first; } }]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
