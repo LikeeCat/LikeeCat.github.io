@@ -41,6 +41,30 @@
   </entry>
   
   <entry>
+    <title>160. Intersection of Two Linked Lists</title>
+    <link href="http://LikeeCat.github.io/2021/01/16/160.%20Intersection%20of%20Two%20Linked%20Lists/"/>
+    <id>http://LikeeCat.github.io/2021/01/16/160. Intersection of Two Linked Lists/</id>
+    <published>2021-01-16T09:05:13.000Z</published>
+    <updated>2021-01-17T07:13:07.537Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/160/160题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,我们需要找到两个链表相交节点</li><li>那么我们可以吧a和b相连,将b和a相连,如果他们两个链表相交,那么他们的尾部肯定是相同的<br><img src="/assets/img/160/160图解.jpeg" alt="思路1"></li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {    func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -&gt; ListNode? {        if headA == nil || headB == nil {            return nil        }        var pointerA = headA;        var pointerB = headB;        var tagA  = 0;        var tagB = 0;        while pointerB !== pointerA {                //避免因为没有共同节点造成死循环            if tagA == 2 &amp;&amp; tagB == 2 {                return nil;            }            pointerA = pointerA == nil ? headB : pointerA?.next            if pointerA === headB {                tagA = tagA + 1            }            pointerB = pointerB == nil ? headA : pointerB?.next            if pointerB === headA {                tagB = tagB + 1            }        }        return pointerA;    }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/160/160题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+      <category term="link list" scheme="http://LikeeCat.github.io/tags/link-list/"/>
+    
+  </entry>
+  
+  <entry>
     <title>21. Merge Two Sorted Lists</title>
     <link href="http://LikeeCat.github.io/2021/01/10/21.Merge%20Two%20Sorted%20Lists/"/>
     <id>http://LikeeCat.github.io/2021/01/10/21.Merge Two Sorted Lists/</id>
@@ -91,7 +115,7 @@
     <link href="http://LikeeCat.github.io/2020/12/13/136.%20Single%20Number/"/>
     <id>http://LikeeCat.github.io/2020/12/13/136. Single Number/</id>
     <published>2020-12-13T09:05:13.000Z</published>
-    <updated>2021-01-10T06:00:56.032Z</updated>
+    <updated>2021-01-17T06:45:35.909Z</updated>
     
     <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/136题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,要找到数组中只出现一次的数</li><li>用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target</li><li>题目中还有Follow up,让我们尝试不用多余的内存去做</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><p><img src="/assets/img/136思路2.png" alt="思路1"></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {    var dic :[Int:Int] = [:]    func singleNumber(_ nums: [Int]) -&gt; Int {        for i in nums{            if dic.keys.contains(i) {                dic.removeValue(forKey: i)            }            else{                dic[i] = 1;            }            }        return Int(dic.keys.first!);    }}</code></pre><h2 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h2><p><img src="/assets/img/136思路1.png" alt="思路2"></p><h1 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution {func singleNumber(_ nums: [Int]) -&gt; Int {    var  a = 0    for i in nums{        a = a ^ i    }    return a;    }}</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><p>这里用到了异或的计算,计算法则如下,具体的细则可以<a href="https://baike.baidu.com/item/%E5%BC%82%E6%88%96/10993677?fr=aladdin" target="_blank" rel="noopener">点击这里</a><br><img src="/assets/img/136异或运算.png" alt="运算法则"></p>]]></content>
     
@@ -523,28 +547,6 @@ NSLog(@&amp;quot;dic is %@&amp;quot;,dic);
     
     
       <category term="UITableView" scheme="http://LikeeCat.github.io/tags/UITableView/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Xcode10 【libray not found for -lstdc++.6.0.9 】</title>
-    <link href="http://LikeeCat.github.io/2019/01/08/Xcode10%20%E3%80%90libray%20not%20found%20for%20-lstdc++.6.0.9%20%E3%80%91/"/>
-    <id>http://LikeeCat.github.io/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/</id>
-    <published>2019-01-07T18:05:13.000Z</published>
-    <updated>2019-05-29T04:38:37.850Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>上周在打包上传后，报了一个警告，大致的意思就是这样的：<code>2019年3月必须使用Xcode 10.1或更高版本</code>，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10<br><a id="more"></a></p><h2 id="开始采坑"><a href="#开始采坑" class="headerlink" title="开始采坑"></a>开始采坑</h2><p>1、升级完成后直接报了<code>libray not found for -lstdc++.6.0.9</code>，在 Xcode 10 Release Notes 中有着如下的描述</p><blockquote><p>Building with libstdc++ was deprecated with Xcode 8 and is not supported in Xcode 10 when targeting iOS. C++ projects must now migrate to libc++ and are recommended to set a deployment target of macOS 10.9 or later, or iOS 7 or later. Besides changing the C++ Standard Library build setting, developers should audit hard-coded linker flags and target dependencies to remove references to libstdc++ (including -lstdc++, -lstdc++.6.0.9, libstdc++.6.0.9.tbd, and libstdc++.6.0.9.dylib). Project dependencies such as static archives that were built against libstdc++ will also need to be rebuilt against libc++. (40885260)<br>所以苹果在 Xcode10 中移除了对 libstdc++ 的支持。</p></blockquote><p>2、具体的报错可能会有这些</p><ol><li>libray not found for -lstdc++.6.0.9</li><li>libray not found for -lstdc++</li><li>libray not found for libstdc++.6.0.9.tbd</li></ol><p>3、解决办法</p><ol><li>在Build Phases -&gt; Link Binary With Libraries 中删除<code>lstdc++</code>、<code>lstdc++.6.0.9</code>、<code>libstdc++.6.0.9.tbd</code>,并且添加<code>libc++</code>。</li><li>对于有使用 pod 的项目，在debug.xcconfig和release.xcconfig中也需要删除<code>lstdc++.6.0.9</code>、</li></ol><p>4、删除完了这些后还可能编译不成功的问题<br>我在做完这些操作后，我 clean 了项目，然后再次编译的时候，还是有报错，但是其实我已经把引用到这个库的地方都删掉了<br><img src="https://upload-images.jianshu.io/upload_images/2239937-848b52834ec3858b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>我全局搜索了一下，在Build Settings 中找到了这个<br><img src="https://upload-images.jianshu.io/upload_images/2239937-ecece630e02378cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p><img src="https://upload-images.jianshu.io/upload_images/2239937-7f8054d0ac0dd3ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/2239937-105ecf1dca3ceace.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>接着就是在c++ standard Library 中选择 libc++ ，然后编译，成功解决了报错。</p><h1 id="升级后关于Xs-Max-和-XR的适配"><a href="#升级后关于Xs-Max-和-XR的适配" class="headerlink" title="升级后关于Xs Max 和 XR的适配"></a>升级后关于Xs Max 和 XR的适配</h1><p>花了一下午的时间升级了Xcode 10,接着就是关于iPhone Xs Max 和XR 的适配了</p><h2 id="启动页的分辨率"><a href="#启动页的分辨率" class="headerlink" title="启动页的分辨率"></a>启动页的分辨率</h2><h4 id="Xs-Max-1242-2688"><a href="#Xs-Max-1242-2688" class="headerlink" title="Xs Max: 1242 * 2688"></a>Xs Max: 1242 * 2688</h4><h4 id="XR-828-1792-png"><a href="#XR-828-1792-png" class="headerlink" title="XR: 828*1792.png"></a>XR: 828*1792.png</h4><h2 id="一些判断用的宏"><a href="#一些判断用的宏" class="headerlink" title="一些判断用的宏"></a>一些判断用的宏</h2><pre><code>#define isPad ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)#define iPhone5 ([UIScreen mainScreen].bounds.size.height == 568)#define iPhone4 ([UIScreen mainScreen].bounds.size.height == 480)#define iPhone6 ([UIScreen mainScreen].bounds.size.height == 667)#define iPhone6P ([UIScreen mainScreen].bounds.size.height == 736)#define iPhoneX ([UIScreen mainScreen].bounds.size.height == 812)#define iPhoneXR ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) &amp;&amp; !isPad : NO)#define iPhoneXsMax ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size)&amp;&amp; !isPad : NO)</code></pre><h1 id="脱坑"><a href="#脱坑" class="headerlink" title="脱坑"></a>脱坑</h1><p>终于完成了 Xcode 9 到 Xcode 10 的迁移，总的来说比之前可能稍微麻烦了一些。在此做个记录</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.jianshu.com/p/f2a24732cf14" target="_blank" rel="noopener">xsmax 的宏</a><br><a href="https://www.jianshu.com/p/f8a3ccbfbd7b" target="_blank" rel="noopener">Xcode 10 升级项目报错</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;上周在打包上传后，报了一个警告，大致的意思就是这样的：&lt;code&gt;2019年3月必须使用Xcode 10.1或更高版本&lt;/code&gt;，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Xcode" scheme="http://LikeeCat.github.io/categories/Xcode/"/>
-    
-    
-      <category term="Xcode" scheme="http://LikeeCat.github.io/tags/Xcode/"/>
     
   </entry>
   
