@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[141. Linked List Cycle]]></title>
+    <url>%2F2021%2F01%2F17%2F141.%20Linked%20List%20Cycle%2F</url>
+    <content type="text"><![CDATA[题目 一些思考 去判断链表是否包含环这种问题,比较适合用快慢指针来做 slow每次走一步,fast每次走两步,那么fast必然会先进入环中,随后slow也会进入环中 由于两者指针的速度不一致,在经过一定的步数后,两者一定会相遇 具体解释可以查看第二种解法Approach 2: Floyd’s Cycle Finding Algorithm 代码class Solution { func hasCycle(_ head: ListNode?) -&gt; Bool { if head == nil || head?.next == nil{ return false; } var slow = head; var fast = head?.next; while slow !== fast { //if fast is nil list has no cycle if fast == nil || fast?.next == nil { return false; } slow = slow?.next; fast = fast?.next?.next; } return true } }]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>link list</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[21. Merge Two Sorted Lists]]></title>
     <url>%2F2021%2F01%2F10%2F21.Merge%20Two%20Sorted%20Lists%2F</url>
     <content type="text"><![CDATA[题目 一些思考 首先这是两个分别排好序的数组 我们需要去遍历这两个链表,比较两个值的大小,然后插入新的链表中 注意一些可选值的判断 代码class Solution { func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -&gt; ListNode? { let headerNode = ListNode .init(); var headerPoint = headerNode; var l1Pointer = l1 var l2Pointer = l2 while l1Pointer != nil || l2Pointer != nil { if l1Pointer != nil &amp;&amp; l2Pointer != nil{ if l1Pointer!.val &gt;= l2Pointer!.val { headerPoint.next = l2Pointer l2Pointer = l2Pointer?.next } else{ headerPoint.next = l1Pointer l1Pointer = l1Pointer?.next } } else{ if l1Pointer == nil { headerPoint.next = l2Pointer l2Pointer = l2Pointer?.next } else{ headerPoint.next = l1Pointer l1Pointer = l1Pointer?.next } } headerPoint = headerPoint.next!; } return headerNode.next; } } 注意点 可选值的判读 swift 中 if let ,guard let 的使用1. if 和 if let 的区别 let name: String? = &quot;likee&quot; let age: Int? = 20 //if if name != nil &amp;&amp; age != nil { print(name! + String(age!)) // 输出:likee 20 } //if let if let nameNew = name, let ageNew = age { // 肯定是有值的 print(nameNew + String(ageNew)) // 输出:likee 20 } guard let 和 if let 的区别 guard let nameNew = name, let ageNew = age else { //在不满足条件后,会直接返回 print(&quot;姓名 或 年龄 为nil&quot;) return //注意 } // 代码执行至此, nameNew 和 ageNew 一定有值 print(nameNew + String(ageNew)) // 输出:likee 20]]></content>
@@ -13,9 +25,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[136. Single Number]]></title>
-    <url>%2F2020%2F12%2F13%2F136.%20Single%20Number%2F</url>
-    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,要找到数组中只出现一次的数 用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target 题目中还有Follow up,让我们尝试不用多余的内存去做 思路思路1 代码class Solution { var dic :[Int:Int] = [:] func singleNumber(_ nums: [Int]) -&gt; Int { for i in nums{ if dic.keys.contains(i) { dic.removeValue(forKey: i) } else{ dic[i] = 1; } } return Int(dic.keys.first!); } } 思路2 代码class Solution { func singleNumber(_ nums: [Int]) -&gt; Int { var a = 0 for i in nums{ a = a ^ i } return a; } } 注这里用到了异或的计算,计算法则如下,具体的细则可以点击这里]]></content>
+    <title><![CDATA[206. Reverse Linked List]]></title>
+    <url>%2F2020%2F12%2F13%2F206.%20Reverse%20Linked%20List%2F</url>
+    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack 如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接 思路/** * Definition for singly-linked list. * public class ListNode { * public var val: Int * public var next: ListNode? * public init() { self.val = 0; self.next = nil; } * public init(_ val: Int) { self.val = val; self.next = nil; } * public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */ class Solution { var stack :[ListNode] = []; func reverseList(_ head: ListNode?) -&gt; ListNode? { var tmp = head //一直将所有的node压入栈,直到node没有下一个node while tmp != nil{ stack.insert(tmp!, at: 0) tmp = tmp?.next } //开始将各个node按照数组的先后顺序进行连接 for i in stride(from: 0, through: stack.count - 1, by: 1) { let node = stack[i] if(i == stack.count - 1){ node.next = nil; } else{ node.next = stack[i+1]; } } //返回数组的首个元素 return stack.first; } }]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
@@ -24,9 +36,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[206. Reverse Linked List]]></title>
-    <url>%2F2020%2F12%2F13%2F206.%20Reverse%20Linked%20List%2F</url>
-    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack 如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接 思路/** * Definition for singly-linked list. * public class ListNode { * public var val: Int * public var next: ListNode? * public init() { self.val = 0; self.next = nil; } * public init(_ val: Int) { self.val = val; self.next = nil; } * public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */ class Solution { var stack :[ListNode] = []; func reverseList(_ head: ListNode?) -&gt; ListNode? { var tmp = head //一直将所有的node压入栈,直到node没有下一个node while tmp != nil{ stack.insert(tmp!, at: 0) tmp = tmp?.next } //开始将各个node按照数组的先后顺序进行连接 for i in stride(from: 0, through: stack.count - 1, by: 1) { let node = stack[i] if(i == stack.count - 1){ node.next = nil; } else{ node.next = stack[i+1]; } } //返回数组的首个元素 return stack.first; } }]]></content>
+    <title><![CDATA[136. Single Number]]></title>
+    <url>%2F2020%2F12%2F13%2F136.%20Single%20Number%2F</url>
+    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,要找到数组中只出现一次的数 用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target 题目中还有Follow up,让我们尝试不用多余的内存去做 思路思路1 代码class Solution { var dic :[Int:Int] = [:] func singleNumber(_ nums: [Int]) -&gt; Int { for i in nums{ if dic.keys.contains(i) { dic.removeValue(forKey: i) } else{ dic[i] = 1; } } return Int(dic.keys.first!); } } 思路2 代码class Solution { func singleNumber(_ nums: [Int]) -&gt; Int { var a = 0 for i in nums{ a = a ^ i } return a; } } 注这里用到了异或的计算,计算法则如下,具体的细则可以点击这里]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
