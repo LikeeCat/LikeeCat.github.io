@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[35. Search Insert Position]]></title>
+    <url>%2F2022%2F09%2F21%2F35.%20Search%20Insert%20Position%2F</url>
+    <content type="text"><![CDATA[题目 一些思考 排序满足的条件 大于前一位，小于后一位 根据二分法确定查找范围， 确定中点和 target 的数据差异 ，中点比target 大 ，target 就走左边继续寻找中点， 中点比target 小， target 走右边 边界判断和 左右指针的大小范围 代码class Solution { func searchInsert(_ nums: [Int], _ target: Int) -&gt; Int { var left = 0 var right = nums.count - 1 while left &lt;= right{ let middle = (right + left) / 2 if target == nums[middle]{ return middle } else if nums[middle] &gt; target { right = middle - 1 } else{ left = middle + 1 } } return left } }]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>array</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[141. Linked List Cycle]]></title>
     <url>%2F2021%2F01%2F17%2F141.%20Linked%20List%20Cycle%2F</url>
     <content type="text"><![CDATA[题目 一些思考 去判断链表是否包含环这种问题,比较适合用快慢指针来做 slow每次走一步,fast每次走两步,那么fast必然会先进入环中,随后slow也会进入环中 由于两者指针的速度不一致,在经过一定的步数后,两者一定会相遇 具体解释可以查看第二种解法Approach 2: Floyd’s Cycle Finding Algorithm 代码class Solution { func hasCycle(_ head: ListNode?) -&gt; Bool { if head == nil || head?.next == nil{ return false; } var slow = head; var fast = head?.next; while slow !== fast { //if fast is nil list has no cycle if fast == nil || fast?.next == nil { return false; } slow = slow?.next; fast = fast?.next?.next; } return true } }]]></content>
@@ -37,9 +49,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[206. Reverse Linked List]]></title>
-    <url>%2F2020%2F12%2F13%2F206.%20Reverse%20Linked%20List%2F</url>
-    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack 如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接 思路/** * Definition for singly-linked list. * public class ListNode { * public var val: Int * public var next: ListNode? * public init() { self.val = 0; self.next = nil; } * public init(_ val: Int) { self.val = val; self.next = nil; } * public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */ class Solution { var stack :[ListNode] = []; func reverseList(_ head: ListNode?) -&gt; ListNode? { var tmp = head //一直将所有的node压入栈,直到node没有下一个node while tmp != nil{ stack.insert(tmp!, at: 0) tmp = tmp?.next } //开始将各个node按照数组的先后顺序进行连接 for i in stride(from: 0, through: stack.count - 1, by: 1) { let node = stack[i] if(i == stack.count - 1){ node.next = nil; } else{ node.next = stack[i+1]; } } //返回数组的首个元素 return stack.first; } }]]></content>
+    <title><![CDATA[136. Single Number]]></title>
+    <url>%2F2020%2F12%2F13%2F136.%20Single%20Number%2F</url>
+    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,要找到数组中只出现一次的数 用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target 题目中还有Follow up,让我们尝试不用多余的内存去做 思路思路1 代码class Solution { var dic :[Int:Int] = [:] func singleNumber(_ nums: [Int]) -&gt; Int { for i in nums{ if dic.keys.contains(i) { dic.removeValue(forKey: i) } else{ dic[i] = 1; } } return Int(dic.keys.first!); } } 思路2 代码class Solution { func singleNumber(_ nums: [Int]) -&gt; Int { var a = 0 for i in nums{ a = a ^ i } return a; } } 注这里用到了异或的计算,计算法则如下,具体的细则可以点击这里]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
@@ -48,9 +60,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[136. Single Number]]></title>
-    <url>%2F2020%2F12%2F13%2F136.%20Single%20Number%2F</url>
-    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,要找到数组中只出现一次的数 用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target 题目中还有Follow up,让我们尝试不用多余的内存去做 思路思路1 代码class Solution { var dic :[Int:Int] = [:] func singleNumber(_ nums: [Int]) -&gt; Int { for i in nums{ if dic.keys.contains(i) { dic.removeValue(forKey: i) } else{ dic[i] = 1; } } return Int(dic.keys.first!); } } 思路2 代码class Solution { func singleNumber(_ nums: [Int]) -&gt; Int { var a = 0 for i in nums{ a = a ^ i } return a; } } 注这里用到了异或的计算,计算法则如下,具体的细则可以点击这里]]></content>
+    <title><![CDATA[206. Reverse Linked List]]></title>
+    <url>%2F2020%2F12%2F13%2F206.%20Reverse%20Linked%20List%2F</url>
+    <content type="text"><![CDATA[题目 一些思考 从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack 如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接 思路/** * Definition for singly-linked list. * public class ListNode { * public var val: Int * public var next: ListNode? * public init() { self.val = 0; self.next = nil; } * public init(_ val: Int) { self.val = val; self.next = nil; } * public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */ class Solution { var stack :[ListNode] = []; func reverseList(_ head: ListNode?) -&gt; ListNode? { var tmp = head //一直将所有的node压入栈,直到node没有下一个node while tmp != nil{ stack.insert(tmp!, at: 0) tmp = tmp?.next } //开始将各个node按照数组的先后顺序进行连接 for i in stride(from: 0, through: stack.count - 1, by: 1) { let node = stack[i] if(i == stack.count - 1){ node.next = nil; } else{ node.next = stack[i+1]; } } //返回数组的首个元素 return stack.first; } }]]></content>
       <categories>
         <category>leetcode</category>
       </categories>

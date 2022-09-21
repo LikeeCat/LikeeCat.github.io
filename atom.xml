@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://LikeeCat.github.io/"/>
-  <updated>2021-01-17T06:36:55.676Z</updated>
+  <updated>2022-09-21T03:03:35.313Z</updated>
   <id>http://LikeeCat.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>35. Search Insert Position</title>
+    <link href="http://LikeeCat.github.io/2022/09/21/35.%20Search%20Insert%20Position/"/>
+    <id>http://LikeeCat.github.io/2022/09/21/35. Search Insert Position/</id>
+    <published>2022-09-21T09:05:13.000Z</published>
+    <updated>2022-09-21T03:03:35.313Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/35/search_insert_position.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>排序满足的条件 大于前一位，小于后一位</li><li>根据二分法确定查找范围，</li><li>确定中点和 target 的数据差异 ，中点比target 大 ，target 就走左边继续寻找中点， 中点比target 小， target 走右边</li><li>边界判断和 左右指针的大小范围</li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>class Solution {<br>    func searchInsert(_ nums: [Int], _ target: Int) -&gt; Int {</p><pre><code>    var left = 0    var right = nums.count - 1    while left &lt;= right{        let middle = (right + left) / 2        if target == nums[middle]{            return middle        }        else if nums[middle] &gt; target {            right = middle - 1        }        else{            left = middle +  1        }    }    return  left}</code></pre><p>}</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/35/search_insert_position.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+      <category term="array" scheme="http://LikeeCat.github.io/tags/array/"/>
+    
+  </entry>
   
   <entry>
     <title>141. Linked List Cycle</title>
@@ -89,28 +113,6 @@
   </entry>
   
   <entry>
-    <title>206. Reverse Linked List</title>
-    <link href="http://LikeeCat.github.io/2020/12/13/206.%20Reverse%20Linked%20List/"/>
-    <id>http://LikeeCat.github.io/2020/12/13/206. Reverse Linked List/</id>
-    <published>2020-12-13T09:05:13.000Z</published>
-    <updated>2021-01-10T06:00:50.530Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/206题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack</li><li>如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><pre><code>/** * Definition for singly-linked list. * public class ListNode { *     public var val: Int *     public var next: ListNode? *     public init() { self.val = 0; self.next = nil; } *     public init(_ val: Int) { self.val = val; self.next = nil; } *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */class Solution {  var stack :[ListNode] = [];  func reverseList(_ head: ListNode?) -&gt; ListNode? {      var tmp = head      //一直将所有的node压入栈,直到node没有下一个node      while  tmp != nil{          stack.insert(tmp!, at: 0)          tmp = tmp?.next      }      //开始将各个node按照数组的先后顺序进行连接    for i in stride(from: 0, through: stack.count - 1, by: 1) {        let node = stack[i]        if(i == stack.count - 1){            node.next = nil;        }        else{            node.next = stack[i+1];        }    }     //返回数组的首个元素      return stack.first;  }}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/206题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
     <title>136. Single Number</title>
     <link href="http://LikeeCat.github.io/2020/12/13/136.%20Single%20Number/"/>
     <id>http://LikeeCat.github.io/2020/12/13/136. Single Number/</id>
@@ -122,6 +124,28 @@
     <summary type="html">
     
       &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/136题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>206. Reverse Linked List</title>
+    <link href="http://LikeeCat.github.io/2020/12/13/206.%20Reverse%20Linked%20List/"/>
+    <id>http://LikeeCat.github.io/2020/12/13/206. Reverse Linked List/</id>
+    <published>2020-12-13T09:05:13.000Z</published>
+    <updated>2021-01-10T06:00:50.530Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/206题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack</li><li>如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><pre><code>/** * Definition for singly-linked list. * public class ListNode { *     public var val: Int *     public var next: ListNode? *     public init() { self.val = 0; self.next = nil; } *     public init(_ val: Int) { self.val = val; self.next = nil; } *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */class Solution {  var stack :[ListNode] = [];  func reverseList(_ head: ListNode?) -&gt; ListNode? {      var tmp = head      //一直将所有的node压入栈,直到node没有下一个node      while  tmp != nil{          stack.insert(tmp!, at: 0)          tmp = tmp?.next      }      //开始将各个node按照数组的先后顺序进行连接    for i in stride(from: 0, through: stack.count - 1, by: 1) {        let node = stack[i]        if(i == stack.count - 1){            node.next = nil;        }        else{            node.next = stack[i+1];        }    }     //返回数组的首个元素      return stack.first;  }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/206题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -520,33 +544,6 @@ NSLog(@&amp;quot;dic is %@&amp;quot;,dic);
     
     
       <category term="NSArray" scheme="http://LikeeCat.github.io/tags/NSArray/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UITableView reloadData 滑不到底部</title>
-    <link href="http://LikeeCat.github.io/2019/02/18/UITableView%20reloadData%20%E6%BB%91%E4%B8%8D%E5%88%B0%E5%BA%95%E9%83%A8/"/>
-    <id>http://LikeeCat.github.io/2019/02/18/UITableView reloadData 滑不到底部/</id>
-    <published>2019-02-18T10:05:13.000Z</published>
-    <updated>2019-05-29T04:38:01.527Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近有个需求，在 tableView <code>reloadData</code>结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档</p><ol><li>layoutSubviews</li><li>setNeedsLayout</li><li>layoutIfNeeded</li></ol><a id="more"></a><h3 id="layoutSubviews"><a href="#layoutSubviews" class="headerlink" title="layoutSubviews"></a>layoutSubviews</h3><p>Lays out subviews.</p><h4 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h4><p>Subclasses can override this method as needed to perform more precise layout of their subviews. You should override this method only if the autoresizing and constraint-based behaviors of the subviews do not offer the behavior you want. You can use your implementation to set the frame rectangles of your subviews directly.</p><p>You should not call this method directly. If you want to force a layout update, call the <code>setNeedsLayout</code> method instead to do so prior to the next drawing update. If you want to update the layout of your views immediately, call the <code>layoutIfNeeded</code> method.</p><p>在子类中，如果你需要更加准确的定位，你可以重写这个方法。如果 autoresizing 和 constraint不能为你提供你想要做的。你可以自己设置subviews的 frame。<br>你不应该直接调用这个方法，如果你想要强制更新布局，应该调用<code>setNeedsLayout</code>,在下一次绘图更新之前，如果你想要立刻的更新布局，需要调用 <code>layoutIfNeeded</code></p><h3 id="setNeedsLayout"><a href="#setNeedsLayout" class="headerlink" title="setNeedsLayout"></a>setNeedsLayout</h3><p>Invalidates the current layout of the receiver and triggers a layout update during the next update cycle.</p><h4 id="Discussion-1"><a href="#Discussion-1" class="headerlink" title="Discussion"></a>Discussion</h4><p>Call this method on your application’s main thread when you want to adjust the layout of a view’s subviews. This method makes a note of the request and returns immediately. Because this method does not force an immediate update, but instead waits for the next update cycle, you can use it to invalidate the layout of multiple views before any of those views are updated. This behavior allows you to consolidate all of your layout updates to one update cycle, which is usually better for performance.<br>你在想要更新 view 的 subviews 的布局的时候，可以在主线程调用此方法。此方法记录请求并且立即返回。因为这个方法不强制立即更新，而是等待下一个周期更新，你可以使用此方法来让很多 views 的布局失效，并且这样做可以把所有布局更新合并到一个更新周期，这通常会提高性能。</p><h3 id="layoutIfNeeded"><a href="#layoutIfNeeded" class="headerlink" title="layoutIfNeeded"></a>layoutIfNeeded</h3><p>Lays out the subviews immediately, if layout updates are pending.</p><h4 id="Discussion-2"><a href="#Discussion-2" class="headerlink" title="Discussion"></a>Discussion</h4><p>Use this method to force the view to update its layout immediately. When using Auto Layout, the layout engine updates the position of views as needed to satisfy changes in constraints. Using the view that receives the message as the root view, this method lays out the view subtree starting at the root. If no layout updates are pending, this method exits without modifying the layout or calling any layout-related callbacks.<br>使用此方法强制视图立即更新其布局。使用“自动布局”时，布局引擎会根据需要更新视图的位置，以满足约束的更改，使用一个 view 作为 rootView ，此方法从根开始布局视图子树。如果没有约束需要更新，此方法会退出，不会修改 layout 或者调用和此 layout 有关的回调。</p><h2 id="stackoverflow上的提问"><a href="#stackoverflow上的提问" class="headerlink" title="stackoverflow上的提问"></a>stackoverflow上的提问</h2><p>在 stackoverflow上有查到一个问题， <a href="https://stackoverflow.com/questions/16071503/how-to-tell-when-uitableview-has-completed-reloaddata" target="_blank" rel="noopener">How to tell when UITableView has completed ReloadData?</a>，提问的人想要滚动 tableView 到底部，发现调用直接 reloadData，然后滚动没有滚动到最底部，提出了这个问题。 这个下面有很多很多的答案，具体的如下：<br>1.调用<code>layoutIfNeeded</code>强制的刷新布局，接着执行scrollToRowAtIndexPath,滚动到底部，确实是帮助我们解决了这个问题。</p><pre><code>[self.tableView reloadData];[self.tableView layoutIfNeeded];NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOfRowsInSection:([self.tableView     numberOfSections]-1)]-1) inSection: ([self.tableView numberOfSections]-1)];[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];</code></pre><p>原因：</p><blockquote><p>The reload happens during the next layout pass, which normally happens when you return control to the run loop (after, say, your button action or whatever returns).<br>So one way to run something after the table view reloads is simply to force the table view to perform layout immediately<br>重新加载发生在下一个布局过程中，这通常发生在将控制返回到运行循环时（例如，您的按钮操作或任何返回之后）。<br>所以，在tableView reloads 后可以立刻强制更新布局。</p></blockquote><ol start="2"><li><p>调用<code>dispatch_async(dispatch_get_main_queue(), ^{})</code></p><pre><code>[self.tableView reloadData]; dispatch_async(dispatch_get_main_queue(), ^{ NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOfRowsInSection:([self.tableView numberOfSections]-1)]-1) inSection:([self.tableView numberOfSections]-1)]; [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES]; });</code></pre><p>原因</p></li></ol><blockquote><p>depending on how big your table data source is, you can animate going to the bottom of the tableview in the same run loop. If you try your test code with a huge table, your trick of using GCD to delay scrolling until the next run loop will work, whereas immediately scrolling will fail. But anyways, thanks for this trick!<br>但是这种方式并不总是能解决问题,使用GCD来延迟滑动到下一个 runloop，但是立即滑动的话，就会出错。</p></blockquote><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果你的 tableView 在 <code>reloadData</code>后，无法滑动到底部，那么就可以这样做,在<code>reloadData</code>后，调用 <code>layoutIfNeeded</code>，来强制进行布局，然后在进行 tableView的滑动就可以了。</p><pre><code>[self.tableView reloadData];[self.tableView layoutIfNeeded];//do somthing you want</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;最近有个需求，在 tableView &lt;code&gt;reloadData&lt;/code&gt;结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;layoutSubviews&lt;/li&gt;
-&lt;li&gt;setNeedsLayout&lt;/li&gt;
-&lt;li&gt;layoutIfNeeded&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="UITableView" scheme="http://LikeeCat.github.io/categories/UITableView/"/>
-    
-    
-      <category term="UITableView" scheme="http://LikeeCat.github.io/tags/UITableView/"/>
     
   </entry>
   
