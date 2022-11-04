@@ -149,7 +149,7 @@ NSString *const EocStringConstant = @&quot;VALUE&quot;
 </blockquote>
 </li>
 </ol>
-<h2 id="简单讲一下-App-的启动流程"><a href="#简单讲一下-App-的启动流程" class="headerlink" title="简单讲一下 App 的启动流程"></a>简单讲一下 App 的启动流程</h2><p><img src="assets/img/review/16645110128559.jpg" alt="启动流程"></p>
+<h2 id="简单讲一下-App-的启动流程"><a href="#简单讲一下-App-的启动流程" class="headerlink" title="简单讲一下 App 的启动流程"></a>简单讲一下 App 的启动流程</h2><p>review<br><img src="/assets/img/review/16645110128559.jpg" alt="启动流程"></p>
 <ol>
 <li>初始化空间，创建进程</li>
 <li>加载解析可执行文件</li>
@@ -202,8 +202,8 @@ NSString *const EocStringConstant = @&quot;VALUE&quot;
 <h2 id="多线程与-runloop"><a href="#多线程与-runloop" class="headerlink" title="多线程与 runloop"></a>多线程与 runloop</h2><p>runloop 包含 model 包含 timer/source/observe</p>
 <h3 id="子线程与-runloop"><a href="#子线程与-runloop" class="headerlink" title="子线程与 runloop"></a>子线程与 runloop</h3><p>子线程的Runloop对象需要我们主动创建并维护,子线程的Runloop对象在第一次获取时就会创建,销毁则是在子线程结束时. 并且创建出来的runLoop对象默认是不开启的,必须手动开启RunLoop.<br> Runloop并不保证线程安全,我们只能在当前线程内部操作当前线程的Runloop对象,而不能在当前线程中去操作其他线程的RunLoop对象.<br> 相关代码如下:</p>
 <pre><code>NSRunLoop *currentRunLoop = [NSRunloop currentRunloop] //获取当前线程的RunLoop对象,在子线程中调用时如果是第一次获取内部会帮我们创建RunLoop对象 [currentRunLoop run];      [NSRunLooop mainRunLoop] //获取主线程的RunLoop对象 复制代码
-</code></pre><p> <img src="assets/img/review/16647731544916.jpg" alt="启动流程"></p>
-<p>runloop 分为很多个mode（request path 请求路径），input sources (来源分为端口通信 ， performselector 线程执行)。<br> <img src="assets/img/review/16647749533839.jpg" alt="source"></p>
+</code></pre><p> <img src="/assets/img/review/16647731544916.jpg" alt="启动流程"></p>
+<p>runloop 分为很多个mode（request path 请求路径），input sources (来源分为端口通信 ， performselector 线程执行)。<br> <img src="/assets/img/review/16647749533839.jpg" alt="source"></p>
 <h2 id="perform-selector"><a href="#perform-selector" class="headerlink" title="perform selector"></a>perform selector</h2><p>Invokes a method of the receiver on the current thread using the default mode after a delay.</p>
 <p>This method sets up a timer to perform the aSelector message on the current thread’s run loop. The timer is configured to run in the default mode (NSDefaultRunLoopMode). When the timer fires, the thread attempts to dequeue the message from the run loop and perform the selector. It succeeds if the run loop is running and in the default mode; otherwise, the timer waits until the run loop is in the default mode<br>执行成功时，只会执行一次。如果不成功，就会一直存在runloop中</p>
 <pre><code>//取消不传参的方法
@@ -212,7 +212,7 @@ NSString *const EocStringConstant = @&quot;VALUE&quot;
  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayDo:) object:@&quot;abc&quot;];
 </code></pre><h2 id="UILayer"><a href="#UILayer" class="headerlink" title="UILayer"></a>UILayer</h2><p>UIView 继承了UIResponder，所以 UIView 可以响应用户的一些操作。而且 UIView 遵循代理 CALayerDelegate 。和 CALayer 有了一点点的联系</p>
 <p>CALayer继承于 NSObject ，无法响应用户的操作。view 是 layer 的代理，并且不可改变</p>
-<h3 id="clang-amp-amp-LLVM"><a href="#clang-amp-amp-LLVM" class="headerlink" title="clang &amp;&amp; LLVM"></a>clang &amp;&amp; LLVM</h3><p> <img src="assets/img/review/16652948432073.jpg" alt="LLVM"></p>
+<h3 id="clang-amp-amp-LLVM"><a href="#clang-amp-amp-LLVM" class="headerlink" title="clang &amp;&amp; LLVM"></a>clang &amp;&amp; LLVM</h3><p> <img src="/assets/img/review/16652948432073.jpg" alt="LLVM"></p>
 <h4 id="1-预处理，"><a href="#1-预处理，" class="headerlink" title="1. 预处理，"></a>1. 预处理，</h4><p>这阶段的工作主要是头文件导入，宏展开/替换，预编译指令处理，以及注释的去除。</p>
 <h4 id="2-编译"><a href="#2-编译" class="headerlink" title="2.编译"></a>2.编译</h4><p>a. 词法分析（Lexical Analysis）：将代码转换成一系列 token，如大中小括号 paren’()’ square’[]’ brace’{}’、标识符 identifier、字符串 string_literal、数字常量 numeric_constant 等等；<br>b. 语法分析（Semantic Analysis）：将 token 流组成抽象语法树 AST；<br>c. 静态分析（Static Analysis）：检查代码错误，例如参数类型是否错误，调用对象方法是否有实现；<br>d. 中间代码生成（Code Generation）：将语法树自顶向下遍历逐步翻译成 LLVM IR。</p>
 <h4 id="3-生成汇编代码："><a href="#3-生成汇编代码：" class="headerlink" title="3.生成汇编代码："></a>3.生成汇编代码：</h4><p>LLVM 将 LLVM IR 生成当前平台的汇编代码，期间 LLVM 根据编译设置的优化级别 Optimization Level 做对应的优化（Optimize），例如 Debug 的 -O0 不需要优化，而 Release 的 -Os 是尽可能优化代码效率并减少体积。</p>
@@ -377,7 +377,7 @@ function handleMessage(message) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2022/10/25/面试问题汇总/" data-id="cla2cffro003yxou8j4q9n20z"
+      <a data-url="http://LikeeCat.github.io/2022/10/25/面试问题汇总/" data-id="cla2cgcyh003t8pu8u2rq5vyp"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
