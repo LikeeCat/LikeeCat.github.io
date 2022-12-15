@@ -186,28 +186,6 @@
   </entry>
   
   <entry>
-    <title>206. Reverse Linked List</title>
-    <link href="http://LikeeCat.github.io/2020/12/13/206.%20Reverse%20Linked%20List/"/>
-    <id>http://LikeeCat.github.io/2020/12/13/206. Reverse Linked List/</id>
-    <published>2020-12-13T09:05:13.000Z</published>
-    <updated>2021-01-10T06:00:50.530Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/206题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack</li><li>如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><pre><code>/** * Definition for singly-linked list. * public class ListNode { *     public var val: Int *     public var next: ListNode? *     public init() { self.val = 0; self.next = nil; } *     public init(_ val: Int) { self.val = val; self.next = nil; } *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */class Solution {  var stack :[ListNode] = [];  func reverseList(_ head: ListNode?) -&gt; ListNode? {      var tmp = head      //一直将所有的node压入栈,直到node没有下一个node      while  tmp != nil{          stack.insert(tmp!, at: 0)          tmp = tmp?.next      }      //开始将各个node按照数组的先后顺序进行连接    for i in stride(from: 0, through: stack.count - 1, by: 1) {        let node = stack[i]        if(i == stack.count - 1){            node.next = nil;        }        else{            node.next = stack[i+1];        }    }     //返回数组的首个元素      return stack.first;  }}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/206题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
     <title>136. Single Number</title>
     <link href="http://LikeeCat.github.io/2020/12/13/136.%20Single%20Number/"/>
     <id>http://LikeeCat.github.io/2020/12/13/136. Single Number/</id>
@@ -219,6 +197,28 @@
     <summary type="html">
     
       &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/136题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>206. Reverse Linked List</title>
+    <link href="http://LikeeCat.github.io/2020/12/13/206.%20Reverse%20Linked%20List/"/>
+    <id>http://LikeeCat.github.io/2020/12/13/206. Reverse Linked List/</id>
+    <published>2020-12-13T09:05:13.000Z</published>
+    <updated>2021-01-10T06:00:50.530Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/206题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack</li><li>如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><pre><code>/** * Definition for singly-linked list. * public class ListNode { *     public var val: Int *     public var next: ListNode? *     public init() { self.val = 0; self.next = nil; } *     public init(_ val: Int) { self.val = val; self.next = nil; } *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */class Solution {  var stack :[ListNode] = [];  func reverseList(_ head: ListNode?) -&gt; ListNode? {      var tmp = head      //一直将所有的node压入栈,直到node没有下一个node      while  tmp != nil{          stack.insert(tmp!, at: 0)          tmp = tmp?.next      }      //开始将各个node按照数组的先后顺序进行连接    for i in stride(from: 0, through: stack.count - 1, by: 1) {        let node = stack[i]        if(i == stack.count - 1){            node.next = nil;        }        else{            node.next = stack[i+1];        }    }     //返回数组的首个元素      return stack.first;  }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/206题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
     
     </summary>
     
