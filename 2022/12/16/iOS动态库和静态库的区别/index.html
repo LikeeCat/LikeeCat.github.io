@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="iOS">
+  
+  
+    <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    iOS 动态库和静态库的区别 |
+    
+    LikeeCat&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-iOS动态库和静态库的区别" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS 动态库和静态库的区别
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2022/12/16/iOS动态库和静态库的区别/" class="article-date">
+  <time datetime="2022-12-16T10:05:13.000Z" itemprop="datePublished">2022-12-16</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/framework/">framework</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h1><p>面试的时候总会被问到静态库和动态库的区别,就在此做一下记录</p>
+<h2 id="Static-library"><a href="#Static-library" class="headerlink" title="Static library"></a>Static library</h2><p>a unit of code linked at compile time, which does not change.</p>
+<p>However, iOS static libraries are not allowed to contain images/assets (only code). You can get around this challenge by using a media bundle though.</p>
+<h2 id="Dynamic-library"><a href="#Dynamic-library" class="headerlink" title="Dynamic library"></a>Dynamic library</h2><p>  a unit of code and/or assets linked at runtime that may change.</p>
+<p>However, only Apple is allowed to create dynamic libraries for iOS . You’re not allowed to create these, as this will get your app rejected. </p>
+<a id="more"></a>
+<h2 id="库的二进制区别是什么"><a href="#库的二进制区别是什么" class="headerlink" title="库的二进制区别是什么"></a>库的二进制区别是什么</h2><p>我们可以使用 ar 相关的命令进行查看<br>ar : 维护链接编辑器使用的索引库,具体命令行相关可以看这里(<a href="https://www.cnblogs.com/machao/p/5288462.html" target="_blank" rel="noopener">https://www.cnblogs.com/machao/p/5288462.html</a>)</p>
+<pre><code>➜  ~ ar -t Static
+Framework.framework/StaticFramework
+__.SYMDEF SORTED
+StaticFramework_vers.o
+StaticTestObject.o
+➜  ~ ar -t DynamicFramework.framework/DynamicFramework
+ar: DynamicFramework.framework/DynamicFramework: Inappropriate file type or format
+</code></pre><h2 id="编译流程区别"><a href="#编译流程区别" class="headerlink" title="编译流程区别"></a>编译流程区别</h2><p><img src="/assets/img/Framework/16710947388588.jpg" alt></p>
+<p>对于静态库来讲,它本身的流程在生成.o文件后就停止了,没有经历 Linker 的过程.但是对动态库来讲,它是走完了这一套完整的流程.</p>
+<h3 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h3><p>静态库实际上是一堆.o的目标文件合集,包含具体的架构信息,在使用的时候,会参与到动态库或者主target的链接过程,是需要一个依附的点的</p>
+<h3 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h3><p>对于动态库而言则不一样,主 Target 构建的时候遇到动态库就会打一个标记,这个标记再Macho 中长这个样子,这样在 Macho 进行加载的时候,dyld 会通过 @rpath/xxx.framework/xxx 进行动态链接. (这就是动态链接的过程)</p>
+<p><img src="/assets/img/Framework/16710952125805.jpg" alt></p>
+<pre><code>https://xilankong.github.io/ios%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/2020/07/29/Xcode-build%E8%BF%87%E7%A8%8B%E9%83%BD%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88.html
+</code></pre><h2 id="dyld-如何加载动态库"><a href="#dyld-如何加载动态库" class="headerlink" title="dyld 如何加载动态库"></a>dyld 如何加载动态库</h2><p><img src="/assets/img/Framework/16710955653057.jpg" alt></p>
+<h2 id="动静态库加载到内存的区别"><a href="#动静态库加载到内存的区别" class="headerlink" title="动静态库加载到内存的区别"></a>动静态库加载到内存的区别</h2><h3 id="静态库-1"><a href="#静态库-1" class="headerlink" title="静态库"></a>静态库</h3><p>当你使用静态库时,如果库进行更新,那么你需要更新主 App 才能获取到库的更新.  因为库的代码和 App 代码一起被加载到了应用程序的地址空间中<br><img src="/assets/img/Framework/16711674887618.jpg" alt></p>
+<h3 id="动态库-1"><a href="#动态库-1" class="headerlink" title="动态库"></a>动态库</h3><p>对于iOS 来讲, 系统的动态库和我们自己的动态库还是有很大的区别的</p>
+<h4 id="系统动态库"><a href="#系统动态库" class="headerlink" title="系统动态库"></a>系统动态库</h4><p>系统动态库： 链接时不复制，程序运行时由系统动态加载到内存，系统只加载一次，多个程序共用，节省内存。 例如下图：抖音和微信的可执行文件加载动态库时，内存中只有一份动态库，不用加载到可执行文件。<br><img src="/assets/img/Framework/16711696406241.jpg" alt></p>
+<h4 id="我们自己的动态库"><a href="#我们自己的动态库" class="headerlink" title="我们自己的动态库"></a>我们自己的动态库</h4><p>同一个 APP 里不同的进程可以共用你这个库,假使我们有多个 App,那么多个 App 中都同时存在这个库<br><img src="/assets/img/Framework/16711696778673.jpg" alt></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>针对Macos 来讲,但是对于动态库来讲,当库进行更新时,开发人员是无需对应用程序进行构建更新的,Macos中的系统库都是动态库,这样当系统进行升级时,使用到这些库的app,自然而然的就进行了更新,这是一种隐式的升级</p>
+<p>虽然在 iOS 中的动态库有很多的限制,但是他还是一个动态库,当我们动态库进行了升级(这里我们假定调用的 api 不变,只是动态库内的实现变了,还需要确保动态库的签名与你的APP签名一致性). 你需要做的重新构建一遍你的动态库,然后替换之前旧版的动态库就好.如果需要上架,还需要再更新一遍App,苹果不允许我们动态下发代码.<br><img src="/assets/img/Framework/16711678257612.jpg" alt></p>
+<h3 id="关于静态库的吸附性"><a href="#关于静态库的吸附性" class="headerlink" title="关于静态库的吸附性"></a>关于静态库的吸附性</h3><p>静态库本质是一堆.o 的打包体，首先并不是二进制可执行文件，再者你无法保证主程序把静态库参与链接共同生成二进制可执行文件。</p>
+<p>解决方案<br>目前的编译器的解决办法是，首先我无法保证主程序是否包含静态库，再者静态库也无法被dyld加载，那么我直接把你静态库的.o 偷过来，共同组成一个新的二进制。也被称做吸附性。</p>
+<p>【如果多个动态库依赖同一静态库？】<br>可执文件（主程序或者动态库）在构建的链接阶段，遇到静态库，吸附进来；遇到动态库，打标记，彼此保持独立。</p>
+<p>正因为动态库是保持独立的，可以自定义一个动态库把依赖的静态库吸附进来。对外整体呈现的是动态库特性。其他的组件依赖我们自定义的动态库，由于隔离性的存在，不会出现问题。</p>
+<h3 id="关于包体积优化"><a href="#关于包体积优化" class="headerlink" title="关于包体积优化"></a>关于包体积优化</h3><p>静态库在静态链接阶段，仅把用到的文件link到mach-o中，这一点和动态库区别很大，符合包体积优化需求。<br>在静态链接（ld）阶段，动态库会把整个lib复制进mach-o中，这显然不太符合包体积优化的需求。</p>
+<h3 id="关于裁剪"><a href="#关于裁剪" class="headerlink" title="关于裁剪"></a>关于裁剪</h3><p>如果这个静态库没有被调用,并且代码被编译器优化掉了.那么你就不可以从运行时里面使用这个类,会崩溃<br>如果你确信需要使用(一般来讲一个只有分类的静态库就会遇到问题),你就需要加上 -all_load, -objc, -force_load</p>
+<p><a href="https://pewpewthespells.com/blog/objc_linker_flags.html" target="_blank" rel="noopener">https://pewpewthespells.com/blog/objc_linker_flags.html</a></p>
+<p>-all_load<br>The -all_load flag tell the linker that it should link every object file (member) of every static library that is passed to the linker. This is a rather drastic option and can cause your executable binary to dramatically increase in size. This flag should be avoided if at all possible when using many static libraries.</p>
+<p>-ObjC<br>The -ObjC flag controls behavior around Objective-C code. This will tell the linker that it should look through all the object files (members) of each static library to find the object files (members) that contain any additional Objective-C runtime data. This allows developers to link object files that only contain Objective-C catagories, or any other Objective-C code that the static analysis cannot resolve as being called directly (such as creating a class using NSClassFromString()). This is the flag that is typically passed when using static libraries that contain Objective-C code. Keep in mind, this flag means that ALL Objective-C code that is passed to the linker will be added to the executable binary regardless of if it gets used or not.</p>
+<p>-force_load<br>The -force_load flag is very similar to the -all_load flag, except that it takes an argument of a path to a static library. When passed to the linker, this flag says that regardless of whatever other flags are passed to the linker, that it should link all of the object files (members) of the specific static library that is specified by the passed argument. This allows for a more controlled behavior of selectively loading all the code from one static library but not having to bloat up the executable binary with unnecessary code from other libraries.</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://xilankong.github.io/ios%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/2020/07/29/Xcode-build%E8%BF%87%E7%A8%8B%E9%83%BD%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88.html" target="_blank" rel="noopener">Xcode build过程中都做了什么</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2022/12/16/iOS动态库和静态库的区别/" data-id="clbq53583001tcdu8inbczsbp"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">framework</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/12/15/Clang Module VS Swift Module/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">Clang Module VS Swift Module</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'c9b751a1e1d42d823869',
+      clientSecret: '0f805daf744877256f9aa375be74c0af132942c7',
+      repo: 'LikeeCatTalk',
+      owner: 'LikeeCat',
+      admin: ['LikeeCat'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2022 LikeeCat&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/favicon.ico" alt="LikeeCat&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>
