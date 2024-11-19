@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="iOS">
+  
+  
+    <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    iOS 中文排序 |
+    
+    LikeeCat&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-iOS中文排序" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS 中文排序
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/05/29/iOS中文排序/" class="article-date">
+  <time datetime="2019-05-29T11:05:58.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/tip/">tip</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="排序方法"><a href="#排序方法" class="headerlink" title="排序方法"></a>排序方法</h1><h2 id="localizedCompare"><a href="#localizedCompare" class="headerlink" title="localizedCompare(_:)"></a>localizedCompare(_:)</h2><p>Compares the string and a given string using a localized comparison.</p>
+<blockquote>
+<p>在NSString 的 API 中有这个方法,假设你的手机使用的是中文,就可以根据中文排序</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="NSSortDescriptor"><a href="#NSSortDescriptor" class="headerlink" title="NSSortDescriptor"></a>NSSortDescriptor</h2><p>An immutable description of how to order a collection of objects based on a property common to all the objects.</p>
+<blockquote>
+<p>可以根据集合中的对象的某一个属性对这个集合进行排序</p>
+</blockquote>
+<h2 id="initWithKey-ascending-selector"><a href="#initWithKey-ascending-selector" class="headerlink" title="initWithKey:ascending:selector:"></a>initWithKey:ascending:selector:</h2><pre><code>- (instancetype)initWithKey:(NSString *)key 
+              ascending:(BOOL)ascending 
+               selector:(SEL)selector;
+
+根据给出的key 升序还是降序 还有使用selector来初始化
+</code></pre><h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><h2 id="定义对象"><a href="#定义对象" class="headerlink" title="定义对象"></a>定义对象</h2><pre><code>@interface person : NSObject
+@property (nonatomic,strong)NSString *name;
+@property (nonatomic,strong)NSString *phone;
+@end
+</code></pre><h2 id="定义对象的集合"><a href="#定义对象的集合" class="headerlink" title="定义对象的集合"></a>定义对象的集合</h2><pre><code>person *p = [[person alloc]initWithName:@&quot;小小&quot; phone:@&quot;13322223333&quot;];
+person *p1 = [[person alloc]initWithName:@&quot;小二&quot; phone:@&quot;13322223333&quot;];
+person *p2 = [[person alloc]initWithName:@&quot;校小&quot; phone:@&quot;13322223333&quot;];
+NSMutableArray *arr  = [NSMutableArray arrayWithArray:@[p,p1,p2]];
+</code></pre><h2 id="定义排序方法"><a href="#定义排序方法" class="headerlink" title="定义排序方法"></a>定义排序方法</h2><pre><code>NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@&quot;name&quot; ascending:YES selector:@selector(localizedCompare:)]];
+</code></pre><h2 id="进行排序"><a href="#进行排序" class="headerlink" title="进行排序"></a>进行排序</h2><pre><code>[arr sortUsingDescriptors:sortDescriptors];
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2019/05/29/iOS中文排序/" data-id="cm3ob2ehf00209rgjgbnof33l"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tip/">tip</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/05/30/Xcode 快捷操作/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Xcode快捷键
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/04/16/OC中函数的一些理解/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">OC中函数的一些小技巧</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'c9b751a1e1d42d823869',
+      clientSecret: '0f805daf744877256f9aa375be74c0af132942c7',
+      repo: 'LikeeCatTalk',
+      owner: 'LikeeCat',
+      admin: ['LikeeCat'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2024 LikeeCat&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/favicon.ico" alt="LikeeCat&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

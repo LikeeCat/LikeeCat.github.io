@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="iOS">
+  
+  
+    <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    NSArray之深浅拷贝 |
+    
+    LikeeCat&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-NSArray之深浅拷贝" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NSArray之深浅拷贝
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/06/11/NSArray之深浅拷贝/" class="article-date">
+  <time datetime="2019-06-11T10:05:13.000Z" itemprop="datePublished">2019-06-11</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/NSArray/">NSArray</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h2 id="1-自定义对象"><a href="#1-自定义对象" class="headerlink" title="1. 自定义对象"></a>1. 自定义对象</h2><ol>
+<li><p>假设我有一个Student类</p>
+<pre><code>@interface Student()&lt;NSCopying,NSMutableCopying&gt;
+@property (nonatomic,copy)NSString *name;
+@property (nonatomic,assign)NSInteger age;
+@end
+</code></pre> <a id="more"></a>
+</li>
+<li><p>生成两个Student对象</p>
+<pre><code> Student *stu = [[Student alloc]initWithName:@&quot;a&quot; age:1];
+Student *stu1 = [[Student alloc]initWithName:@&quot;b&quot; age:2];
+</code></pre></li>
+<li><p>用NSArray去把这两个对象加进数组,分别对数组进行copy 和 mutableCopy</p>
+<pre><code>NSArray *arr = [NSArray arrayWithObjects:stu,stu1, nil];
+NSArray *arrCopy =  [arr copy] ;
+NSMutableArray *arrMuCopy = [arr mutableCopy];
+</code></pre></li>
+<li><p>在arrMuCopy之后打断点查看结果</p>
+<pre><code> po arr
+&lt;__NSArrayI 0x102900290&gt;(
+&lt;Student: 0x100646bc0&gt;,
+&lt;Student: 0x100647300&gt;
+)
+
+ po arrCopy
+&lt;__NSArrayI 0x102900290&gt;(
+&lt;Student: 0x100646bc0&gt;,
+&lt;Student: 0x100647300&gt;
+)
+po arrMuCopy
+&lt;__NSArrayM 0x1029056f0&gt;(
+&lt;Student: 0x100646bc0&gt;,
+&lt;Student: 0x100647300&gt;
+)
+</code></pre><blockquote>
+<p>从结果上来说,copy只是复制了一个指针,arr 和 arrCopy 在堆上的对象是同一个.而arrMuCopy则是创建了新的内存地址,即创建了一个新的NSMutableArray的对象,但是array中包含的自定义对象没有复制.</p>
+</blockquote>
+</li>
+<li><p>重写Student的description方法</p>
+<pre><code>-(NSString *)description{
+ return [NSString stringWithFormat:@&quot;name:%@\n age :%d&quot;,self.name,self.age];
+ }
+</code></pre></li>
+<li><p>在copy 和 mutableCopy 结束后打断点</p>
+<pre><code>  NSArray *arr = [NSArray arrayWithObjects:stu,stu1, nil];
+NSArray *arrCopy =  [arr copy] ;
+NSMutableArray *arrMuCopy = [arr mutableCopy];
+[stu changeName:@&quot;ccc&quot;];
+
+ po arr
+&lt;__NSArrayI 0x1029002c0&gt;(
+name:ccc
+ age :1,
+name:b
+ age :2
+)
+ po arrCopy
+&lt;__NSArrayI 0x1029002c0&gt;(
+name:ccc
+ age :1,
+name:b
+ age :2
+)
+po arrMuCopy
+&lt;__NSArrayM 0x102909590&gt;(
+name:ccc
+ age :1,
+name:b
+ age :2
+)
+</code></pre></li>
+</ol>
+<p>结果也论证了这一点,mutableCopy后并没有将array中的对象进行复制</p>
+<h2 id="NSString"><a href="#NSString" class="headerlink" title="NSString"></a>NSString</h2><ol>
+<li><p>用NSArray去把这两个对象加进数组,分别对数组进行copy 和 mutableCopy</p>
+<pre><code>NSArray *arr = [NSArray arrayWithObjects:@&quot;aaa&quot;,@&quot;bbb&quot;, nil];
+NSArray *arrCopy =  [arr copy] ;
+NSMutableArray *arrMuCopy = [arr mutableCopy];
+</code></pre></li>
+<li><p>在copy 和 mutableCopy 结束后打断点</p>
+<pre><code>po arr
+&lt;__NSArrayI 0x100504700&gt;(
+aaa,
+bbb
+)
+
+po arrCopy
+&lt;__NSArrayI 0x100504700&gt;(
+aaa,
+bbb
+)
+
+po arrMuCopy
+&lt;__NSArrayM 0x100503290&gt;(
+aaa,
+bbb
+)
+
+ p arr[0]
+(__NSCFConstantString *) $4 = 0x00000001000020d0 @&quot;aaa&quot;
+
+p arrCopy[0]
+(__NSCFConstantString *) $7 = 0x00000001000020d0 @&quot;aaa&quot;
+
+p arrMuCopy[0]
+(__NSCFConstantString *) $6 = 0x00000001000020d0 @&quot;aaa&quot;
+</code></pre></li>
+</ol>
+<p>结果也论证了这一点,mutableCopy后并没有将array中的对象进行复制</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2019/06/11/NSArray之深浅拷贝/" data-id="cm3ob2egy000t9rgjc7c7f9sl"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSArray/">NSArray</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/11/17/ Flutter 加载txt文件/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Flutter 加载txt文件
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/05/30/Xcode 快捷操作/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">Xcode快捷键</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'c9b751a1e1d42d823869',
+      clientSecret: '0f805daf744877256f9aa375be74c0af132942c7',
+      repo: 'LikeeCatTalk',
+      owner: 'LikeeCat',
+      admin: ['LikeeCat'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2024 LikeeCat&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/favicon.ico" alt="LikeeCat&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

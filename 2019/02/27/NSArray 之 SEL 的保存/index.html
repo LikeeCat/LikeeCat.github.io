@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="iOS">
+  
+  
+    <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    NSArray 之 SEL 的保存 |
+    
+    LikeeCat&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-NSArray 之 SEL 的保存" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NSArray 之 SEL 的保存
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/02/27/NSArray 之 SEL 的保存/" class="article-date">
+  <time datetime="2019-02-27T10:05:13.000Z" itemprop="datePublished">2019-02-27</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/NSArray/">NSArray</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在初始化类的时候，会有很多没有返回值的初始化方法需要调用，每次都需要再写一遍，所以想把函数装进 NSArray 中可以自动调用。结果查了一下真的可以，所以做个笔记记一下</p>
+<a id="more"></a>
+<pre><code>- (void)viewDidLoad {
+    [super viewDidLoad];
+    NSString* A = NSStringFromSelector(@selector(loadA));
+    NSString* B = NSStringFromSelector(@selector(loadB));
+    NSString* C = NSStringFromSelector(@selector(loadC));
+    NSArray *arr = @[A,B,C];
+    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *selector = obj;
+        if (!self) { return; }
+        SEL performSelector = NSSelectorFromString(selector);
+        if ([self respondsToSelector:performSelector]){
+            [self performSelector:performSelector];
+        }
+    }];
+}
+
+- (void)loadA{
+    NSLog(@&quot;call load A +++++++&quot;);
+}
+
+- (void)loadB{
+    NSLog(@&quot;call load B ++++++++&quot;);
+}
+
+- (void)loadC{
+    NSLog(@&quot;call load C +++++&quot;);
+}
+</code></pre><p>然后就写了一个小 demo,写完后报了警告，查过<a href="https://www.jianshu.com/p/6517ab655be7" target="_blank" rel="noopener">爆栈热门 iOS 问题</a>后，解决了这个问题。<br><img src="https://upload-images.jianshu.io/upload_images/2239937-b6801e1b52041ae2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<pre><code>NSString* A = NSStringFromSelector(@selector(loadA));
+NSString* B = NSStringFromSelector(@selector(loadB));
+NSString* C = NSStringFromSelector(@selector(loadC));
+NSArray *arr = @[A,B,C];
+[arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSString *selector = obj;
+    if (!self) { return; }
+    SEL performSelector = NSSelectorFromString(selector);
+    IMP imp = [self methodForSelector:performSelector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(self, performSelector);
+}];
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2019/02/27/NSArray 之 SEL 的保存/" data-id="cm3ob2egv000o9rgjoaak36b3"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSArray/">NSArray</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/03/16/iOS-中-CSV格式文件读写/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            iOS 中 CSV格式文件读写
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/02/18/UITableView reloadData 滑不到底部/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">UITableView reloadData 滑不到底部</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'c9b751a1e1d42d823869',
+      clientSecret: '0f805daf744877256f9aa375be74c0af132942c7',
+      repo: 'LikeeCatTalk',
+      owner: 'LikeeCat',
+      admin: ['LikeeCat'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2024 LikeeCat&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/favicon.ico" alt="LikeeCat&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>LikeeCat&#39;s Blog</title>
+  
+  <subtitle>音乐 | 摄影 | 游戏 | 努力努力再努力</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://LikeeCat.github.io/"/>
+  <updated>2024-11-19T09:49:48.590Z</updated>
+  <id>http://LikeeCat.github.io/</id>
+  
+  <author>
+    <name>LikeeCat</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Top 100 - Backtracking</title>
+    <link href="http://LikeeCat.github.io/2024/11/01/Backtracking/"/>
+    <id>http://LikeeCat.github.io/2024/11/01/Backtracking/</id>
+    <published>2024-11-01T09:05:13.000Z</published>
+    <updated>2024-11-19T09:49:48.590Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="22-Generate-Parentheses"><a href="#22-Generate-Parentheses" class="headerlink" title="22. Generate Parentheses"></a>22. Generate Parentheses</h2><p><code>Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.</code></p><pre><code>Example 1:Input: n = 3Output: [&quot;((()))&quot;,&quot;(()())&quot;,&quot;(())()&quot;,&quot;()(())&quot;,&quot;()()()&quot;]Example 2:Input: n = 1Output: [&quot;()&quot;]</code></pre><a id="more"></a><h3 id="sul"><a href="#sul" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {Integer} n# @return {String[]}def generate_parenthesis(n)    ans = []    generate_parenthesis_helper(n,n,ans, &quot;&quot;)    ansenddef generate_parenthesis_helper(left_remain, right_remain, ans, current_ans)    if left_remain == 0 and right_remain == 0        ans &lt;&lt; current_ans    end    if left_remain &gt; 0        generate_parenthesis_helper(left_remain - 1, right_remain, ans, current_ans + &quot;(&quot;)    end    if right_remain &gt; left_remain        generate_parenthesis_helper(left_remain, right_remain - 1, ans, current_ans + &quot;)&quot;)    endend</code></pre><h2 id="39-Combination-Sum"><a href="#39-Combination-Sum" class="headerlink" title="39. Combination Sum"></a>39. Combination Sum</h2><p><code>Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.</code></p><p><code>The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.</code></p><p><code>The test cases are generated such that the number of unique combinations that sum up to target is less than 150 combinations for the given input.</code></p><pre><code>Example 1:Input: candidates = [2,3,6,7], target = 7Output: [[2,2,3],[7]]Explanation:2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.7 is a candidate, and 7 = 7.These are the only two combinations.Example 2:Input: candidates = [2,3,5], target = 8Output: [[2,2,2,2],[2,3,3],[3,5]]Example 3:Input: candidates = [2], target = 1Output: []</code></pre><h3 id="sul-1"><a href="#sul-1" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {Integer[]} candidates# @param {Integer} target# @return {Integer[][]}def combination_sum(candidates, target)    ans = []    combination_sum_helper(candidates, target, ans, [], 0)    ansenddef combination_sum_helper(candidates, target, ans, current_ans, start)    if target == 0        ans &lt;&lt; current_ans        return    end    if target &lt; 0         return    end    for i in start...candidates.length        combination_sum_helper(candidates, target- candidates[i], ans, current_ans + [candidates[i]],i)    endend</code></pre><h2 id="46-Permutations"><a href="#46-Permutations" class="headerlink" title="46. Permutations"></a>46. Permutations</h2><p><code>Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.</code></p><pre><code>Example 1:Input: nums = [1,2,3]Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]Example 2:Input: nums = [0,1]Output: [[0,1],[1,0]]Example 3:Input: nums = [1]Output: [[1]]</code></pre><h3 id="sul-2"><a href="#sul-2" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {Integer[]} nums# @return {Integer[][]}def permute(nums)    ans = []    permute_helper(nums, ans, [])    ansenddef permute_helper(nums, ans, current_ans)    if nums.length == 0        ans &lt;&lt; current_ans        return    end    for i in 0...nums.length        permute_helper(nums- [nums[i]], ans, current_ans + [nums[i]])    endend</code></pre><h2 id="78-Subsets"><a href="#78-Subsets" class="headerlink" title="78. Subsets"></a>78. Subsets</h2><p><code>Given an integer array nums of unique elements, return all possible subsets (the power set).</code></p><p><code>The solution set must not contain duplicate subsets. Return the solution in any order.</code></p><pre><code>Example 1:Input: nums = [1,2,3]Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]Example 2:Input: nums = [0]Output: [[],[0]]</code></pre><h3 id="sul-3"><a href="#sul-3" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {Integer[]} nums# @return {Integer[][]}def subsets(nums)    ans = []    for i in 0..nums.length        subsets_helper(nums, i, ans, [], 0)    end    ansenddef subsets_helper(nums, count, ans, current_ans, start)    if count == 0        ans &lt;&lt; current_ans        return    end    for i in start...nums.length        subsets_helper(nums - [nums[i]], count - 1, ans, current_ans + [nums[i]], i)    endend</code></pre><h2 id="131-Palindrome-Partitioning"><a href="#131-Palindrome-Partitioning" class="headerlink" title="131. Palindrome Partitioning"></a>131. Palindrome Partitioning</h2><p><code>Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.</code></p><pre><code>Example 1:Input: s = &quot;aab&quot;Output: [[&quot;a&quot;,&quot;a&quot;,&quot;b&quot;],[&quot;aa&quot;,&quot;b&quot;]]Example 2:Input: s = &quot;a&quot;Output: [[&quot;a&quot;]]</code></pre><h3 id="sul-4"><a href="#sul-4" class="headerlink" title="sul"></a>sul</h3><pre><code> # @param {String} s# @return {String[][]}def partition(s)    ans = []    partition_helper(s, ans, [], 0)    ansenddef partition_helper(s, ans, current_ans, start)    if start == s.length        ans &lt;&lt; current_ans        return    end    for i in start..s.length        sub_string = s[start..i]        if is_par(sub_string)            partition_helper(s, ans, current_ans + [sub_string], i+1)        end    endenddef is_par(s)    left = 0    right = s.length - 1    while left &lt;= right        return false if s[left] != s[right]        left += 1        right -= 1     end    return trueend</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;22-Generate-Parentheses&quot;&gt;&lt;a href=&quot;#22-Generate-Parentheses&quot; class=&quot;headerlink&quot; title=&quot;22. Generate Parentheses&quot;&gt;&lt;/a&gt;22. Generate Parentheses&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Example 1:
+
+Input: n = 3
+Output: [&amp;quot;((()))&amp;quot;,&amp;quot;(()())&amp;quot;,&amp;quot;(())()&amp;quot;,&amp;quot;()(())&amp;quot;,&amp;quot;()()()&amp;quot;]
+Example 2:
+
+Input: n = 1
+Output: [&amp;quot;()&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS 动态库和静态库的区别</title>
+    <link href="http://LikeeCat.github.io/2022/12/16/iOS%E5%8A%A8%E6%80%81%E5%BA%93%E5%92%8C%E9%9D%99%E6%80%81%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://LikeeCat.github.io/2022/12/16/iOS动态库和静态库的区别/</id>
+    <published>2022-12-16T10:05:13.000Z</published>
+    <updated>2022-12-16T06:39:24.644Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h1><p>面试的时候总会被问到静态库和动态库的区别,就在此做一下记录</p><h2 id="Static-library"><a href="#Static-library" class="headerlink" title="Static library"></a>Static library</h2><p>a unit of code linked at compile time, which does not change.</p><p>However, iOS static libraries are not allowed to contain images/assets (only code). You can get around this challenge by using a media bundle though.</p><h2 id="Dynamic-library"><a href="#Dynamic-library" class="headerlink" title="Dynamic library"></a>Dynamic library</h2><p>  a unit of code and/or assets linked at runtime that may change.</p><p>However, only Apple is allowed to create dynamic libraries for iOS . You’re not allowed to create these, as this will get your app rejected. </p><a id="more"></a><h2 id="库的二进制区别是什么"><a href="#库的二进制区别是什么" class="headerlink" title="库的二进制区别是什么"></a>库的二进制区别是什么</h2><p>我们可以使用 ar 相关的命令进行查看<br>ar : 维护链接编辑器使用的索引库,具体命令行相关可以看这里(<a href="https://www.cnblogs.com/machao/p/5288462.html" target="_blank" rel="noopener">https://www.cnblogs.com/machao/p/5288462.html</a>)</p><pre><code>➜  ~ ar -t StaticFramework.framework/StaticFramework__.SYMDEF SORTEDStaticFramework_vers.oStaticTestObject.o➜  ~ ar -t DynamicFramework.framework/DynamicFrameworkar: DynamicFramework.framework/DynamicFramework: Inappropriate file type or format</code></pre><h2 id="编译流程区别"><a href="#编译流程区别" class="headerlink" title="编译流程区别"></a>编译流程区别</h2><p><img src="/assets/img/Framework/16710947388588.jpg" alt></p><p>对于静态库来讲,它本身的流程在生成.o文件后就停止了,没有经历 Linker 的过程.但是对动态库来讲,它是走完了这一套完整的流程.</p><h3 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h3><p>静态库实际上是一堆.o的目标文件合集,包含具体的架构信息,在使用的时候,会参与到动态库或者主target的链接过程,是需要一个依附的点的</p><h3 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h3><p>对于动态库而言则不一样,主 Target 构建的时候遇到动态库就会打一个标记,这个标记再Macho 中长这个样子,这样在 Macho 进行加载的时候,dyld 会通过 @rpath/xxx.framework/xxx 进行动态链接. (这就是动态链接的过程)</p><p><img src="/assets/img/Framework/16710952125805.jpg" alt></p><pre><code>https://xilankong.github.io/ios%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/2020/07/29/Xcode-build%E8%BF%87%E7%A8%8B%E9%83%BD%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88.html</code></pre><h2 id="dyld-如何加载动态库"><a href="#dyld-如何加载动态库" class="headerlink" title="dyld 如何加载动态库"></a>dyld 如何加载动态库</h2><p><img src="/assets/img/Framework/16710955653057.jpg" alt></p><h2 id="动静态库加载到内存的区别"><a href="#动静态库加载到内存的区别" class="headerlink" title="动静态库加载到内存的区别"></a>动静态库加载到内存的区别</h2><h3 id="静态库-1"><a href="#静态库-1" class="headerlink" title="静态库"></a>静态库</h3><p>当你使用静态库时,如果库进行更新,那么你需要更新主 App 才能获取到库的更新.  因为库的代码和 App 代码一起被加载到了应用程序的地址空间中<br><img src="/assets/img/Framework/16711674887618.jpg" alt></p><h3 id="动态库-1"><a href="#动态库-1" class="headerlink" title="动态库"></a>动态库</h3><p>对于iOS 来讲, 系统的动态库和我们自己的动态库还是有很大的区别的</p><h4 id="系统动态库"><a href="#系统动态库" class="headerlink" title="系统动态库"></a>系统动态库</h4><p>系统动态库： 链接时不复制，程序运行时由系统动态加载到内存，系统只加载一次，多个程序共用，节省内存。 例如下图：抖音和微信的可执行文件加载动态库时，内存中只有一份动态库，不用加载到可执行文件。<br><img src="/assets/img/Framework/16711696406241.jpg" alt></p><h4 id="我们自己的动态库"><a href="#我们自己的动态库" class="headerlink" title="我们自己的动态库"></a>我们自己的动态库</h4><p>同一个 APP 里不同的进程可以共用你这个库,假使我们有多个 App,那么多个 App 中都同时存在这个库<br><img src="/assets/img/Framework/16711696778673.jpg" alt></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>针对Macos 来讲,但是对于动态库来讲,当库进行更新时,开发人员是无需对应用程序进行构建更新的,Macos中的系统库都是动态库,这样当系统进行升级时,使用到这些库的app,自然而然的就进行了更新,这是一种隐式的升级</p><p>虽然在 iOS 中的动态库有很多的限制,但是他还是一个动态库,当我们动态库进行了升级(这里我们假定调用的 api 不变,只是动态库内的实现变了,还需要确保动态库的签名与你的APP签名一致性). 你需要做的重新构建一遍你的动态库,然后替换之前旧版的动态库就好.如果需要上架,还需要再更新一遍App,苹果不允许我们动态下发代码.<br><img src="/assets/img/Framework/16711678257612.jpg" alt></p><h3 id="关于静态库的吸附性"><a href="#关于静态库的吸附性" class="headerlink" title="关于静态库的吸附性"></a>关于静态库的吸附性</h3><p>静态库本质是一堆.o 的打包体，首先并不是二进制可执行文件，再者你无法保证主程序把静态库参与链接共同生成二进制可执行文件。</p><p>解决方案<br>目前的编译器的解决办法是，首先我无法保证主程序是否包含静态库，再者静态库也无法被dyld加载，那么我直接把你静态库的.o 偷过来，共同组成一个新的二进制。也被称做吸附性。</p><p>【如果多个动态库依赖同一静态库？】<br>可执文件（主程序或者动态库）在构建的链接阶段，遇到静态库，吸附进来；遇到动态库，打标记，彼此保持独立。</p><p>正因为动态库是保持独立的，可以自定义一个动态库把依赖的静态库吸附进来。对外整体呈现的是动态库特性。其他的组件依赖我们自定义的动态库，由于隔离性的存在，不会出现问题。</p><h3 id="关于包体积优化"><a href="#关于包体积优化" class="headerlink" title="关于包体积优化"></a>关于包体积优化</h3><p>静态库在静态链接阶段，仅把用到的文件link到mach-o中，这一点和动态库区别很大，符合包体积优化需求。<br>在静态链接（ld）阶段，动态库会把整个lib复制进mach-o中，这显然不太符合包体积优化的需求。</p><h3 id="关于裁剪"><a href="#关于裁剪" class="headerlink" title="关于裁剪"></a>关于裁剪</h3><p>如果这个静态库没有被调用,并且代码被编译器优化掉了.那么你就不可以从运行时里面使用这个类,会崩溃<br>如果你确信需要使用(一般来讲一个只有分类的静态库就会遇到问题),你就需要加上 -all_load, -objc, -force_load</p><p><a href="https://pewpewthespells.com/blog/objc_linker_flags.html" target="_blank" rel="noopener">https://pewpewthespells.com/blog/objc_linker_flags.html</a></p><p>-all_load<br>The -all_load flag tell the linker that it should link every object file (member) of every static library that is passed to the linker. This is a rather drastic option and can cause your executable binary to dramatically increase in size. This flag should be avoided if at all possible when using many static libraries.</p><p>-ObjC<br>The -ObjC flag controls behavior around Objective-C code. This will tell the linker that it should look through all the object files (members) of each static library to find the object files (members) that contain any additional Objective-C runtime data. This allows developers to link object files that only contain Objective-C catagories, or any other Objective-C code that the static analysis cannot resolve as being called directly (such as creating a class using NSClassFromString()). This is the flag that is typically passed when using static libraries that contain Objective-C code. Keep in mind, this flag means that ALL Objective-C code that is passed to the linker will be added to the executable binary regardless of if it gets used or not.</p><p>-force_load<br>The -force_load flag is very similar to the -all_load flag, except that it takes an argument of a path to a static library. When passed to the linker, this flag says that regardless of whatever other flags are passed to the linker, that it should link all of the object files (members) of the specific static library that is specified by the passed argument. This allows for a more controlled behavior of selectively loading all the code from one static library but not having to bloat up the executable binary with unnecessary code from other libraries.</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://xilankong.github.io/ios%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/2020/07/29/Xcode-build%E8%BF%87%E7%A8%8B%E9%83%BD%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88.html" target="_blank" rel="noopener">Xcode build过程中都做了什么</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-简介&quot;&gt;&lt;a href=&quot;#1-简介&quot; class=&quot;headerlink&quot; title=&quot;1.简介&quot;&gt;&lt;/a&gt;1.简介&lt;/h1&gt;&lt;p&gt;面试的时候总会被问到静态库和动态库的区别,就在此做一下记录&lt;/p&gt;
+&lt;h2 id=&quot;Static-library&quot;&gt;&lt;a href=&quot;#Static-library&quot; class=&quot;headerlink&quot; title=&quot;Static library&quot;&gt;&lt;/a&gt;Static library&lt;/h2&gt;&lt;p&gt;a unit of code linked at compile time, which does not change.&lt;/p&gt;
+&lt;p&gt;However, iOS static libraries are not allowed to contain images/assets (only code). You can get around this challenge by using a media bundle though.&lt;/p&gt;
+&lt;h2 id=&quot;Dynamic-library&quot;&gt;&lt;a href=&quot;#Dynamic-library&quot; class=&quot;headerlink&quot; title=&quot;Dynamic library&quot;&gt;&lt;/a&gt;Dynamic library&lt;/h2&gt;&lt;p&gt;  a unit of code and/or assets linked at runtime that may change.&lt;/p&gt;
+&lt;p&gt;However, only Apple is allowed to create dynamic libraries for iOS . You’re not allowed to create these, as this will get your app rejected. &lt;/p&gt;
+    
+    </summary>
+    
+      <category term="framework" scheme="http://LikeeCat.github.io/categories/framework/"/>
+    
+    
+      <category term="framework" scheme="http://LikeeCat.github.io/tags/framework/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Clang Module VS Swift Module</title>
+    <link href="http://LikeeCat.github.io/2022/12/15/Clang%20Module%20VS%20Swift%20Module/"/>
+    <id>http://LikeeCat.github.io/2022/12/15/Clang Module VS Swift Module/</id>
+    <published>2022-12-15T10:05:13.000Z</published>
+    <updated>2022-12-15T08:09:54.769Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h1><p>Clang Module 是面向 C 语言家族的一种技术，通过 modulemap 文件来组织 .h 文件中的接口信息，中间产物是二进制格式的 pcm 文件。</p><p>Swift Module 是面向 Swift 语言的一种技术，通过 Swiftinterface 文件来组织 .swift 文件中的接口信息，中间产物二进制格式的 Swiftmodule 文件。</p><p>module 的出现是为了解决 pch 预编译文件因为上下文开放可能会被篡改,如果修改 pch 文件内容后,编译时长大幅劣化的问题. 因此才有了 Clang Module<br>是一个编译单元，或构建产物，对一个软件库的结构化替代封装，供链接器使用. 你可以把它理解为一种对组件的描述，包含了对接口（API）和实现（dylib/a）的描述，同时 Module 的产物是被独立编译出来的，不同的 Module 之间是不会影响的</p><a id="more"></a><h2 id="Module-Map"><a href="#Module-Map" class="headerlink" title="Module Map"></a>Module Map</h2><p>这里以 UIKit 的头文件举例,它对框架内的所有文件进行了结构化的描述</p><pre><code>framework module UIKit {  umbrella header &quot;UIKit.h&quot;  module * {export *}  link framework &quot;UIKit&quot;}</code></pre><p>这个 Module 定义了组件的 Umbrella Header 文件（UIKit.h），需要导出的子 Module（所有），以及需要 Link 的框架名称（UIKit），正是通过这个文件，让编译器了解到 Module 的逻辑结构与头文件结构的关联方式</p><h2 id="什么是Umbrella-Header"><a href="#什么是Umbrella-Header" class="headerlink" title="什么是Umbrella Header"></a>什么是Umbrella Header</h2><p>Umberlla Header 存在于Umbrella Framework 中, Umbrella Framwork 允许subFramework,实际上 Umbrella Framework 是作为一个抽象层出现的,它隐藏了 subFramework 的实现细节,可能会发生变化(在子框架内添加、重命名或删除头文件),通过间接依赖的方式,使用者可以免受这些变化<br>具体内容引用如下:<a href="https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/FrameworkAnatomy.html#//apple_ref/doc/uid/20002253-99314" target="_blank" rel="noopener">Umbrella Header</a></p><h2 id="module-的使用"><a href="#module-的使用" class="headerlink" title="module 的使用"></a>module 的使用</h2><p>Module 的使用并不麻烦，同样是引用 iAd 这个组件，你只需要这样写即可。</p><pre><code>@import iAd;</code></pre><p>在使用层面上，这将等价于以前的 #import &lt;iAd/iAd.h&gt; 语句，但是会使用 Clang Module 的特性加载整个 iAd 组件。如果只想引入特定文件（比如 ADBannerView.h），原先的写法是 #import &lt;iAd/ADBannerView.h.h&gt;，现在可以写成：</p><pre><code>@import iAd.ADBannerView;</code></pre><p>通过这种写法会将 iAd 这个组件的 API 导入到我们的应用中，同时这种写法也更符合语义化（semanitc import）。</p><h2 id="Module-的编译原理"><a href="#Module-的编译原理" class="headerlink" title="Module 的编译原理"></a>Module 的编译原理</h2><h3 id="确认开启-module-化"><a href="#确认开启-module-化" class="headerlink" title="确认开启 module 化"></a>确认开启 module 化</h3><p>以 #import &lt;Foundation/NSString.h&gt; 为例，当我们遇到这个头文件的时候<br>首先会去 Framework 的 Headers 目录下寻找相应的头文件是否存在，然后就会到 Modules 目录下查找 modulemap 文件。</p><p><img src="/assets/img/ClangModule/16710845195951.jpg" alt></p><p>此时，Clang 会去查阅 modulemap 里的内容，看看 NSString 是否为 Foundation 这个 Module 里的一部分。</p><pre><code>// Module Map - Foundation.framework/Modules/module.modulemapframework module Foundation [extern_c] [system] {    umbrella header &quot;Foundation.h&quot;    export *    module * {        export *    }    explicit module NSDebug {        header &quot;NSDebug.h&quot;        export *    }}</code></pre><p>很显然，这里通过 Umbrella Header，我们是可以在 Foundation.h 中找到 NSString.h 的。</p><pre><code>// Foundation.h…#import &lt;Foundation/NSStream.h&gt;#import &lt;Foundation/NSString.h&gt;#import &lt;Foundation/NSTextCheckingResult.h&gt;…</code></pre><p>至此，Clang 会判定 NSString.h 是 Foundation 这个 Module 的一部分并进行相应的编译工作，此时也就意味着 #import &lt;Foundation/NSString.h&gt; 会从之前的 textual import 变为 module import</p><h3 id="Module-的构建细节"><a href="#Module-的构建细节" class="headerlink" title="Module 的构建细节"></a>Module 的构建细节</h3><p>在构建开始前，Clang 会创建一个完全独立的空间来构建 Module，在这个空间里会包含 Module 涉及的所有文件，除此之外不会带入其他任何文件的信息，而这也是 Module 健壮性好的关键因素之一。</p><p>真正能影响到其唯一性的是其构建的参数，也就是 Clang 命令后面的内容，关于这一点后面还会继续展开，这里我们先点到为止</p><p>当我们在构建 Foundation 的时候，我们会发现 Foundation 自身要依赖一些组件，这意味着我们也需要构建被依赖组件的 Module。</p><p><img src="/assets/img/ClangModule/16710848267672.jpg" alt></p><p>但很明显的是，我们会发现这些被依赖组件也有自己的依赖关系，在它们的这些依赖关系中，极有可能会存在重复的引用。</p><p><img src="/assets/img/ClangModule/16710848549476.jpg" alt></p><p>此时，Module 的复用机制就体现出来优势了，我们可以复用先前构建出来的 Module，而不必一次次的创建或者引用，例如 Drawin 组件，而保存这些缓存文件的位置就是前面章节里提到的保存 pcm 类型文件的地方。</p><p>Clang 会将相应的编译参数进行一次 Hash，将获得的 Hash 值作为 Module 缓存文件夹的名称，这里需要注意的是，不同的参数和值会导致文件夹不同，所以想要尽可能的利用 Module 缓存，就必须保证参数不发生变化。</p><pre><code>$ clang -fmodules —DENABLE_FEATURE=1 …## 生成的目录如下98XN8P5QH5OQ/  CoreFoundation-2A5I5R2968COJ.pcm  Security-1A229VWPAK67R.pcm  Foundation-1RDF848B47PF4.pcm$ clang -fmodules —DENABLE_FEATURE=2 …## 生成的目录如下1GYDULU5XJRF/  CoreFoundation-2A5I5R2968COJ.pcm  Security-1A229VWPAK67R.pcm  Foundation-1RDF848B47PF4.pcm</code></pre><p>这里我们大概了解了系统组件的 module 构建机制，这也是开启 Enable Modules(C and Objective-C) 的核心工作原理。</p><h1 id="Swift-Module"><a href="#Swift-Module" class="headerlink" title="Swift Module"></a>Swift Module</h1><p>Swift 默认module化,Swift 编译器将 Clang 的大部分功能都包含在里面,这个特性使得我们可以用 Clang Module 的形式来引用 Objc 代码<br><img src="/assets/img/ClangModule/16710875722783.jpg" alt></p><p>既然是通过 Module 的形式引入 Objective-C，那么 Framework 的文件结构则是最好的选择，此时编译器寻找方法声明的方式就会有下面三种场景：</p><p>对于大部分的 Target 而言，当导入的是一个 Objective-C 类型的 Framework 时，编译器会通过 modulemap 里的 Header 信息寻找方法声明。<br>对于一个既有 Objective-C，又有 Swift 代码的 Framework 而言，编译器会从当前 Framework 的 Umbrella Header 中寻找方法声明，从而解决自身的编译问题，这是因为通常情况下 modulemap 会将 Umbrella Header 作为自身的 Header 值。<br>对于 App 或者 Unit Test 类型的 Target，开发者可以通过为 Target 创建 Briding Header 来导入需要的 Objective-C 头文件，进而找到需要的方法声明。</p><p>因此会存在下面的三个套路<br>当 Swift 和 Objective-C 文件同时在一个 App 或者 Unit Test 类型的 Target 中，不同类型文件的 API 寻找机制如下：</p><p><img src="/assets/img/ClangModule/16710886897716.jpg" alt></p><p>当 Swift 和 Objective-C 文件在不同 Target 中，例如不同 Framework 中，不同类型文件的 API 寻找机制如下：</p><p><img src="/assets/img/ClangModule/16710887186246.jpg" alt></p><p>当 Swift 和 Objective-C 文件同时在一个Target 中，例如同一 Framework 中，不同类型文件的 API 寻找机制如下：</p><p><img src="/assets/img/ClangModule/16710887519544.jpg" alt></p><p>由于 Swiftc，也就是 Swift 的编译器，包含了大部分的 Clang 功能，其中就包含了 Clang Module，借由组件内已有的 modulemap 文件，Swift 编译器就可以轻松找到相应的 Objective-C 代码。<br>相比于第二个流程而言，第三个流程中的 modulemap 是组件内部的，而第二个流程中，如果想引用其他组件里的 Objective-C 代码，需要引入其他组件里的 modulemap 文件才可以。<br>所以基于这个考虑，并未在流程 3 中标注 modulemap</p><h2 id="Swift-Module-VS-Clang-Module"><a href="#Swift-Module-VS-Clang-Module" class="headerlink" title="Swift Module VS Clang Module"></a>Swift Module VS Clang Module</h2><p>Clang Module 是面向 C 语言家族的一种技术，通过 modulemap 文件来组织 .h 文件中的接口信息，中间产物是二进制格式的 pcm 文件。</p><p>Swift Module 是面向 Swift 语言的一种技术，通过 Swiftinterface 文件来组织 .swift 文件中的接口信息，中间产物二进制格式的 Swiftmodule 文件。</p><p><img src="/assets/img/ClangModule/16710890745582.jpg" alt></p><p>例如当你的 Swift 组件不想暴露自身的 API 给外部的 Objective-C 代码使用的话，可以将 Build Setting 中 Swift Compiler - General 里的 Install Objective-C Compatiblity Header 参数设置为 NO，其编译参数为 SWIFT_INSTALL_OBJC_HEADER，此时不会生成 <productmodulename>-Swift.h 类型的文件，也就意味着外部组件无法以 Objective-C 的方式引用组件内 Swift 代码的 API。</productmodulename></p><p><img src="/assets/img/ClangModule/16710891746947.jpg" alt></p><p>而当你的组件里如果压根就没有 Objective-C 代码的时候，你可以将 Build Setting 中 Packaging 里 Defines Module 参数设置为 NO，它的编译参数为 DEFINES_MODULE, 此时不会生成 <productmodulename>.modulemap 类型的文件。</productmodulename></p><p><img src="/assets/img/ClangModule/16710891931651.jpg" alt></p><h2 id="一些自己的理解"><a href="#一些自己的理解" class="headerlink" title="一些自己的理解"></a>一些自己的理解</h2><h3 id="1-为什么会存在-Clang-Module"><a href="#1-为什么会存在-Clang-Module" class="headerlink" title="1.为什么会存在 Clang Module"></a>1.为什么会存在 Clang Module</h3><p>因为pch预编译头文件做的事情其实就是宏替换,Module 不会”复制粘贴”头文件里的内容,也不会让暴露出来的头文件被篡改</p><pre><code>#define readonly 0x01</code></pre><h3 id="2-为什么会有-Umbrella-Header"><a href="#2-为什么会有-Umbrella-Header" class="headerlink" title="2.为什么会有 Umbrella Header"></a>2.为什么会有 Umbrella Header</h3><p>Umbrella Header 是在Framework 的概念被引入的，你可以理解为一个模块均存在一个Umbrella Header 用来将那些你想暴露给模块外界调用的头文件包裹在一起。 避免使用者在使用该模块的时候需要手动输入多个Header 的一种解决方案,同是得益于这种方式可以隐藏实现的细节,避免直接的依赖</p><h3 id="3-Swift-Module-中的-swiftmodule-和-swiftInterface-的区别是什么"><a href="#3-Swift-Module-中的-swiftmodule-和-swiftInterface-的区别是什么" class="headerlink" title="3.Swift Module 中的 .swiftmodule 和 .swiftInterface 的区别是什么"></a>3.Swift Module 中的 .swiftmodule 和 .swiftInterface 的区别是什么</h3><p>.swiftInterface ,负责声明接口信息, 中间产物二进制格式的 Swiftmodule 文件</p><h3 id="4-为什么-Swift-调用-OC-时-OC-需要支持-Clang-Module-的形式编译"><a href="#4-为什么-Swift-调用-OC-时-OC-需要支持-Clang-Module-的形式编译" class="headerlink" title="4.为什么 Swift 调用 OC 时, OC 需要支持 Clang Module 的形式编译"></a>4.为什么 Swift 调用 OC 时, OC 需要支持 Clang Module 的形式编译</h3><p>因为Swift的编译器包含了大量的 Clang 功能, Swift 自身编译又是强制使用 module 的形式,因此为了发现 OC 的相关接口,需要使用 module 的形式进行引用(module 的引用形式具有传递性)</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Module&quot;&gt;&lt;a href=&quot;#Module&quot; class=&quot;headerlink&quot; title=&quot;Module&quot;&gt;&lt;/a&gt;Module&lt;/h1&gt;&lt;p&gt;Clang Module 是面向 C 语言家族的一种技术，通过 modulemap 文件来组织 .h 文件中的接口信息，中间产物是二进制格式的 pcm 文件。&lt;/p&gt;
+&lt;p&gt;Swift Module 是面向 Swift 语言的一种技术，通过 Swiftinterface 文件来组织 .swift 文件中的接口信息，中间产物二进制格式的 Swiftmodule 文件。&lt;/p&gt;
+&lt;p&gt;module 的出现是为了解决 pch 预编译文件因为上下文开放可能会被篡改,如果修改 pch 文件内容后,编译时长大幅劣化的问题. 因此才有了 Clang Module&lt;br&gt;是一个编译单元，或构建产物，对一个软件库的结构化替代封装，供链接器使用. 你可以把它理解为一种对组件的描述，包含了对接口（API）和实现（dylib/a）的描述，同时 Module 的产物是被独立编译出来的，不同的 Module 之间是不会影响的&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://LikeeCat.github.io/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="http://LikeeCat.github.io/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面试问题汇总</title>
+    <link href="http://LikeeCat.github.io/2022/10/25/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"/>
+    <id>http://LikeeCat.github.io/2022/10/25/面试问题汇总/</id>
+    <published>2022-10-25T10:05:13.000Z</published>
+    <updated>2022-11-04T10:28:20.522Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="关于离屏渲染的问题"><a href="#关于离屏渲染的问题" class="headerlink" title="关于离屏渲染的问题"></a>关于离屏渲染的问题</h2><ol><li><p>什么是mask</p><blockquote><p>一个图层可以有一个和它相关的mask(蒙版),mask是一个拥有alpha的位图,当像素和它下面的像素合成之前都会把mask应用到图层的像素上面,当你要设置一个图层的圆角半径的时候,你可以有效的在图层上设置一个mask,最终只有mask中显示出来的部分才会被渲染出来</p><a id="more"></a></blockquote></li><li><p>设置圆角的时候是什么触发了离屏渲染,为什么会触发离屏渲染</p><blockquote><p>是因为mask,layer的圆角将mask应用到一个图层上,core Animation为了应用这个mask,会强制进行屏幕外的渲染.这对GPU产生重负.</p></blockquote></li><li>离屏渲染为什么消耗性能<blockquote><p>离屏渲染合成计算是非常昂贵的,直接将图层合成到桢的缓冲区(在屏幕上),比先创建在屏幕外的缓冲区,然后渲染到纹理中,最后将结果渲染到桢的缓冲区中要廉价的多.因为其中涉及到了两次昂贵的环境切换(转换环境到屏幕外缓冲区,再转换环境到帧缓冲区).<br>为 layer 使用mask或者设置圆角半径(特殊的mask)会造成屏幕外渲染，产生阴影也会如此。</p></blockquote></li></ol><h2 id="block"><a href="#block" class="headerlink" title="block"></a>block</h2><ol><li><p>block使用weakSelf关键字的时候有什么坏处</p><blockquote><p>有可能在你使用block的时候,这个对象就已经被销毁了</p></blockquote></li><li><p>使用weakSelf后,如何避免对象已经被销毁</p><blockquote><p>使用strongSelf来保证在block的执行过程中这个变量不被释放</p></blockquote></li><li><p>什么是weakSelf</p><blockquote><p>weakSelf 是为了block不持有self，避免Retain Circle循环引用。在 Block 内如果需要访问 self 的方法、变量，建议使用 weakSelf</p></blockquote></li><li><p>什么是strongSelf</p><blockquote><p>strongSelf的目的是因为一旦进入block执行，假设不允许self在这个执行过程中释放，就需要加入strongSelf。block执行完后这个strongSelf 会自动释放，没有不会存在循环引用问题。如果在 Block 内需要多次 访问 self，则需要使用 strongSelf</p></blockquote></li></ol><h2 id="static-const"><a href="#static-const" class="headerlink" title="static const"></a>static const</h2><ol><li><p>什么是extern</p><blockquote><p>extern是计算机语言中的一个关键字，可置于变量或者函数前，以表示变量或者函数的定义在别的文件中。提示编译器遇到此变量或函数时，在其它模块中寻找其定</p></blockquote></li><li><p>如何使用</p><pre><code>//xxx.hextern NSString *const EocStringConstant;//xxx.mNSString *const EocStringConstant = @&quot;VALUE&quot;</code></pre></li><li>为什么使用常量的时候要使用const,而不是宏<blockquote><p>1.编译时刻:宏是预编译（编译之前处理），const是编译阶段。<br> 2.编译检查:宏不做检查，不会报编译错误，只是替换，const会编译检查，会报编译错误。<br> 3.宏的好处:宏能定义一些函数，方法。 const不能。<br> 4.宏的坏处:使用大量宏，容易造成编译时间久，每次都需要重新替换。    </p></blockquote></li></ol><h2 id="lldb命令"><a href="#lldb命令" class="headerlink" title="lldb命令"></a>lldb命令</h2><ol><li>p 和 po 的区别</li></ol><blockquote><pre><code>p  -- Evaluate an expression on the current thread.  Displays any           returned value with LLDB&apos;s default formatting.          使用的是lldb中默认的formatting</code></pre></blockquote><blockquote><p>po  – Evaluate an expression on the current thread.  Displays any<br>               returned value with formatting controlled by the type’s author.<br>               使用的formatter  是lldb中由类型的作者自己控制的(重写对象的description方法)</p></blockquote><h2 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h2><ol><li><p>nsarray 的 mutablecopy 是深拷贝还是浅拷贝</p><blockquote><p>是深拷贝,它在堆上开辟了一块新的内存空间</p></blockquote></li><li><p>深拷贝是什么</p><blockquote><p>不只是拷贝指针,并且拷贝了值</p></blockquote></li><li><p>浅拷贝是什么</p><blockquote><p>是拷贝指针,一旦改变,连同拷贝前的也会发生改变</p></blockquote></li></ol><h2 id="简单讲一下-App-的启动流程"><a href="#简单讲一下-App-的启动流程" class="headerlink" title="简单讲一下 App 的启动流程"></a>简单讲一下 App 的启动流程</h2><p>review<br><img src="/assets/img/review/16645110128559.jpg" alt="启动流程"></p><ol><li>初始化空间，创建进程</li><li>加载解析可执行文件</li><li>载入动态连接器，并绑定符号 （指针rebase + bind 符号）</li><li>配置用户堆栈（runtime 初始化， 包括 Objc相关的  Class 注册，Category 注册， selector 唯一性检查）</li><li>设置线程入口（执行load 方法，用 attribute  修饰的函数调用，创建C ++ 静态全局变量）</li></ol><h2 id="dyld2-和-dyld3-的区别"><a href="#dyld2-和-dyld3-的区别" class="headerlink" title="dyld2 和  dyld3 的区别"></a>dyld2 和  dyld3 的区别</h2><h3 id="dyld2"><a href="#dyld2" class="headerlink" title="dyld2"></a>dyld2</h3><ol><li>解析 Mach-O 的 Header 和 Load Commands，找到其依赖的库，并递归找到所有依赖的库</li><li>加载 Mach-O 文件</li><li>进行符号查找</li><li>绑定和变基</li><li>运行初始化程序</li></ol><h3 id="dyld3"><a href="#dyld3" class="headerlink" title="dyld3"></a>dyld3</h3><ol><li>本进程外的Mach-O分析器/编译器</li></ol><p>预先处理了所有可能影响启动速度的 search path、@rpaths 和环境变量<br>然后分析 Mach-O 的 Header 和依赖，并完成了所有符号查找的工作<br>最后将这些结果创建成了一个启动闭包<br>这是一个普通的 daemon 进程，可以使用通常的测试架构</p><ol start="2"><li>本进程内执行”lauch closure“的引擎</li></ol><p>验证启动闭包的安全性，然后映射到 dylib 之中，再跳转到 main 函数<br>不再需要解析 Mach-O 的 Header 和依赖，也不需要符号查找。</p><ol start="3"><li>一个启动闭包缓存服务</li></ol><p>系统 App 的启动闭包被构建在一个 Shared Cache 中， 我们甚至不需要打开一个单独的文件</p><p>对于第三方的 App，我们会在 App 安装或者升级的时候构建这个启动闭包。</p><p>在 iOS、tvOS、watchOS中，这一切都是 App 启动之前完成的。在 macOS 上，由于有 Side Load App，进程内引擎会在首次启动的时候启动一个 daemon 进程，之后就可以使用启动闭包启动了。</p><ol><li><p>在其他线程预先处理了 searchpath 、@rpath 和环境变量，然后分析 Macho header 的 依赖，完成所有的符号查找，将这些结果创建成一个启动闭包</p></li><li><p>验证启动闭包的安全性，然后映射到 dylib 之中，再跳转到 main 函数<br>不再需要解析 Mach-O 的 Header 和依赖，也不需要符号查找。</p></li><li><p>系统 App 的启动闭包被构建在一个 Shared Cache 中， 我们甚至不需要打开一个单独的文件<br>dyld 3 把很多耗时的查找、计算和 I/O 的事前都预先处理好了，这使得启动速度有了很大的提升</p></li></ol><h2 id="有没有考虑过分布式编译"><a href="#有没有考虑过分布式编译" class="headerlink" title="有没有考虑过分布式编译"></a>有没有考虑过分布式编译</h2><p>distcc是google的一个开源工具，它不是一个编译器，而是一个负责调度不同设备上的编译器，从而实现分布式编译的工具。</p><p>在distcc的流程中，“编译- compile”部分会在其他机器进行，而剩余部分仍然在本机进行。<br><a href="https://github.com/zqxiaojin/distccForXCode" target="_blank" rel="noopener">https://github.com/zqxiaojin/distccForXCode</a></p><p>distcc 通过网络为每个作业发送完整的预处理源代码，因此志愿者机器所需要的只是它们正在运行distccd守护程序，并且它们安装了适当的编译器。</p><p>distcc 本身不是编译器，而是GNU C/C++ 编译器 (gcc)和LLVM 编译器 (clang) 的前端 。（对其他一些编译器有初步支持，但主要关注的是 gcc。）几乎所有 gcc 选项和功能都正常工作。</p><p>传统的编译过程可以划分为以下部分：</p><ol><li>预处理 - preprocess</li><li>编译  - compile</li><li>链接  - link</li></ol><h3 id="分布式编译的好处"><a href="#分布式编译的好处" class="headerlink" title="分布式编译的好处"></a>分布式编译的好处</h3><p>可以并行编译，节省编译时间</p><h3 id="bazel-和-Jenkins"><a href="#bazel-和-Jenkins" class="headerlink" title="bazel 和 Jenkins"></a>bazel 和 Jenkins</h3><p>开发人员将Bazel描述为“适合所有人的正确、可重复、快速构建”。Bazel 是一个构建工具，可以快速可靠地构建代码。它用于构建谷歌的大部分软件，因此它被设计用来处理谷歌开发环境中存在的构建问题。另一方面，Jenkins被详细描述为“一个可扩展的开源持续集成服务器”。简而言之，Jenkins CI 是领先的开源持​​续集成服务器。它使用 Java 构建，提供了 300 多个插件来支持构建和测试几乎任何项目。</p><p>基于 bazel  + 分布式编译 + 大仓库<br>Jenkins + 单机编译 + 多仓库</p><h2 id="多线程与-runloop"><a href="#多线程与-runloop" class="headerlink" title="多线程与 runloop"></a>多线程与 runloop</h2><p>runloop 包含 model 包含 timer/source/observe</p><h3 id="子线程与-runloop"><a href="#子线程与-runloop" class="headerlink" title="子线程与 runloop"></a>子线程与 runloop</h3><p>子线程的Runloop对象需要我们主动创建并维护,子线程的Runloop对象在第一次获取时就会创建,销毁则是在子线程结束时. 并且创建出来的runLoop对象默认是不开启的,必须手动开启RunLoop.<br> Runloop并不保证线程安全,我们只能在当前线程内部操作当前线程的Runloop对象,而不能在当前线程中去操作其他线程的RunLoop对象.<br> 相关代码如下:</p><pre><code>NSRunLoop *currentRunLoop = [NSRunloop currentRunloop] //获取当前线程的RunLoop对象,在子线程中调用时如果是第一次获取内部会帮我们创建RunLoop对象 [currentRunLoop run];      [NSRunLooop mainRunLoop] //获取主线程的RunLoop对象 复制代码</code></pre><p> <img src="/assets/img/review/16647731544916.jpg" alt="启动流程"></p><p>runloop 分为很多个mode（request path 请求路径），input sources (来源分为端口通信 ， performselector 线程执行)。<br> <img src="/assets/img/review/16647749533839.jpg" alt="source"></p><h2 id="perform-selector"><a href="#perform-selector" class="headerlink" title="perform selector"></a>perform selector</h2><p>Invokes a method of the receiver on the current thread using the default mode after a delay.</p><p>This method sets up a timer to perform the aSelector message on the current thread’s run loop. The timer is configured to run in the default mode (NSDefaultRunLoopMode). When the timer fires, the thread attempts to dequeue the message from the run loop and perform the selector. It succeeds if the run loop is running and in the default mode; otherwise, the timer waits until the run loop is in the default mode<br>执行成功时，只会执行一次。如果不成功，就会一直存在runloop中</p><pre><code>//取消不传参的方法 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayDo:) object:nil]; //取消传参的方法 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayDo:) object:@&quot;abc&quot;];</code></pre><h2 id="UILayer"><a href="#UILayer" class="headerlink" title="UILayer"></a>UILayer</h2><p>UIView 继承了UIResponder，所以 UIView 可以响应用户的一些操作。而且 UIView 遵循代理 CALayerDelegate 。和 CALayer 有了一点点的联系</p><p>CALayer继承于 NSObject ，无法响应用户的操作。view 是 layer 的代理，并且不可改变</p><h3 id="clang-amp-amp-LLVM"><a href="#clang-amp-amp-LLVM" class="headerlink" title="clang &amp;&amp; LLVM"></a>clang &amp;&amp; LLVM</h3><p> <img src="/assets/img/review/16652948432073.jpg" alt="LLVM"></p><h4 id="1-预处理，"><a href="#1-预处理，" class="headerlink" title="1. 预处理，"></a>1. 预处理，</h4><p>这阶段的工作主要是头文件导入，宏展开/替换，预编译指令处理，以及注释的去除。</p><h4 id="2-编译"><a href="#2-编译" class="headerlink" title="2.编译"></a>2.编译</h4><p>a. 词法分析（Lexical Analysis）：将代码转换成一系列 token，如大中小括号 paren’()’ square’[]’ brace’{}’、标识符 identifier、字符串 string_literal、数字常量 numeric_constant 等等；<br>b. 语法分析（Semantic Analysis）：将 token 流组成抽象语法树 AST；<br>c. 静态分析（Static Analysis）：检查代码错误，例如参数类型是否错误，调用对象方法是否有实现；<br>d. 中间代码生成（Code Generation）：将语法树自顶向下遍历逐步翻译成 LLVM IR。</p><h4 id="3-生成汇编代码："><a href="#3-生成汇编代码：" class="headerlink" title="3.生成汇编代码："></a>3.生成汇编代码：</h4><p>LLVM 将 LLVM IR 生成当前平台的汇编代码，期间 LLVM 根据编译设置的优化级别 Optimization Level 做对应的优化（Optimize），例如 Debug 的 -O0 不需要优化，而 Release 的 -Os 是尽可能优化代码效率并减少体积。</p><p>Clang是LLVM项目的一个子项目，基于LLVM架构的C/C++/Objective-C编译器前端（Swift的前端是Swift）。</p><h4 id="4-生成目标文件"><a href="#4-生成目标文件" class="headerlink" title="4.生成目标文件"></a>4.生成目标文件</h4><p>汇编器（Assembler）将汇编代码转换为机器代码，它会创建一个目标对象文件，以 .o 结尾。</p><h4 id="5-链接"><a href="#5-链接" class="headerlink" title="5.链接"></a>5.链接</h4><p>链接器（Linker）把若干个目标文件链接在一起，生成可执行文件。</p><h2 id="字节码和机器码的区别"><a href="#字节码和机器码的区别" class="headerlink" title="字节码和机器码的区别"></a>字节码和机器码的区别</h2><p>机器码是电脑CPU直接读取运行的机器指令，运行速度最快，但是非常晦涩难懂，也比较难编写，一般从业人员接触不到。 字节码是一种中间状态（中间码）的二进制代码（文件）。 需要直译器转译后才能成为机器码。</p><h3 id="hash-表的实现"><a href="#hash-表的实现" class="headerlink" title="hash 表的实现"></a>hash 表的实现</h3><p>内部结构是数组+链表+红黑树，之前有单独说过hashmap的结构</p><h2 id="Xcode-debug-越狱app"><a href="#Xcode-debug-越狱app" class="headerlink" title="Xcode debug 越狱app"></a>Xcode debug 越狱app</h2><ol><li>获取到越狱app</li><li>编写shell脚本,添加在run script 中</li><li>在app打出来复制到设备上之前,通过 shell 命令将.app 替换为越狱的 .app</li></ol><h2 id="触摸链路"><a href="#触摸链路" class="headerlink" title="触摸链路"></a>触摸链路</h2><ol><li>加入 UIApplication 的事件队列</li><li>UIApplication取出队列最前面的事件,通常会下发给 keywindow</li><li>主窗口寻找合适的视图来处理触摸事件 (a. 调用 pointInside: withEvent方法判断触摸点是否在当前视图内,如果返回NO,那么hitTest:withEvent返回nil b.如果返回YES,就继续调用子View的hitTest方法,直到有视图返回非空对象时返回改对象(或者遍历完子视图后都没有成功,此时就是自己)</li></ol><h2 id="响应的链路"><a href="#响应的链路" class="headerlink" title="响应的链路"></a>响应的链路</h2><p>subview -&gt; view (controller  的 view) -&gt; controller -&gt;  window -&gt; UIApplication -&gt;  UIAppDelegate</p><h2 id="如何调试没有砸壳的app"><a href="#如何调试没有砸壳的app" class="headerlink" title="如何调试没有砸壳的app"></a>如何调试没有砸壳的app</h2><p>使用 lldb 进行调试</p><ol><li>从手机中将 debugserver 文件复制到 mac 上</li><li><p>更改debugserver的调试权限(默认情况下只能调试自己的app),创建签名的plist文件</p><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/ PropertyList-1.0.dtd&quot;&gt;&lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;    &lt;key&gt;com.apple.springboard.debugapplications&lt;/key&gt; &lt;true/&gt;    &lt;key&gt;run-unsigned-code&lt;/key&gt;    &lt;true/&gt;    &lt;key&gt;get-task-allow&lt;/key&gt;    &lt;true/&gt;    &lt;key&gt;task_for_pid-allow&lt;/key&gt;    &lt;true/&gt;&lt;/dict&gt;&lt;/plist&gt;</code></pre></li><li>使用codesign 进行重签名后,并将这个文件复制回手机</li><li>执行调试命令 ./debugserver IP:port -a PID|appProjectName<h2 id="iOS-方法转发"><a href="#iOS-方法转发" class="headerlink" title="iOS 方法转发"></a>iOS 方法转发</h2></li><li>在对应对象的缓存方法列表中查找调用的方法</li><li>如果没找到,就在该对象的方法列表中找</li><li>如果还没找到,就到父类指针指向的对象中执行1和2</li><li>如果一直找到根类都没有找到,就进行消息转发,给自己保留处理找不到这一方法的机会</li><li><p>如果没有进行方法解析,并且也没有找到对应的类和方法,那么就会抛出 doesNotRecognizeSelector 异常</p><h3 id="转发方法解析"><a href="#转发方法解析" class="headerlink" title="转发方法解析"></a>转发方法解析</h3><p>resolveInstanceMethod ,  有机会让类添加这个函数的实现<br>forwardingTargetForSelector,  让其他对象执行这个函数<br>forwardInvocation, 更加灵活的处理函数调用</p><h2 id="runtime-运行时方法实现"><a href="#runtime-运行时方法实现" class="headerlink" title="runtime 运行时方法实现"></a>runtime 运行时方法实现</h2><p>通过转发方法解析来实现</p><pre><code>///例如我们有一个people类，people类中没有任何属性和方法，//我们为之添加一个名为sing的方法- (void)viewDidLoad {    [super viewDidLoad];    People *people = [[People alloc] init];    //添加方法    class_addMethod([People class], @selector(sing), class_getMethodImplementation([self class], @selector(peopleSing)), &quot;v@:&quot;);    //people调用刚添加的方法        [people performSelector:@selector(sing)];}- (void)peopleSing{    NSLog(@&quot;在唱歌&quot;);}</code></pre></li></ol><h2 id="保证-app-在没有实现方法的情况下不崩溃"><a href="#保证-app-在没有实现方法的情况下不崩溃" class="headerlink" title="保证 app 在没有实现方法的情况下不崩溃"></a>保证 app 在没有实现方法的情况下不崩溃</h2><p>NSException 是应用级异常，是指 OC 代码运行过程由Objective-C 抛出的异常，基本上是代码运行过程中的逻辑错误。比如往 NSArray 中插入 nil 对象，或者用nil 初始化 NSURL 等。最简单区分一个异常是否 NSException 的方式是看这个异常能否被@trycatch 给捕获。</p><h3 id="Mach-异常"><a href="#Mach-异常" class="headerlink" title="Mach 异常"></a>Mach 异常</h3><p>最底层的内核级异常。用户态的开发者可以直接通过Mach API设置thread，task，host的异常端口，来捕获Mach异常。</p><h3 id="Unix-信号"><a href="#Unix-信号" class="headerlink" title="Unix 信号"></a>Unix 信号</h3><p>又称BSD 信号，如果开发者没有捕获Mach异常，则会被host层的方法ux_exception()将异常转换为对应的UNIX信号，并通过方法threadsignal()将信号投递到出错线程。可以通过方法signal(x, SignalHandler)来捕获signal。</p><h3 id="NSException"><a href="#NSException" class="headerlink" title="NSException"></a>NSException</h3><p>应用级异常，它是未被捕获的Objective-C异常，导致程序向自身发送了SIGABRT信号而崩溃，是app自己可控的，对于未捕获的Objective-C异常，是可以通过try catch来捕获的，或者通过NSSetUncaughtExceptionHandler()机制来捕获。</p><pre><code>    void InstallUncaughtExceptionHandler(void) {        NSSetUncaughtExceptionHandler( &amp;handleUncaughtException );    }    void handleUncaughtException(NSException *exception) {        NSString * crashInfo = [NSString stringWithFormat:@&quot;yyyy Exception name：%@\nException reason：%@\nException stack：%@&quot;,[exception name], [exception reason], [exception callStackSymbols]];        NSLog(@&quot;%@&quot;, crashInfo);    }NSException-&gt;Mach-&gt;Signal</code></pre><h2 id="砸壳的实现原理"><a href="#砸壳的实现原理" class="headerlink" title="砸壳的实现原理"></a>砸壳的实现原理</h2><pre><code>//获取所有的app  组件 ,加载所有的 动态库// 获取所有的app组件并导出function handleMessage(message) {    modules = getAllAppModules();    loadAllDynamicLibrary(app_path);    modules = getAllAppModules();    for (var i = 0; i  &lt; modules.length; i++) {        var result = dumpModule(modules[i].path);    }}</code></pre><h3 id="如何加载所有组件"><a href="#如何加载所有组件" class="headerlink" title="如何加载所有组件"></a>如何加载所有组件</h3><pre><code>function loadAllDynamicLibrary(app_path) {    var defaultManager = ObjC.classes.NSFileManager.defaultManager();    var filenames = defaultManager.contentsOfDirectoryAtPath_error_(app_path, errorPtr);    for (var i = 0, l = filenames.count(); i &lt; l; i++) {        var file_name = filenames.objectAtIndex_(i);        var file_path = app_path.stringByAppendingPathComponent_(file_name);        if (file_name.hasSuffix_(&quot;.framework&quot;)) {            var bundle = ObjC.classes.NSBundle.bundleWithPath_(file_path);            bundle.load()        } else if (file_name.hasSuffix_(&quot;.bundle&quot;) ||                    file_name.hasSuffix_(&quot;.momd&quot;) ||                   file_name.hasSuffix_(&quot;.strings&quot;) ||                   file_name.hasSuffix_(&quot;.appex&quot;) ||                   file_name.hasSuffix_(&quot;.app&quot;) ||                   file_name.hasSuffix_(&quot;.lproj&quot;) ||                   file_name.hasSuffix_(&quot;.storyboardc&quot;)) {            continue;        } else {            var isDirPtr = Memory.alloc(Process.pointerSize);            Memory.writePointer(isDirPtr,NULL);            defaultManager.fileExistsAtPath_isDirectory_(file_path, isDirPtr);            if (Memory.readPointer(isDirPtr) == 1) {                loadAllDynamicLibrary(file_path);            } else {                if (file_name.hasSuffix_(&quot;.dylib&quot;)) {                    var is_loaded = 0;                    for (var j = 0; j &lt; modules.length; j++) {                        if (modules[j].path.indexOf(file_name) != -1) {                            is_loaded = 1;                            break;                        }                    }                    if (!is_loaded) {                        dlopen(file_path.UTF8String(), 9)                    }                }            }        }    }}</code></pre><h3 id="加载方式"><a href="#加载方式" class="headerlink" title="加载方式"></a>加载方式</h3><p>framework：获取class并调用load进行加载<br>dylib：判断是否已经被dyld加载过，如果没有就进行加载<br>bundle、momd等类型文件：不处理，直接略过<br>文件夹：进入递归</p><h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><pre><code>//通过传入组件名,从组件列表中取出对应的组件    var targetmod = null;    for (var i = 0; i &lt; modules.length; i++) {        if (modules[i].path.indexOf(name) != -1) {            targetmod = modules[i];            break;        }    }    //获取组件开始位置,后面再取magic之类的header信息会用到    var modbase = modules[i].base;    //创建新旧句柄,用于后面的导入操作    var fmodule = open(newmodpath, O_CREAT | O_RDWR, 0);    var foldmodule = open(oldmodpath, O_RDONLY, 0);</code></pre><h2 id="weak-关键词的实现"><a href="#weak-关键词的实现" class="headerlink" title="weak 关键词的实现"></a>weak 关键词的实现</h2><p>链接：<a href="https://juejin.cn/post/6844904101839372295" target="_blank" rel="noopener">https://juejin.cn/post/6844904101839372295</a></p><p>iOS是如何实现weak的呢，其实weak的底层是一个hash表，key是所指向对象的指针，value是weak指针的地址数组（因为一个对象可能被多个弱引用指针指向）。</p><p>weak objc_initWeak  -&gt;对象释放 -&gt; objc_destroyWeak 销毁指针。</p><ol><li>storeWeak方法实际上是接收了5个参数，分别是haveOld、haveNew和crashIfDeallocating ，这三个参数都是以模板的方式传入的，是三个bool类型的参数。 分别表示weak指针之前是否指向了一个弱引用，weak指针是否需要指向一个新的引用，若果被弱引用的对象正在析构，此时再弱引用该对象是否应该crash。</li><li>该方法维护了oldTable 和newTable分别表示旧的引用弱表和新的弱引用表，它们都是SideTable的hash表。</li><li>如果weak指针之前指向了一个弱引用，则会调用weak_unregister_no_lock 方法将旧的weak指针地址移除。</li><li>如果weak指针需要指向一个新的引用，则会调用weak_register_no_lock 方法将新的weak指针地址添加到弱引用表中。</li><li>调用setWeaklyReferenced_nolock 方法修改weak新引用的对象的bit标志位</li></ol><p>1、weak的原理在于底层维护了一张weak_table_t结构的hash表，key是所指对象的地址，value是weak指针的地址数组。<br>2、weak 关键字的作用是弱引用，所引用对象的计数器不会加1，并在引用对象被释放的时候自动被设置为 nil。<br>3、对象释放时，调用clearDeallocating函数根据对象地址获取所有weak指针地址的数组，然后遍历这个数组把其中的数据设为nil，最后把这个entry从weak表中删除，最后清理对象的记录。<br>4、文章中介绍了SideTable、weak_table_t、weak_entry_t这样三个结构，它们之间的关系如下图所示。</p><h2 id="方法调用在修改调-method-name时为什么可以调用成功"><a href="#方法调用在修改调-method-name时为什么可以调用成功" class="headerlink" title="方法调用在修改调 method name时为什么可以调用成功"></a>方法调用在修改调 method name时为什么可以调用成功</h2><p>如果没有实现这个方法,那么就会进行消息转发,期间有三次机会处理这个事情</p><ol><li>自己处理 resolveInstanceMethod</li><li>forwardingTargetForSelector,  让其他对象执行这个函数</li><li>forwardInvocation, 更加灵活的处理函数调用(自己调用)</li></ol><p>如果都没有实现,那么就会发送未识别的异常</p><hr><h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1><h2 id="lldb调试的原理"><a href="#lldb调试的原理" class="headerlink" title="lldb调试的原理"></a>lldb调试的原理</h2><h2 id="flutter-的-skia-真的就比-iOS-自身实现的这一套渲染效率高么"><a href="#flutter-的-skia-真的就比-iOS-自身实现的这一套渲染效率高么" class="headerlink" title="flutter 的 skia 真的就比 iOS 自身实现的这一套渲染效率高么"></a>flutter 的 skia 真的就比 iOS 自身实现的这一套渲染效率高么</h2><h2 id="热更新的实现"><a href="#热更新的实现" class="headerlink" title="热更新的实现"></a>热更新的实现</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;关于离屏渲染的问题&quot;&gt;&lt;a href=&quot;#关于离屏渲染的问题&quot; class=&quot;headerlink&quot; title=&quot;关于离屏渲染的问题&quot;&gt;&lt;/a&gt;关于离屏渲染的问题&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;什么是mask&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一个图层可以有一个和它相关的mask(蒙版),mask是一个拥有alpha的位图,当像素和它下面的像素合成之前都会把mask应用到图层的像素上面,当你要设置一个图层的圆角半径的时候,你可以有效的在图层上设置一个mask,最终只有mask中显示出来的部分才会被渲染出来&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="面试" scheme="http://LikeeCat.github.io/categories/%E9%9D%A2%E8%AF%95/"/>
+    
+    
+      <category term="面试" scheme="http://LikeeCat.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>35. Search Insert Position</title>
+    <link href="http://LikeeCat.github.io/2022/09/21/35.%20Search%20Insert%20Position/"/>
+    <id>http://LikeeCat.github.io/2022/09/21/35. Search Insert Position/</id>
+    <published>2022-09-21T09:05:13.000Z</published>
+    <updated>2022-09-21T03:03:35.313Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/35/search_insert_position.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>排序满足的条件 大于前一位，小于后一位</li><li>根据二分法确定查找范围，</li><li>确定中点和 target 的数据差异 ，中点比target 大 ，target 就走左边继续寻找中点， 中点比target 小， target 走右边</li><li>边界判断和 左右指针的大小范围</li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>class Solution {<br>    func searchInsert(_ nums: [Int], _ target: Int) -&gt; Int {</p><pre><code>    var left = 0    var right = nums.count - 1    while left &lt;= right{        let middle = (right + left) / 2        if target == nums[middle]{            return middle        }        else if nums[middle] &gt; target {            right = middle - 1        }        else{            left = middle +  1        }    }    return  left}</code></pre><p>}</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/35/search_insert_position.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+      <category term="array" scheme="http://LikeeCat.github.io/tags/array/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux 命令大全</title>
+    <link href="http://LikeeCat.github.io/2022/07/25/linux%20%E5%91%BD%E4%BB%A4/"/>
+    <id>http://LikeeCat.github.io/2022/07/25/linux 命令/</id>
+    <published>2022-07-25T10:05:13.000Z</published>
+    <updated>2022-11-15T08:28:57.963Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="linux-命令大全"><a href="#linux-命令大全" class="headerlink" title="linux 命令大全"></a>linux 命令大全</h1><h2 id="磁盘相关"><a href="#磁盘相关" class="headerlink" title="磁盘相关"></a>磁盘相关</h2><h3 id="1-查看当前目录下所有文件的大小"><a href="#1-查看当前目录下所有文件的大小" class="headerlink" title="1. 查看当前目录下所有文件的大小"></a>1. 查看当前目录下所有文件的大小</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -h --max-depth=1</span><br></pre></td></tr></table></figure><h3 id="2-查看当前文件夹大小"><a href="#2-查看当前文件夹大小" class="headerlink" title="2. 查看当前文件夹大小"></a>2. 查看当前文件夹大小</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -sh</span><br></pre></td></tr></table></figure><h3 id="3-查看磁盘利用率"><a href="#3-查看磁盘利用率" class="headerlink" title="3. 查看磁盘利用率"></a>3. 查看磁盘利用率</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="Docker-相关"><a href="#Docker-相关" class="headerlink" title="Docker 相关"></a>Docker 相关</h2><h3 id="1-查看当前正在运行的-docker-容器"><a href="#1-查看当前正在运行的-docker-容器" class="headerlink" title="1. 查看当前正在运行的 docker 容器"></a>1. 查看当前正在运行的 docker 容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure><h3 id="2-查看所有的-docker-容器"><a href="#2-查看所有的-docker-容器" class="headerlink" title="2. 查看所有的 docker 容器"></a>2. 查看所有的 docker 容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure><h3 id="3-启动-docker-容器"><a href="#3-启动-docker-容器" class="headerlink" title="3. 启动 docker 容器"></a>3. 启动 docker 容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start xxx</span><br></pre></td></tr></table></figure><h3 id="4-停止-docker-容器"><a href="#4-停止-docker-容器" class="headerlink" title="4. 停止 docker 容器"></a>4. 停止 docker 容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker  stop xxx</span><br></pre></td></tr></table></figure><h3 id="5-构建指定平台的镜像"><a href="#5-构建指定平台的镜像" class="headerlink" title="5.构建指定平台的镜像"></a>5.构建指定平台的镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build --platform linux/amd64,xxxx -t name:tag .</span><br></pre></td></tr></table></figure><h3 id="6-保存镜像发送到其他机器"><a href="#6-保存镜像发送到其他机器" class="headerlink" title="6.保存镜像发送到其他机器"></a>6.保存镜像发送到其他机器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save -o tarname.tar name:tag</span><br></pre></td></tr></table></figure><h3 id="7-docker-开机重启"><a href="#7-docker-开机重启" class="headerlink" title="7. docker 开机重启"></a>7. docker 开机重启</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker update --restart=always + CONTAINER ID</span><br></pre></td></tr></table></figure><h3 id="8-docker-读取-image"><a href="#8-docker-读取-image" class="headerlink" title="8. docker 读取 image"></a>8. docker 读取 image</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load -i error_parser_mail.tar</span><br></pre></td></tr></table></figure><h3 id="9-docker-查看-log-日志"><a href="#9-docker-查看-log-日志" class="headerlink" title="9. docker 查看 log 日志"></a>9. docker 查看 log 日志</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs --tail 2000 xxx</span><br></pre></td></tr></table></figure><h2 id="Linux-定时器"><a href="#Linux-定时器" class="headerlink" title="Linux 定时器"></a>Linux 定时器</h2><h3 id="1-列出目前定时器的时程表"><a href="#1-列出目前定时器的时程表" class="headerlink" title="1. 列出目前定时器的时程表"></a>1. 列出目前定时器的时程表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -l : 列出目前的时程表</span><br></pre></td></tr></table></figure><h3 id="2-重启定时器"><a href="#2-重启定时器" class="headerlink" title="2. 重启定时器"></a>2. 重启定时器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/cron restart</span><br></pre></td></tr></table></figure><h2 id="VNC-相关"><a href="#VNC-相关" class="headerlink" title="VNC 相关"></a>VNC 相关</h2><h3 id="1-重启-vnc-服务"><a href="#1-重启-vnc-服务" class="headerlink" title="1. 重启 vnc 服务"></a>1. 重启 vnc 服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver restart</span><br></pre></td></tr></table></figure><h3 id="2-带有端口号的重启"><a href="#2-带有端口号的重启" class="headerlink" title="2.带有端口号的重启"></a>2.带有端口号的重启</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver  :1</span><br></pre></td></tr></table></figure><h2 id="机器相关"><a href="#机器相关" class="headerlink" title="机器相关"></a>机器相关</h2><h3 id="1-centos-重启机器"><a href="#1-centos-重启机器" class="headerlink" title="1. centos 重启机器"></a>1. centos 重启机器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown -r now</span><br></pre></td></tr></table></figure><h3 id="2-查看系统内核"><a href="#2-查看系统内核" class="headerlink" title="2. 查看系统内核"></a>2. 查看系统内核</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure><h3 id="3-查看系统信息"><a href="#3-查看系统信息" class="headerlink" title="3. 查看系统信息"></a>3. 查看系统信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/version</span><br></pre></td></tr></table></figure><h3 id="4-查看-centos-版本"><a href="#4-查看-centos-版本" class="headerlink" title="4. 查看 centos 版本"></a>4. 查看 centos 版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/redhat-release</span><br></pre></td></tr></table></figure><h3 id="5-查看-cpu-信息"><a href="#5-查看-cpu-信息" class="headerlink" title="5.查看 cpu 信息"></a>5.查看 cpu 信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo</span><br></pre></td></tr></table></figure><h3 id="6-查看内存占用率"><a href="#6-查看内存占用率" class="headerlink" title="6.查看内存占用率"></a>6.查看内存占用率</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure><p>按 c 进入交互模式</p><table><thead><tr><th>name</th><th>dec</th></tr></thead><tbody><tr><td>P</td><td>按CPU使用排序</td></tr><tr><td>N</td><td>以PID的大小排序</td></tr><tr><td>R</td><td>对排序进行反转</td></tr></tbody></table><h3 id="7-java-jvm-启动参数修改"><a href="#7-java-jvm-启动参数修改" class="headerlink" title="7.java jvm 启动参数修改"></a>7.java jvm 启动参数修改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=&quot;-server -Xms1024m -Xmx2048m -XX:PermSize=256m -XX:MaxPermSize=512m&quot;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;linux-命令大全&quot;&gt;&lt;a href=&quot;#linux-命令大全&quot; class=&quot;headerlink&quot; title=&quot;linux 命令大全&quot;&gt;&lt;/a&gt;linux 命令大全&lt;/h1&gt;&lt;h2 id=&quot;磁盘相关&quot;&gt;&lt;a href=&quot;#磁盘相关&quot; class=&quot;headerlink&quot; title=&quot;磁盘相关&quot;&gt;&lt;/a&gt;磁盘相关&lt;/h2&gt;&lt;h3 id=&quot;1-查看当前目录下所有文件的大小&quot;&gt;&lt;a href=&quot;#1-查看当前目录下所有文件的大小&quot; class=&quot;headerlink&quot; title=&quot;1. 查看当前目录下所有文件的大小&quot;&gt;&lt;/a&gt;1. 查看当前目录下所有文件的大小&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;du -h --max-depth=1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;2-查看当前文件夹大小&quot;&gt;&lt;a href=&quot;#2-查看当前文件夹大小&quot; class=&quot;headerlink&quot; title=&quot;2. 查看当前文件夹大小&quot;&gt;&lt;/a&gt;2. 查看当前文件夹大小&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;du -sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;3-查看磁盘利用率&quot;&gt;&lt;a href=&quot;#3-查看磁盘利用率&quot; class=&quot;headerlink&quot; title=&quot;3. 查看磁盘利用率&quot;&gt;&lt;/a&gt;3. 查看磁盘利用率&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;df -h&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="运维" scheme="http://LikeeCat.github.io/categories/%E8%BF%90%E7%BB%B4/"/>
+    
+    
+      <category term="运维" scheme="http://LikeeCat.github.io/tags/%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>141. Linked List Cycle</title>
+    <link href="http://LikeeCat.github.io/2021/01/17/141.%20Linked%20List%20Cycle/"/>
+    <id>http://LikeeCat.github.io/2021/01/17/141. Linked List Cycle/</id>
+    <published>2021-01-17T09:05:13.000Z</published>
+    <updated>2021-01-17T06:36:55.676Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/141/141题目.png" alt="题目"><br><a id="more"></a></p><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>去判断链表是否包含环这种问题,比较适合用快慢指针来做</li><li>slow每次走一步,fast每次走两步,那么fast必然会先进入环中,随后slow也会进入环中</li><li>由于两者指针的速度不一致,在经过一定的步数后,两者一定会相遇</li></ol><h1 id="具体解释"><a href="#具体解释" class="headerlink" title="具体解释"></a>具体解释</h1><p>可以查看第二种解法<a href="https://leetcode.com/problems/linked-list-cycle/solution" target="_blank" rel="noopener">Approach 2: Floyd’s Cycle Finding Algorithm</a></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {   func hasCycle(_ head: ListNode?) -&gt; Bool {         if head == nil || head?.next == nil{            return false;        }        var slow = head;        var fast = head?.next;        while slow !== fast {            //if fast is nil list has no cycle            if fast == nil || fast?.next == nil {                return false;            }            slow = slow?.next;            fast = fast?.next?.next;        }        return true    }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/141/141题目.png&quot; alt=&quot;题目&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+      <category term="link list" scheme="http://LikeeCat.github.io/tags/link-list/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>160. Intersection of Two Linked Lists</title>
+    <link href="http://LikeeCat.github.io/2021/01/16/160.%20Intersection%20of%20Two%20Linked%20Lists/"/>
+    <id>http://LikeeCat.github.io/2021/01/16/160. Intersection of Two Linked Lists/</id>
+    <published>2021-01-16T09:05:13.000Z</published>
+    <updated>2021-01-17T07:13:07.537Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/160/160题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,我们需要找到两个链表相交节点</li><li>那么我们可以吧a和b相连,将b和a相连,如果他们两个链表相交,那么他们的尾部肯定是相同的<br><img src="/assets/img/160/160图解.jpeg" alt="思路1"></li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {    func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -&gt; ListNode? {        if headA == nil || headB == nil {            return nil        }        var pointerA = headA;        var pointerB = headB;        var tagA  = 0;        var tagB = 0;        while pointerB !== pointerA {                //避免因为没有共同节点造成死循环            if tagA == 2 &amp;&amp; tagB == 2 {                return nil;            }            pointerA = pointerA == nil ? headB : pointerA?.next            if pointerA === headB {                tagA = tagA + 1            }            pointerB = pointerB == nil ? headA : pointerB?.next            if pointerB === headA {                tagB = tagB + 1            }        }        return pointerA;    }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/160/160题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+      <category term="link list" scheme="http://LikeeCat.github.io/tags/link-list/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>21. Merge Two Sorted Lists</title>
+    <link href="http://LikeeCat.github.io/2021/01/10/21.Merge%20Two%20Sorted%20Lists/"/>
+    <id>http://LikeeCat.github.io/2021/01/10/21.Merge Two Sorted Lists/</id>
+    <published>2021-01-10T06:05:13.000Z</published>
+    <updated>2021-01-10T06:50:53.343Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/21/21题目.png" alt></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>首先这是两个分别排好序的数组</li><li>我们需要去遍历这两个链表,比较两个值的大小,然后插入新的链表中</li><li>注意一些可选值的判断</li></ol><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution { func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -&gt; ListNode? {    let headerNode = ListNode        .init();    var headerPoint = headerNode;    var l1Pointer = l1    var l2Pointer = l2    while l1Pointer != nil || l2Pointer != nil {        if l1Pointer != nil &amp;&amp; l2Pointer != nil{            if l1Pointer!.val &gt;= l2Pointer!.val {                headerPoint.next = l2Pointer                l2Pointer = l2Pointer?.next            }            else{                headerPoint.next = l1Pointer                l1Pointer = l1Pointer?.next            }        }        else{            if l1Pointer == nil {                headerPoint.next = l2Pointer                l2Pointer = l2Pointer?.next            }            else{                headerPoint.next = l1Pointer                l1Pointer = l1Pointer?.next            }        }        headerPoint = headerPoint.next!;    }    return headerNode.next;}}</code></pre><h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><ol><li>可选值的判读        </li></ol><h1 id="swift-中-if-let-guard-let-的使用"><a href="#swift-中-if-let-guard-let-的使用" class="headerlink" title="swift 中 if let ,guard let 的使用"></a>swift 中 if let ,guard let 的使用</h1><h2 id="1-if-和-if-let-的区别"><a href="#1-if-和-if-let-的区别" class="headerlink" title="1. if 和 if let 的区别"></a>1. if 和 if let 的区别</h2><pre><code>    let name: String? = &quot;likee&quot;    let age: Int? = 20    //if             if name != nil &amp;&amp; age != nil {        print(name! + String(age!))     // 输出:likee 20    }    //if let    if let nameNew = name,    let ageNew = age {    // 肯定是有值的    print(nameNew + String(ageNew)) // 输出:likee 20}</code></pre><h2 id="guard-let-和-if-let-的区别"><a href="#guard-let-和-if-let-的区别" class="headerlink" title="guard let 和 if let 的区别"></a>guard let 和 if let 的区别</h2><pre><code> guard let nameNew = name,let ageNew = age else {    //在不满足条件后,会直接返回    print(&quot;姓名 或 年龄 为nil&quot;)    return //注意 }// 代码执行至此, nameNew 和 ageNew 一定有值print(nameNew + String(ageNew))     // 输出:likee 20</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/21/21题目.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+      <category term="link list" scheme="http://LikeeCat.github.io/tags/link-list/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>136. Single Number</title>
+    <link href="http://LikeeCat.github.io/2020/12/13/136.%20Single%20Number/"/>
+    <id>http://LikeeCat.github.io/2020/12/13/136. Single Number/</id>
+    <published>2020-12-13T09:05:13.000Z</published>
+    <updated>2021-01-17T06:45:35.909Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/136题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,要找到数组中只出现一次的数</li><li>用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target</li><li>题目中还有Follow up,让我们尝试不用多余的内存去做</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><p><img src="/assets/img/136思路2.png" alt="思路1"></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {    var dic :[Int:Int] = [:]    func singleNumber(_ nums: [Int]) -&gt; Int {        for i in nums{            if dic.keys.contains(i) {                dic.removeValue(forKey: i)            }            else{                dic[i] = 1;            }            }        return Int(dic.keys.first!);    }}</code></pre><h2 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h2><p><img src="/assets/img/136思路1.png" alt="思路2"></p><h1 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution {func singleNumber(_ nums: [Int]) -&gt; Int {    var  a = 0    for i in nums{        a = a ^ i    }    return a;    }}</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><p>这里用到了异或的计算,计算法则如下,具体的细则可以<a href="https://baike.baidu.com/item/%E5%BC%82%E6%88%96/10993677?fr=aladdin" target="_blank" rel="noopener">点击这里</a><br><img src="/assets/img/136异或运算.png" alt="运算法则"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/136题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>206. Reverse Linked List</title>
+    <link href="http://LikeeCat.github.io/2020/12/13/206.%20Reverse%20Linked%20List/"/>
+    <id>http://LikeeCat.github.io/2020/12/13/206. Reverse Linked List/</id>
+    <published>2020-12-13T09:05:13.000Z</published>
+    <updated>2021-01-10T06:00:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/206题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack</li><li>如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><pre><code>/** * Definition for singly-linked list. * public class ListNode { *     public var val: Int *     public var next: ListNode? *     public init() { self.val = 0; self.next = nil; } *     public init(_ val: Int) { self.val = val; self.next = nil; } *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */class Solution {  var stack :[ListNode] = [];  func reverseList(_ head: ListNode?) -&gt; ListNode? {      var tmp = head      //一直将所有的node压入栈,直到node没有下一个node      while  tmp != nil{          stack.insert(tmp!, at: 0)          tmp = tmp?.next      }      //开始将各个node按照数组的先后顺序进行连接    for i in stride(from: 0, through: stack.count - 1, by: 1) {        let node = stack[i]        if(i == stack.count - 1){            node.next = nil;        }        else{            node.next = stack[i+1];        }    }     //返回数组的首个元素      return stack.first;  }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/206题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>101. Symmetric Tree</title>
+    <link href="http://LikeeCat.github.io/2020/12/13/101.%20Symmetric%20Tree/"/>
+    <id>http://LikeeCat.github.io/2020/12/13/101. Symmetric Tree/</id>
+    <published>2020-12-13T08:05:13.000Z</published>
+    <updated>2021-01-10T06:00:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/101题目.png" alt="题目"></p><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,看这个二叉树是不是一个镜像的二叉树,即它的左子树与右子树之间是<code>对称</code>的</li><li>那么他的左子树和右子树是镜像的,对于一个三层的二叉树来说就是,左子树的左侧节点和右子树的右侧节点是一致的,左子树的右侧节点和右子树的左侧节点是一致的<a id="more"></a></li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p><img src="/assets/img/101思路.png" alt="思路"></p><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code>/** * Definition for a binary tree node. * public class TreeNode { *     public var val: Int *     public var left: TreeNode? *     public var right: TreeNode? *     public init() { self.val = 0; self.left = nil; self.right = nil; } *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; } *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) { *         self.val = val *         self.left = left *         self.right = right *     } * } */ class Solution {  func isMirror(_ left:TreeNode?,_ right:TreeNode?) -&gt; Bool {    if left == nil &amp;&amp; right == nil {        return  true    }    if left == nil || right == nil {        return false    }    return (left?.val == right?.val) &amp;&amp; isMirror(left?.right, right?.left) &amp;&amp; isMirror(left?.left, right?.right)    }    func isSymmetric(_ root: TreeNode?) -&gt; Bool {            return isMirror(root,root)    }}</code></pre><h1 id="注"><a href="#注" class="headerlink" title="注"></a>注</h1><p>这道题的重点还是要理解两个子树之间的关系,即怎样的两个子树即可互为镜像</p><pre><code>1. Their two roots have the same value2. The right subtree of each tree is a mirror reflection of the other tree</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/101题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;一些思考&quot;&gt;&lt;a href=&quot;#一些思考&quot; class=&quot;headerlink&quot; title=&quot;一些思考&quot;&gt;&lt;/a&gt;一些思考&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;从给出的内容来看,看这个二叉树是不是一个镜像的二叉树,即它的左子树与右子树之间是&lt;code&gt;对称&lt;/code&gt;的&lt;/li&gt;
+&lt;li&gt;那么他的左子树和右子树是镜像的,对于一个三层的二叉树来说就是,左子树的左侧节点和右子树的右侧节点是一致的,左子树的右侧节点和右子树的左侧节点是一致的
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20. Valid Parentheses</title>
+    <link href="http://LikeeCat.github.io/2020/12/13/Valid%20Parentheses/"/>
+    <id>http://LikeeCat.github.io/2020/12/13/Valid Parentheses/</id>
+    <published>2020-12-13T07:05:13.000Z</published>
+    <updated>2021-01-10T06:00:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/20题目.png" alt="图"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从题目给出的意思来看的话,这道题就是用Close brackets 来匹配 Open brackets,那么这个数组的数目必须是偶数个,否则肯定无法匹配</li><li>如果刚开始就是Close bracket那么也无法匹配</li><li>Open brackets 需要优先去匹配离他最近的 Close bracket,且中间不能有其他未匹配完的符号</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p><img src="/assets/img/20思路.png" alt="思路"></p><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution {//存放未匹配到Close brackets 的数组var element:[Character] = []//匹配字符串用到的字典let validDic:[String:Character] = [&quot;[&quot;:&quot;]&quot;,&quot;{&quot;:&quot;}&quot;,&quot;(&quot;:&quot;)&quot;]func isValid(_ s: String) -&gt; Bool {    for i in s{            //如果是Open bracket,就放入brackets的数组        if i == &quot;[&quot; || i == &quot;{&quot; || i == &quot;(&quot;{            self.element.append(i)        }        else{                //如果Stack为空,那么就不匹配            if self.element.isEmpty {                return false            }            else{                    //找到栈顶的元素,与当前的i进行对比                let lastElement = String(self.element.last!)                if validDic[String.init(lastElement)] == i  {                    self.element.removeLast()                }                else{                    return false                }            }        }    }    //如果栈中不存在任何的元素,则证明匹配成功    return self.element.isEmpty}}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/20题目.png&quot; alt=&quot;图&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NSDictionary 使用中的一些问题</title>
+    <link href="http://LikeeCat.github.io/2020/07/29/NSDictionary%20%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/>
+    <id>http://LikeeCat.github.io/2020/07/29/NSDictionary 使用中的一些问题/</id>
+    <published>2020-07-29T10:05:13.000Z</published>
+    <updated>2021-01-10T06:01:11.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="NSDictionary-使用中的一些问题"><a href="#NSDictionary-使用中的一些问题" class="headerlink" title="NSDictionary 使用中的一些问题"></a>NSDictionary 使用中的一些问题</h1><h2 id="1-dictionaryWithObjectsAndKeys"><a href="#1-dictionaryWithObjectsAndKeys" class="headerlink" title="1. dictionaryWithObjectsAndKeys"></a>1. dictionaryWithObjectsAndKeys</h2><pre><code>NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@&quot;12&quot;,@&quot;key&quot;,&quot;11&quot;,@&quot;age&quot;,nil];NSLog(@&quot;dic is %@&quot;,dic);</code></pre><p>我们在使用<code>dictionaryWithObjectsAndKeys</code>或者一些其他字面量去创建OC对象的时候，参数应该是<strong><em>Objective-C字符串</em></strong>，不是<strong><em>C语言</em></strong>的字符串<br><a id="more"></a></p><p>##2. 关于NSDictionary 转 JSON字符串的坑<br>我们经常能在网上搜到下面的内容</p><pre><code>-(NSString*)convertAlfredaJsonString:(NSDictionary *)dic{    NSString *jsonString = nil;    NSError *error;    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic                                                   options:NSJSONWritingPrettyPrinted                                                     error:&amp;error];    if (!jsonData) {        return @&quot;&quot;;    }     else {        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];    }    return jsonString;}</code></pre><p>##坑<br>在你使用上面代码的时候，你生成的 json字符串中会带有<code>&quot;\n&quot;</code>的换行符，因为这个换行符，因为web、后端可能对换行符进行了一些处理，直接这么传过去，可能会出现问题</p><h2 id="正确的做法"><a href="#正确的做法" class="headerlink" title="正确的做法"></a>正确的做法</h2><pre><code>NSMutableString *occultStr = [NSMutableString stringWithString:jsonString];NSRange range = {0,jsonString.length};//去掉字符串中的空格[occultStr replaceOccurrencesOfString:@&quot; &quot; withString:@&quot;&quot; options:NSLiteralSearch range:range];NSRange range2 = {0,occultStr.length};[occultStr replaceOccurrencesOfString:@&quot;\n&quot; withString:@&quot;&quot; options:NSLiteralSearch range:range2];</code></pre><p>在生成 json字符串后，将其中的<code>&quot;\n&quot;</code>、<code>&quot; &quot;</code>空格去掉，然后再传给后端</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;NSDictionary-使用中的一些问题&quot;&gt;&lt;a href=&quot;#NSDictionary-使用中的一些问题&quot; class=&quot;headerlink&quot; title=&quot;NSDictionary 使用中的一些问题&quot;&gt;&lt;/a&gt;NSDictionary 使用中的一些问题&lt;/h1&gt;&lt;h2 id=&quot;1-dictionaryWithObjectsAndKeys&quot;&gt;&lt;a href=&quot;#1-dictionaryWithObjectsAndKeys&quot; class=&quot;headerlink&quot; title=&quot;1. dictionaryWithObjectsAndKeys&quot;&gt;&lt;/a&gt;1. dictionaryWithObjectsAndKeys&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@&amp;quot;12&amp;quot;,@&amp;quot;key&amp;quot;,&amp;quot;11&amp;quot;,@&amp;quot;age&amp;quot;,nil];
+NSLog(@&amp;quot;dic is %@&amp;quot;,dic);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我们在使用&lt;code&gt;dictionaryWithObjectsAndKeys&lt;/code&gt;或者一些其他字面量去创建OC对象的时候，参数应该是&lt;strong&gt;&lt;em&gt;Objective-C字符串&lt;/em&gt;&lt;/strong&gt;，不是&lt;strong&gt;&lt;em&gt;C语言&lt;/em&gt;&lt;/strong&gt;的字符串&lt;br&gt;
+    
+    </summary>
+    
+      <category term="tip" scheme="http://LikeeCat.github.io/categories/tip/"/>
+    
+    
+      <category term="tip" scheme="http://LikeeCat.github.io/tags/tip/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS中framework的相关命令</title>
+    <link href="http://LikeeCat.github.io/2020/07/25/iOS%E4%B8%ADframework%E7%9A%84%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4/"/>
+    <id>http://LikeeCat.github.io/2020/07/25/iOS中framework的相关命令/</id>
+    <published>2020-07-25T10:05:13.000Z</published>
+    <updated>2021-01-10T06:01:04.965Z</updated>
+    
+    <content type="html"><![CDATA[<p>#查看framework支持的处理器架构</p><ol><li><p>进入framework的目录下面 </p><pre><code>cd /xxx/xxx.framework</code></pre></li><li><p>输入命令</p><pre><code>lipo -info xxxframework //这里的xxxframwork 是指framework中的二进制</code></pre></li></ol><a id="more"></a><h1 id="查看framework是静态库还是动态库"><a href="#查看framework是静态库还是动态库" class="headerlink" title="查看framework是静态库还是动态库"></a>查看framework是静态库还是动态库</h1><ol><li><p>输入命令</p><pre><code>file xxx/xxxframework //这里的xxxframework 是指framework中的二进制</code></pre></li></ol><p>#查看framework 中是否包含UIWebView</p><ol><li><p>进入项目目录下面 </p><pre><code>cd /xxx/xxx.framework</code></pre></li><li><p>输入命令</p><pre><code>find . -type f | grep -e &quot;.a&quot; -e &quot;.framework&quot; | xargs grep -s UIWebView</code></pre></li></ol><p>#xxx.framework contains unsupported architectures ‘[x86_64, i386]’</p><p>这个framework中包含x86_64, i386架构,这个在iOS中是不允许的</p><ol><li>在app对应的target -&gt; build phases -&gt; new Run Script Phase</li><li><p>输入命令</p><pre><code># Without further ado, here’s the script. Add a Run Script step to your build steps, put it after your step to embed frameworks, set it to use /bin/sh and enter the following script:APP_PATH=&quot;${TARGET_BUILD_DIR}/${WRAPPER_NAME}&quot;# This script loops through the frameworks embedded in the     application and# removes unused architectures.find &quot;$APP_PATH&quot; -name &apos;*.framework&apos; -type d | while read -r FRAMEWORKdoFRAMEWORK_EXECUTABLE_NAME=$(defaults read &quot;$FRAMEWORK/Info.plist&quot; CFBundleExecutable)FRAMEWORK_EXECUTABLE_PATH=&quot;$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME&quot;echo &quot;Executable is $FRAMEWORK_EXECUTABLE_PATH&quot;EXTRACTED_ARCHS=()for ARCH in $ARCHSdo    echo &quot;Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME&quot;lipo -extract &quot;$ARCH&quot; &quot;$FRAMEWORK_EXECUTABLE_PATH&quot; -o &quot;$FRAMEWORK_EXECUTABLE_PATH-$ARCH&quot;EXTRACTED_ARCHS+=(&quot;$FRAMEWORK_EXECUTABLE_PATH-$ARCH&quot;)doneecho &quot;Merging extracted architectures: ${ARCHS}&quot;lipo -o &quot;$FRAMEWORK_EXECUTABLE_PATH-merged&quot; -create &quot;${EXTRACTED_ARCHS[@]}&quot;rm &quot;${EXTRACTED_ARCHS[@]}&quot;echo &quot;Replacing original executable with thinned version&quot;rm &quot;$FRAMEWORK_EXECUTABLE_PATH&quot;mv &quot;$FRAMEWORK_EXECUTABLE_PATH-merged&quot; &quot;$FRAMEWORK_EXECUTABLE_PATH&quot;done</code></pre></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#查看framework支持的处理器架构&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;进入framework的目录下面 &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd /xxx/xxx.framework
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;输入命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lipo -info xxxframework //这里的xxxframwork 是指framework中的二进制
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="frame" scheme="http://LikeeCat.github.io/categories/frame/"/>
+    
+    
+      <category term="framework" scheme="http://LikeeCat.github.io/tags/framework/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>github下载代码太慢</title>
+    <link href="http://LikeeCat.github.io/2020/06/23/github%E4%B8%8B%E8%BD%BD%E5%A4%AA%E6%85%A2/"/>
+    <id>http://LikeeCat.github.io/2020/06/23/github下载太慢/</id>
+    <published>2020-06-23T10:05:13.000Z</published>
+    <updated>2021-01-10T06:01:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>我们总是需要在github去下载一些代码,但是因为一些原因,下载的速度忽快忽慢,而一些第三方的网站号称可以代下载,但是也是会很慢,或者直接就下载不下来,这个时候我们就需要用到<a href="https://gitee.com/" target="_blank" rel="noopener">码云</a>来帮助我们下载.接下来我们以CocoaPods为例</p><a id="more"></a><h2 id="1-获取github的仓库地址"><a href="#1-获取github的仓库地址" class="headerlink" title="1.获取github的仓库地址"></a>1.获取github的仓库地址</h2><p><img src="/assets/img/clone Url.png" alt="仓库地址"></p><h2 id="2-登录码云并选择创建仓库"><a href="#2-登录码云并选择创建仓库" class="headerlink" title="2.登录码云并选择创建仓库"></a>2.登录码云并选择创建仓库</h2><p><img src="/assets/img/创建仓库.png" alt="创建仓库"></p><h2 id="3-导入仓库"><a href="#3-导入仓库" class="headerlink" title="3.导入仓库"></a>3.导入仓库</h2><p><img src="/assets/img/导入仓库.png" alt="创建仓库"><br>输入对应的仓库地址,完成后选择导入</p><h2 id="4-完成导入"><a href="#4-完成导入" class="headerlink" title="4.完成导入"></a>4.完成导入</h2><p>导入完成后你就可以在你的码云仓库中找到对应的仓库,这个时候再下载就会很快了</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;原因&quot;&gt;&lt;a href=&quot;#原因&quot; class=&quot;headerlink&quot; title=&quot;原因&quot;&gt;&lt;/a&gt;原因&lt;/h1&gt;&lt;p&gt;我们总是需要在github去下载一些代码,但是因为一些原因,下载的速度忽快忽慢,而一些第三方的网站号称可以代下载,但是也是会很慢,或者直接就下载不下来,这个时候我们就需要用到&lt;a href=&quot;https://gitee.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;码云&lt;/a&gt;来帮助我们下载.接下来我们以CocoaPods为例&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="github" scheme="http://LikeeCat.github.io/categories/github/"/>
+    
+    
+      <category term="github" scheme="http://LikeeCat.github.io/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Flutter 加载txt文件</title>
+    <link href="http://LikeeCat.github.io/2019/11/17/%20Flutter%20%E5%8A%A0%E8%BD%BDtxt%E6%96%87%E4%BB%B6/"/>
+    <id>http://LikeeCat.github.io/2019/11/17/ Flutter 加载txt文件/</id>
+    <published>2019-11-17T10:05:13.000Z</published>
+    <updated>2019-11-17T03:22:51.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Flutter-之加载txt文件"><a href="#Flutter-之加载txt文件" class="headerlink" title="Flutter 之加载txt文件"></a>Flutter 之加载txt文件</h2><p>我想要加载工程中的txt文件,网上搜了一圈,没有找到相关的内容,在此做一下脱坑的记录</p><h3 id="1-在工程下新建txt文件"><a href="#1-在工程下新建txt文件" class="headerlink" title="1.在工程下新建txt文件"></a>1.在工程下新建txt文件</h3><p> <img src="/assets/img/flutterpath.png" alt="路径"><br><a id="more"></a></p><h3 id="2-在pubspec-yaml中引用"><a href="#2-在pubspec-yaml中引用" class="headerlink" title="2.在pubspec.yaml中引用"></a>2.在pubspec.yaml中引用</h3><p>  assets:<br>        -data/agreeText.txt</p><h3 id="3-在dart文件中使用"><a href="#3-在dart文件中使用" class="headerlink" title="3.在dart文件中使用"></a>3.在dart文件中使用</h3><h4 id="引入头文件-并复制这个方法"><a href="#引入头文件-并复制这个方法" class="headerlink" title="引入头文件,并复制这个方法"></a>引入头文件,并复制这个方法</h4><p>import ‘package:flutter/services.dart’ show rootBundle;</p><p>Future<string> loadAsset() async {<br>  var a = await rootBundle.loadString(‘data/agreeText.txt’);<br>  return a;<br>}</string></p><h4 id="在widget中使用"><a href="#在widget中使用" class="headerlink" title="在widget中使用"></a>在widget中使用</h4><p>因为是异步函数,所以需要结合setseate来使用</p><pre><code> var _result = &quot;&quot;; dynamic result; void loadAssests() async { result = await loadAsset(); print(result); setState(() {   _result = result.toString();     });   }@overridevoid initState() { loadAssests();}@overrideWidget build(BuildContext context) {return new MaterialApp(  title: &apos;Welcome to Flutter&apos;,  home: new Scaffold(    appBar: new AppBar(      title: new Text(&apos;Welcome to Flutter&apos;),    ),    body: new Center(      child: new Text(_result),    ),  ),);}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Flutter-之加载txt文件&quot;&gt;&lt;a href=&quot;#Flutter-之加载txt文件&quot; class=&quot;headerlink&quot; title=&quot;Flutter 之加载txt文件&quot;&gt;&lt;/a&gt;Flutter 之加载txt文件&lt;/h2&gt;&lt;p&gt;我想要加载工程中的txt文件,网上搜了一圈,没有找到相关的内容,在此做一下脱坑的记录&lt;/p&gt;
+&lt;h3 id=&quot;1-在工程下新建txt文件&quot;&gt;&lt;a href=&quot;#1-在工程下新建txt文件&quot; class=&quot;headerlink&quot; title=&quot;1.在工程下新建txt文件&quot;&gt;&lt;/a&gt;1.在工程下新建txt文件&lt;/h3&gt;&lt;p&gt; &lt;img src=&quot;/assets/img/flutterpath.png&quot; alt=&quot;路径&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Flutter" scheme="http://LikeeCat.github.io/categories/Flutter/"/>
+    
+    
+      <category term="Flutter" scheme="http://LikeeCat.github.io/tags/Flutter/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NSArray之深浅拷贝</title>
+    <link href="http://LikeeCat.github.io/2019/06/11/NSArray%E4%B9%8B%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D/"/>
+    <id>http://LikeeCat.github.io/2019/06/11/NSArray之深浅拷贝/</id>
+    <published>2019-06-11T10:05:13.000Z</published>
+    <updated>2019-07-20T05:15:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-自定义对象"><a href="#1-自定义对象" class="headerlink" title="1. 自定义对象"></a>1. 自定义对象</h2><ol><li><p>假设我有一个Student类</p><pre><code>@interface Student()&lt;NSCopying,NSMutableCopying&gt;@property (nonatomic,copy)NSString *name;@property (nonatomic,assign)NSInteger age;@end</code></pre> <a id="more"></a></li><li><p>生成两个Student对象</p><pre><code> Student *stu = [[Student alloc]initWithName:@&quot;a&quot; age:1];Student *stu1 = [[Student alloc]initWithName:@&quot;b&quot; age:2];</code></pre></li><li><p>用NSArray去把这两个对象加进数组,分别对数组进行copy 和 mutableCopy</p><pre><code>NSArray *arr = [NSArray arrayWithObjects:stu,stu1, nil];NSArray *arrCopy =  [arr copy] ;NSMutableArray *arrMuCopy = [arr mutableCopy];</code></pre></li><li><p>在arrMuCopy之后打断点查看结果</p><pre><code> po arr&lt;__NSArrayI 0x102900290&gt;(&lt;Student: 0x100646bc0&gt;,&lt;Student: 0x100647300&gt;) po arrCopy&lt;__NSArrayI 0x102900290&gt;(&lt;Student: 0x100646bc0&gt;,&lt;Student: 0x100647300&gt;)po arrMuCopy&lt;__NSArrayM 0x1029056f0&gt;(&lt;Student: 0x100646bc0&gt;,&lt;Student: 0x100647300&gt;)</code></pre><blockquote><p>从结果上来说,copy只是复制了一个指针,arr 和 arrCopy 在堆上的对象是同一个.而arrMuCopy则是创建了新的内存地址,即创建了一个新的NSMutableArray的对象,但是array中包含的自定义对象没有复制.</p></blockquote></li><li><p>重写Student的description方法</p><pre><code>-(NSString *)description{ return [NSString stringWithFormat:@&quot;name:%@\n age :%d&quot;,self.name,self.age]; }</code></pre></li><li><p>在copy 和 mutableCopy 结束后打断点</p><pre><code>  NSArray *arr = [NSArray arrayWithObjects:stu,stu1, nil];NSArray *arrCopy =  [arr copy] ;NSMutableArray *arrMuCopy = [arr mutableCopy];[stu changeName:@&quot;ccc&quot;]; po arr&lt;__NSArrayI 0x1029002c0&gt;(name:ccc age :1,name:b age :2) po arrCopy&lt;__NSArrayI 0x1029002c0&gt;(name:ccc age :1,name:b age :2)po arrMuCopy&lt;__NSArrayM 0x102909590&gt;(name:ccc age :1,name:b age :2)</code></pre></li></ol><p>结果也论证了这一点,mutableCopy后并没有将array中的对象进行复制</p><h2 id="NSString"><a href="#NSString" class="headerlink" title="NSString"></a>NSString</h2><ol><li><p>用NSArray去把这两个对象加进数组,分别对数组进行copy 和 mutableCopy</p><pre><code>NSArray *arr = [NSArray arrayWithObjects:@&quot;aaa&quot;,@&quot;bbb&quot;, nil];NSArray *arrCopy =  [arr copy] ;NSMutableArray *arrMuCopy = [arr mutableCopy];</code></pre></li><li><p>在copy 和 mutableCopy 结束后打断点</p><pre><code>po arr&lt;__NSArrayI 0x100504700&gt;(aaa,bbb)po arrCopy&lt;__NSArrayI 0x100504700&gt;(aaa,bbb)po arrMuCopy&lt;__NSArrayM 0x100503290&gt;(aaa,bbb) p arr[0](__NSCFConstantString *) $4 = 0x00000001000020d0 @&quot;aaa&quot;p arrCopy[0](__NSCFConstantString *) $7 = 0x00000001000020d0 @&quot;aaa&quot;p arrMuCopy[0](__NSCFConstantString *) $6 = 0x00000001000020d0 @&quot;aaa&quot;</code></pre></li></ol><p>结果也论证了这一点,mutableCopy后并没有将array中的对象进行复制</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-自定义对象&quot;&gt;&lt;a href=&quot;#1-自定义对象&quot; class=&quot;headerlink&quot; title=&quot;1. 自定义对象&quot;&gt;&lt;/a&gt;1. 自定义对象&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;假设我有一个Student类&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@interface Student()&amp;lt;NSCopying,NSMutableCopying&amp;gt;
+@property (nonatomic,copy)NSString *name;
+@property (nonatomic,assign)NSInteger age;
+@end
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="NSArray" scheme="http://LikeeCat.github.io/categories/NSArray/"/>
+    
+    
+      <category term="NSArray" scheme="http://LikeeCat.github.io/tags/NSArray/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Xcode快捷键</title>
+    <link href="http://LikeeCat.github.io/2019/05/30/Xcode%20%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C/"/>
+    <id>http://LikeeCat.github.io/2019/05/30/Xcode 快捷操作/</id>
+    <published>2019-05-30T01:05:58.000Z</published>
+    <updated>2019-07-20T05:15:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="编辑的快捷键"><a href="#编辑的快捷键" class="headerlink" title="编辑的快捷键"></a>编辑的快捷键</h2><table><thead><tr><th>快捷键名称</th><th>作用</th></tr></thead><tbody><tr><td>command + ↑</td><td>到达文件头部</td></tr><tr><td>command +  ↓</td><td>到达文件尾部</td></tr><tr><td>command + [</td><td>向左移动代码</td></tr><tr><td>command + ]</td><td>向右移动代码</td></tr><tr><td>option + command + [</td><td>向上移动代码</td></tr><tr><td>option + command + ]</td><td>向下移动代码</td></tr><tr><td>command + /</td><td>快速注释或者取消注释</td></tr><tr><td>Ctrl + A</td><td>移动光标到本行行首 </td></tr><tr><td>Ctrl + E</td><td>移动光标到本行行尾 </td></tr><tr><td>option + →</td><td>移动光标到下一个单词</td></tr><tr><td>option +  ←</td><td>移动光标到上一个单词</td></tr></tbody></table><a id="more"></a><h2 id="视图快捷键"><a href="#视图快捷键" class="headerlink" title="视图快捷键"></a>视图快捷键</h2><table><thead><tr><th>快捷键名称</th><th>作用</th></tr></thead><tbody><tr><td>shift + command  + y</td><td>隐藏/打开控制台</td></tr><tr><td>Ctrl + command + ↑↓</td><td>快速切换.h和.m文件</td></tr><tr><td>Ctrl + command + → ←</td><td>打开下一个/上一个文件</td></tr></tbody></table><h2 id="搜索快捷键"><a href="#搜索快捷键" class="headerlink" title="搜索快捷键"></a>搜索快捷键</h2><table><thead><tr><th>快捷键名称</th><th>作用</th></tr></thead><tbody><tr><td>command  + f</td><td>在当前文件搜索</td></tr><tr><td>shift + command + f</td><td>打开全局搜索</td></tr><tr><td>command  + g</td><td>跳到下一个搜索结果</td></tr><tr><td>shift +command  + g</td><td>跳到上一个搜索结果</td></tr><tr><td>shift +command  + o</td><td>快速打开一个文件</td></tr></tbody></table><h1 id="编译快捷键"><a href="#编译快捷键" class="headerlink" title="编译快捷键"></a>编译快捷键</h1><table><thead><tr><th>快捷键名称</th><th>作用</th></tr></thead><tbody><tr><td>command  + r</td><td>运行</td></tr><tr><td>command  + b</td><td>编译</td></tr><tr><td>shift + command  + k</td><td>清除工程</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;编辑的快捷键&quot;&gt;&lt;a href=&quot;#编辑的快捷键&quot; class=&quot;headerlink&quot; title=&quot;编辑的快捷键&quot;&gt;&lt;/a&gt;编辑的快捷键&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;快捷键名称&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;command + ↑&lt;/td&gt;
+&lt;td&gt;到达文件头部&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;command +  ↓&lt;/td&gt;
+&lt;td&gt;到达文件尾部&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;command + [&lt;/td&gt;
+&lt;td&gt;向左移动代码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;command + ]&lt;/td&gt;
+&lt;td&gt;向右移动代码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;option + command + [&lt;/td&gt;
+&lt;td&gt;向上移动代码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;option + command + ]&lt;/td&gt;
+&lt;td&gt;向下移动代码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;command + /&lt;/td&gt;
+&lt;td&gt;快速注释或者取消注释&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ctrl + A&lt;/td&gt;
+&lt;td&gt;移动光标到本行行首 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ctrl + E&lt;/td&gt;
+&lt;td&gt;移动光标到本行行尾 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;option + →&lt;/td&gt;
+&lt;td&gt;移动光标到下一个单词&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;option +  ←&lt;/td&gt;
+&lt;td&gt;移动光标到上一个单词&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+    
+    </summary>
+    
+      <category term="tip" scheme="http://LikeeCat.github.io/categories/tip/"/>
+    
+    
+      <category term="tip" scheme="http://LikeeCat.github.io/tags/tip/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS 中文排序</title>
+    <link href="http://LikeeCat.github.io/2019/05/29/iOS%E4%B8%AD%E6%96%87%E6%8E%92%E5%BA%8F/"/>
+    <id>http://LikeeCat.github.io/2019/05/29/iOS中文排序/</id>
+    <published>2019-05-29T11:05:58.000Z</published>
+    <updated>2019-07-20T05:15:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="排序方法"><a href="#排序方法" class="headerlink" title="排序方法"></a>排序方法</h1><h2 id="localizedCompare"><a href="#localizedCompare" class="headerlink" title="localizedCompare(_:)"></a>localizedCompare(_:)</h2><p>Compares the string and a given string using a localized comparison.</p><blockquote><p>在NSString 的 API 中有这个方法,假设你的手机使用的是中文,就可以根据中文排序</p></blockquote><a id="more"></a><h2 id="NSSortDescriptor"><a href="#NSSortDescriptor" class="headerlink" title="NSSortDescriptor"></a>NSSortDescriptor</h2><p>An immutable description of how to order a collection of objects based on a property common to all the objects.</p><blockquote><p>可以根据集合中的对象的某一个属性对这个集合进行排序</p></blockquote><h2 id="initWithKey-ascending-selector"><a href="#initWithKey-ascending-selector" class="headerlink" title="initWithKey:ascending:selector:"></a>initWithKey:ascending:selector:</h2><pre><code>- (instancetype)initWithKey:(NSString *)key               ascending:(BOOL)ascending                selector:(SEL)selector;根据给出的key 升序还是降序 还有使用selector来初始化</code></pre><h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><h2 id="定义对象"><a href="#定义对象" class="headerlink" title="定义对象"></a>定义对象</h2><pre><code>@interface person : NSObject@property (nonatomic,strong)NSString *name;@property (nonatomic,strong)NSString *phone;@end</code></pre><h2 id="定义对象的集合"><a href="#定义对象的集合" class="headerlink" title="定义对象的集合"></a>定义对象的集合</h2><pre><code>person *p = [[person alloc]initWithName:@&quot;小小&quot; phone:@&quot;13322223333&quot;];person *p1 = [[person alloc]initWithName:@&quot;小二&quot; phone:@&quot;13322223333&quot;];person *p2 = [[person alloc]initWithName:@&quot;校小&quot; phone:@&quot;13322223333&quot;];NSMutableArray *arr  = [NSMutableArray arrayWithArray:@[p,p1,p2]];</code></pre><h2 id="定义排序方法"><a href="#定义排序方法" class="headerlink" title="定义排序方法"></a>定义排序方法</h2><pre><code>NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@&quot;name&quot; ascending:YES selector:@selector(localizedCompare:)]];</code></pre><h2 id="进行排序"><a href="#进行排序" class="headerlink" title="进行排序"></a>进行排序</h2><pre><code>[arr sortUsingDescriptors:sortDescriptors];</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;排序方法&quot;&gt;&lt;a href=&quot;#排序方法&quot; class=&quot;headerlink&quot; title=&quot;排序方法&quot;&gt;&lt;/a&gt;排序方法&lt;/h1&gt;&lt;h2 id=&quot;localizedCompare&quot;&gt;&lt;a href=&quot;#localizedCompare&quot; class=&quot;headerlink&quot; title=&quot;localizedCompare(_:)&quot;&gt;&lt;/a&gt;localizedCompare(_:)&lt;/h2&gt;&lt;p&gt;Compares the string and a given string using a localized comparison.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在NSString 的 API 中有这个方法,假设你的手机使用的是中文,就可以根据中文排序&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="tip" scheme="http://LikeeCat.github.io/categories/tip/"/>
+    
+    
+      <category term="tip" scheme="http://LikeeCat.github.io/tags/tip/"/>
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="iOS">
+  
+  
+    <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    SDWebImage 不能及时更新图片 |
+    
+    LikeeCat&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-SDWebImage 不能及时更新图片" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SDWebImage 不能及时更新图片
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2018/12/03/SDWebImage 不能及时更新图片/" class="article-date">
+  <time datetime="2018-12-03T10:05:13.000Z" itemprop="datePublished">2018-12-03</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>最近刚好有写到图片需要及时更新的问题，由于 SDWebImage 中的存在缓存，在用户更新了网络头像后，其他人的手机上还是显示了之前的头像，想到了缓存的问题<br><a id="more"></a></p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>后来查到了这种解决方法，SDWebImageDownloader 有一个 headerFilter 属性</p>
+<pre><code>/**
+ * Set filter to pick headers for downloading image HTTP request.
+ *
+ * This block will be invoked for each downloading image request, returned
+ * NSDictionary will be used as headers in corresponding HTTP request.
+ */
+@property (nonatomic, copy, nullable) SDWebImageDownloaderHeadersFilterBlock headersFilter;
+</code></pre><p>划重点<code>Set filter to pick headers for downloading image HTTP request.</code>，所以我们可以在这里对下载图片的请求头进行一些处理。具体的代码如下：</p>
+<pre><code>   SDWebImageDownloader *imgDownloader = SDWebImageManager.sharedManager.imageDownloader;
+   imgDownloader.headersFilter  = ^NSDictionary *(NSURL *url, NSDictionary *headers) {
+    NSFileManager *fm = [[NSFileManager alloc] init];
+    NSString *imgKey = [SDWebImageManager.sharedManager cacheKeyForURL:url];
+    NSString *imgPath = [SDWebImageManager.sharedManager.imageCache defaultCachePathForKey:imgKey];
+    NSDictionary *fileAttr = [fm attributesOfItemAtPath:imgPath error:nil];
+
+    NSMutableDictionary *mutableHeaders = [headers mutableCopy];
+
+    NSDate *lastModifiedDate = nil;
+
+    if (fileAttr.count &gt; 0) {
+        if (fileAttr.count &gt; 0) {
+            lastModifiedDate = (NSDate *)fileAttr[NSFileModificationDate];
+        }
+
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@&quot;GMT&quot;];
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@&quot;en_US&quot;];
+    formatter.dateFormat = @&quot;EEE, dd MMM yyyy HH:mm:ss z&quot;;
+
+    NSString *lastModifiedStr = [formatter stringFromDate:lastModifiedDate];
+    lastModifiedStr = lastModifiedStr.length &gt; 0 ? lastModifiedStr : @&quot;&quot;;
+    [mutableHeaders setValue:lastModifiedStr forKey:@&quot;If-Modified-Since&quot;];
+
+    return mutableHeaders;
+}
+</code></pre><h1 id="什么是-If-Modified-Since"><a href="#什么是-If-Modified-Since" class="headerlink" title="什么是 If-Modified-Since"></a>什么是 If-Modified-Since</h1><p><strong><code>If-Modified-Since</code></strong> 是一个条件式请求首部，服务器只在所请求的资源在给定的日期时间之后对内容进行过修改的情况下才会将资源返回，状态码为 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/200" title="状态码 200 OK 表明请求已经成功. 默认情况下状态码为200的响应可以被缓存。" target="_blank" rel="noopener"><code>200</code></a>  。如果请求的资源从那时起未经修改，那么返回一个不带有消息主体的  <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/304" title="HTTP 304 未改变说明无需再次传输请求的内容，也就是说可以使用缓存的内容。这通常是在一些安全的方法（safe），例如GET 或HEAD 或在请求中附带了头部信息： If-None-Match 或If-Modified-Since。" target="_blank" rel="noopener"><code>304</code></a>  响应，而在 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Last-Modified" title="The Last-Modified  是一个响应首部，其中包含源头服务器认定的资源做出修改的日期及时间。 它通常被用作一个验证器来判断接收到的或者存储的资源是否彼此一致。由于精确度比  ETag 要低，所以这是一个备用机制。包含有  If-Modified-Since 或 If-Unmodified-Since 首部的条件请求会使用这个字段。" target="_blank" rel="noopener"><code>Last-Modified</code></a> 首部中会带有上次修改时间。 不同于  <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-Unmodified-Since" title="HTTP协议中的 If-Unmodified-Since 消息头用于请求之中，使得当前请求成为条件式请求：只有当资源在指定的时间之后没有进行过修改的情况下，服务器才会返回请求的资源，或是接受 POST 或其他 non-safe 方法的请求。如果所请求的资源在指定的时间之后发生了修改，那么会返回 412 (Precondition Failed) 错误。" target="_blank" rel="noopener"><code>If-Unmodified-Since</code></a>, <code>If-Modified-Since</code> 只可以用在 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/GET" title="HTTP GET 方法请求指定的资源。使用 GET 的请求应该只用于获取数据。" target="_blank" rel="noopener"><code>GET</code></a> 或 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/HEAD" title="HTTP HEAD 方法 请求资源的首部信息, 并且这些首部与 HTTP GET 方法请求时返回的一致. 该请求方法的一个使用场景是在下载一个大文件前先获取其大小再决定是否要下载, 以此可以节约带宽资源." target="_blank" rel="noopener"><code>HEAD</code></a> 请求中。</p>
+<h1 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h1><p>所以我们在http 请求的 header 中 加入这个参数，拿到本地缓存图片的修改时间<code>NSFileModificationDate</code>。<br>200 -&gt; 更新图片(已更新)<br>304 -&gt; 使用之前的图片(未更新)</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.jianshu.com/p/3d5a99790760" target="_blank" rel="noopener">SDWebImage支持URL不变时更新图片内容</a><br><a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener">MDN Web 文档</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2018/12/03/SDWebImage 不能及时更新图片/" data-id="cm3ob2eh500189rgjbi6w1pbi"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Xcode10 【libray not found for -lstdc++.6.0.9 】
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/09/11/UITableView 之 表单的自动填充 /" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">UITableView 之 表单的自动填充</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'c9b751a1e1d42d823869',
+      clientSecret: '0f805daf744877256f9aa375be74c0af132942c7',
+      repo: 'LikeeCatTalk',
+      owner: 'LikeeCat',
+      admin: ['LikeeCat'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2024 LikeeCat&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/favicon.ico" alt="LikeeCat&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

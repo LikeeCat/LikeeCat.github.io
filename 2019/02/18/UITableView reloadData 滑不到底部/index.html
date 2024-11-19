@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="iOS">
+  
+  
+    <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    UITableView reloadData 滑不到底部 |
+    
+    LikeeCat&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-UITableView reloadData 滑不到底部" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      UITableView reloadData 滑不到底部
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/02/18/UITableView reloadData 滑不到底部/" class="article-date">
+  <time datetime="2019-02-18T10:05:13.000Z" itemprop="datePublished">2019-02-18</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/UITableView/">UITableView</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近有个需求，在 tableView <code>reloadData</code>结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档</p>
+<ol>
+<li>layoutSubviews</li>
+<li>setNeedsLayout</li>
+<li>layoutIfNeeded</li>
+</ol>
+<a id="more"></a>
+<h3 id="layoutSubviews"><a href="#layoutSubviews" class="headerlink" title="layoutSubviews"></a>layoutSubviews</h3><p>Lays out subviews.</p>
+<h4 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h4><p>Subclasses can override this method as needed to perform more precise layout of their subviews. You should override this method only if the autoresizing and constraint-based behaviors of the subviews do not offer the behavior you want. You can use your implementation to set the frame rectangles of your subviews directly.</p>
+<p>You should not call this method directly. If you want to force a layout update, call the <code>setNeedsLayout</code> method instead to do so prior to the next drawing update. If you want to update the layout of your views immediately, call the <code>layoutIfNeeded</code> method.</p>
+<p>在子类中，如果你需要更加准确的定位，你可以重写这个方法。如果 autoresizing 和 constraint不能为你提供你想要做的。你可以自己设置subviews的 frame。<br>你不应该直接调用这个方法，如果你想要强制更新布局，应该调用<code>setNeedsLayout</code>,在下一次绘图更新之前，如果你想要立刻的更新布局，需要调用 <code>layoutIfNeeded</code></p>
+<h3 id="setNeedsLayout"><a href="#setNeedsLayout" class="headerlink" title="setNeedsLayout"></a>setNeedsLayout</h3><p>Invalidates the current layout of the receiver and triggers a layout update during the next update cycle.</p>
+<h4 id="Discussion-1"><a href="#Discussion-1" class="headerlink" title="Discussion"></a>Discussion</h4><p>Call this method on your application’s main thread when you want to adjust the layout of a view’s subviews. This method makes a note of the request and returns immediately. Because this method does not force an immediate update, but instead waits for the next update cycle, you can use it to invalidate the layout of multiple views before any of those views are updated. This behavior allows you to consolidate all of your layout updates to one update cycle, which is usually better for performance.<br>你在想要更新 view 的 subviews 的布局的时候，可以在主线程调用此方法。此方法记录请求并且立即返回。因为这个方法不强制立即更新，而是等待下一个周期更新，你可以使用此方法来让很多 views 的布局失效，并且这样做可以把所有布局更新合并到一个更新周期，这通常会提高性能。</p>
+<h3 id="layoutIfNeeded"><a href="#layoutIfNeeded" class="headerlink" title="layoutIfNeeded"></a>layoutIfNeeded</h3><p>Lays out the subviews immediately, if layout updates are pending.</p>
+<h4 id="Discussion-2"><a href="#Discussion-2" class="headerlink" title="Discussion"></a>Discussion</h4><p>Use this method to force the view to update its layout immediately. When using Auto Layout, the layout engine updates the position of views as needed to satisfy changes in constraints. Using the view that receives the message as the root view, this method lays out the view subtree starting at the root. If no layout updates are pending, this method exits without modifying the layout or calling any layout-related callbacks.<br>使用此方法强制视图立即更新其布局。使用“自动布局”时，布局引擎会根据需要更新视图的位置，以满足约束的更改，使用一个 view 作为 rootView ，此方法从根开始布局视图子树。如果没有约束需要更新，此方法会退出，不会修改 layout 或者调用和此 layout 有关的回调。</p>
+<h2 id="stackoverflow上的提问"><a href="#stackoverflow上的提问" class="headerlink" title="stackoverflow上的提问"></a>stackoverflow上的提问</h2><p>在 stackoverflow上有查到一个问题， <a href="https://stackoverflow.com/questions/16071503/how-to-tell-when-uitableview-has-completed-reloaddata" target="_blank" rel="noopener">How to tell when UITableView has completed ReloadData?</a>，提问的人想要滚动 tableView 到底部，发现调用直接 reloadData，然后滚动没有滚动到最底部，提出了这个问题。 这个下面有很多很多的答案，具体的如下：<br>1.调用<code>layoutIfNeeded</code>强制的刷新布局，接着执行scrollToRowAtIndexPath,滚动到底部，确实是帮助我们解决了这个问题。</p>
+<pre><code>[self.tableView reloadData];
+[self.tableView layoutIfNeeded];
+NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOfRowsInSection:([self.tableView     numberOfSections]-1)]-1) inSection: ([self.tableView numberOfSections]-1)];
+[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+</code></pre><p>原因：</p>
+<blockquote>
+<p>The reload happens during the next layout pass, which normally happens when you return control to the run loop (after, say, your button action or whatever returns).<br>So one way to run something after the table view reloads is simply to force the table view to perform layout immediately<br>重新加载发生在下一个布局过程中，这通常发生在将控制返回到运行循环时（例如，您的按钮操作或任何返回之后）。<br>所以，在tableView reloads 后可以立刻强制更新布局。</p>
+</blockquote>
+<ol start="2">
+<li><p>调用<code>dispatch_async(dispatch_get_main_queue(), ^{})</code></p>
+<pre><code>[self.tableView reloadData];
+ dispatch_async(dispatch_get_main_queue(), ^{
+ NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOfRowsInSection:([self.tableView numberOfSections]-1)]-1) inSection:([self.tableView numberOfSections]-1)];
+
+ [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+ });
+</code></pre><p>原因</p>
+</li>
+</ol>
+<blockquote>
+<p>depending on how big your table data source is, you can animate going to the bottom of the tableview in the same run loop. If you try your test code with a huge table, your trick of using GCD to delay scrolling until the next run loop will work, whereas immediately scrolling will fail. But anyways, thanks for this trick!<br>但是这种方式并不总是能解决问题,使用GCD来延迟滑动到下一个 runloop，但是立即滑动的话，就会出错。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果你的 tableView 在 <code>reloadData</code>后，无法滑动到底部，那么就可以这样做,在<code>reloadData</code>后，调用 <code>layoutIfNeeded</code>，来强制进行布局，然后在进行 tableView的滑动就可以了。</p>
+<pre><code>[self.tableView reloadData];
+[self.tableView layoutIfNeeded];
+//do somthing you want
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2019/02/18/UITableView reloadData 滑不到底部/" data-id="cm3ob2eh200109rgjy65hh44u"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView/">UITableView</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/02/27/NSArray 之 SEL 的保存/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            NSArray 之 SEL 的保存
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">Xcode10 【libray not found for -lstdc++.6.0.9 】</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'c9b751a1e1d42d823869',
+      clientSecret: '0f805daf744877256f9aa375be74c0af132942c7',
+      repo: 'LikeeCatTalk',
+      owner: 'LikeeCat',
+      admin: ['LikeeCat'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2024 LikeeCat&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/favicon.ico" alt="LikeeCat&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

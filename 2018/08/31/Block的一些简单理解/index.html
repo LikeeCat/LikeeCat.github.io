@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="iOS">
+  
+  
+    <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    block的一些理解 |
+    
+    LikeeCat&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Block的一些简单理解" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      block的一些理解
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2018/08/31/Block的一些简单理解/" class="article-date">
+  <time datetime="2018-08-31T10:05:13.000Z" itemprop="datePublished">2018-08-31</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/block/">block</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="Block-与局部变量"><a href="#Block-与局部变量" class="headerlink" title="Block 与局部变量"></a>Block 与局部变量</h1><pre><code>int global = 100;
+void(^myBlock)(void) = ^{
+    NSLog(@&quot;global = %d&quot;,global);
+};
+global = 101;
+myBlock();
+</code></pre><p>block 可以捕获局部变量，在你声明 myBlock 后，因为需要在block 内使用了 global 变量，所以 block 为你捕获了这个变量。</p>
+<h2 id="局部变量的使用"><a href="#局部变量的使用" class="headerlink" title="局部变量的使用"></a>局部变量的使用</h2><h3 id="1-如果使用-global-变量"><a href="#1-如果使用-global-变量" class="headerlink" title="1.如果使用 global 变量"></a>1.如果使用 global 变量</h3><p>在使用 clang -rewrite-objc main.m 后查看.cpp 文件可以看到</p>
+<pre><code>struct __main_block_impl_0 {
+  struct __block_impl impl;
+  struct __main_block_desc_0* Desc;
+  int global; //block 捕获了这个变量
+  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int _global, int flags=0) : global(_global) {
+     impl.isa = &amp;_NSConcreteStackBlock;
+    impl.Flags = flags;
+    impl.FuncPtr = fp;
+    Desc = desc;
+  }
+};
+</code></pre><h3 id="2-如果不使用-global-变量"><a href="#2-如果不使用-global-变量" class="headerlink" title="2.如果不使用 global 变量"></a>2.如果不使用 global 变量</h3><pre><code>struct __main_block_impl_0 {
+  struct __block_impl impl;
+  struct __main_block_desc_0* Desc;
+  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int flags=0) {
+    impl.isa = &amp;_NSConcreteStackBlock;
+    impl.Flags = flags;
+    impl.FuncPtr = fp;
+    Desc = desc;
+  }
+};//没有捕获 global
+</code></pre><h2 id="局部变量的修改"><a href="#局部变量的修改" class="headerlink" title="局部变量的修改"></a>局部变量的修改</h2><p><img src="https://upload-images.jianshu.io/upload_images/2239937-3b00d793b8b72a9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="值类型的变量"></p>
+<p>直接修改报错，提示缺少了<strong>block 的修饰符，那么加了</strong>block 修饰符后有什么不一样呢。同样的我们还是查看.cpp 文件来比较<br>使用<strong>block | 不使用<br>|—|—|<br>|   </strong>Block_byref_global_0 <em>global; // by ref      |   int global;|<br>|  __main_block_impl_0(void </em>fp, struct <strong>main_block_desc_0 *desc, </strong>Block_byref_global_0 <em>_global, int flags=0) : global(_global-&gt;<strong>forwarding)  |</strong>main_block_impl_0(void </em>fp, struct __main_block_desc_0 *desc, int _global, int flags=0) : global(_global) </p>
+<p>可以看到 global 由一个值类型变成了一个指针类型的变量，所以使用了__block 后可以修改 global 的值。</p>
+<h2 id="局部变量的修改结果"><a href="#局部变量的修改结果" class="headerlink" title="局部变量的修改结果"></a>局部变量的修改结果</h2><p>1.使用__block 修饰</p>
+<pre><code>__block int global = 100;
+void(^myBlock)(void) = ^{
+     NSLog(@&quot;global = %d&quot;,global);
+ };
+ global = 101;
+ myBlock();
+ //运行结果
+ global = 101
+</code></pre><p>2.不使用__block 修饰</p>
+<pre><code>int global = 100;
+void(^myBlock)(void) = ^{
+     NSLog(@&quot;global = %d&quot;,global);
+ };
+ global = 101;
+ myBlock();
+ //运行结果
+ global = 100
+</code></pre><h3 id="修改结果总结"><a href="#修改结果总结" class="headerlink" title="修改结果总结"></a>修改结果总结</h3><ol>
+<li>如果使用__block 修饰，并且在调用 block 之前修改 global ，那么block 内部的 global 也会跟着变。</li>
+<li>如果不使用__block的话，并且在调用 block 之前修改 global，那么 block 内部的 global 不会发生改变。<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3></li>
+<li>使用__block 修饰</li>
+</ol>
+<pre><code>static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+     __Block_byref_global_0 *global = __cself-&gt;global; // bound by ref
+
+       NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_bq_bv7y3wj94sg1_5ldvtywqy7c0000gn_T_main_b116b4_mi_0,(global-&gt;__forwarding-&gt;global));
+}
+</code></pre><p>2.不使用__block修饰</p>
+<pre><code>static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+    int global = __cself-&gt;global; // bound by copy
+   NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_bq_bv7y3wj94sg1_5ldvtywqy7c0000gn_T_main_62e250_mi_0,global);
+}
+</code></pre><blockquote>
+<p>  使用<strong>block 修饰:
+         </strong>Block_byref_global_0 *global = <strong>cself-&gt;global; // bound by ref<br> 不使用</strong>block 修饰:<br>        int global = __cself-&gt;global; // bound by copy<br>划重点，因为一个是<code>bound by ref</code> 一个是<code>bound by copy</code>。一个是传递了指针，一个是对当前捕获的值的拷贝</p>
+</blockquote>
+<p>#Block 与 全局变量<br>在外层定义一个全部变量，执行下面的代码</p>
+<pre><code>void(^myBlock)(void) = ^{
+     NSLog(@&quot;global = %d&quot;,global);
+ };
+ global = 101;
+ myBlock();
+  //运行结果
+ global = 101
+</code></pre><p>为什么不使用__block 也可以修改，我们打开.cpp 进行查看</p>
+<pre><code>int global = 100;//先定义了一个全局的变量
+
+struct __main_block_impl_0 {
+  struct __block_impl impl;
+  struct __main_block_desc_0* Desc;
+  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int flags=0) {
+    impl.isa = &amp;_NSConcreteStackBlock;
+    impl.Flags = flags;
+    impl.FuncPtr = fp;
+    Desc = desc;
+  }
+};
+</code></pre><p>在block 结构体的上方，已经定义了一个全局的变量，所以直接使用就可以了。不需要像局部变量一样，而且它并没有被 block 所捕获。</p>
+<h2 id="Block-与-静态变量"><a href="#Block-与-静态变量" class="headerlink" title="Block 与 静态变量"></a>Block 与 静态变量</h2><p>定义一个静态变量，执行下面的代码</p>
+<pre><code>static int global = 100;
+
+ void(^myBlock)(void) = ^{
+     NSLog(@&quot;global = %d&quot;,global);
+ };
+ global = 101;
+ myBlock();
+
+  //运行结果
+  global = 101
+</code></pre><p>为什么不使用__block 也可以修改，我们打开.cpp 进行查看</p>
+<pre><code>struct __main_block_impl_0 {
+  struct __block_impl impl;
+  struct __main_block_desc_0* Desc;
+  int *global;
+  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int *_global, int flags=0) : global(_global) {
+    impl.isa = &amp;_NSConcreteStackBlock;
+    impl.Flags = flags;
+    impl.FuncPtr = fp;
+    Desc = desc;
+  }
+};
+</code></pre><p>在 global 进行赋值的时候是这样的</p>
+<pre><code>static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+    int *global = __cself-&gt;global; // bound by copy
+
+     NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_bq_bv7y3wj94sg1_5ldvtywqy7c0000gn_T_main_d41b2e_mi_0,(*global));
+ }
+</code></pre><p>它和局部变量不使用__block 修饰看起来很像，所以做了下对比</p>
+<blockquote>
+<p>静态全局变量:<br> int *global = <strong>cself-&gt;global; // bound by copy<br>不使用</strong>block 修饰的局部变量:<br>int global = <strong>cself-&gt;global; // bound by copy<br>划重点，虽然都是 copy，但是静态全局变量 copy 了指针，而不使用</strong>block修改的局部变量进行了值的 copy。</p>
+</blockquote>
+<h2 id="ARC-下的-Block"><a href="#ARC-下的-Block" class="headerlink" title="ARC 下的 Block"></a>ARC 下的 Block</h2><h3 id="1-EXC-BAD-ACCESS-code-1-address-0x10"><a href="#1-EXC-BAD-ACCESS-code-1-address-0x10" class="headerlink" title="1.EXC_BAD_ACCESS (code=1, address=0x10)"></a>1.EXC_BAD_ACCESS (code=1, address=0x10)</h3><p>我有一个 User类</p>
+<h1 id="user-h"><a href="#user-h" class="headerlink" title="user.h"></a>user.h</h1><pre><code>typedef void(^nameBlock)(void);
+@interface User : NSObject
+@property (nonatomic,strong)NSString *name;
+@property (nonatomic,copy)nameBlock block;
+-(instancetype)initWithName:(NSString *)name;
+
+@end
+</code></pre><p>#user.m</p>
+<p>#import “User.h”</p>
+<pre><code>@implementation User
+-(instancetype)initWithName:(NSString *)name{
+    self = [super init];
+    if (self) {
+         _name = name;
+    }
+    return self;
+}
+@end
+</code></pre><p>如果不赋值直接调用user.block();那么直接就会报错EXC_BAD_ACCESS (code=1, address=0x10)，在使用时要注意<br><img src="https://upload-images.jianshu.io/upload_images/2239937-ebf5b76e231d130d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="不对 block 赋值，直接调用"><br>所以在调用 block 之前需要先赋值然后调用，这样就能解决这个问题</p>
+<h3 id="2-循环引用"><a href="#2-循环引用" class="headerlink" title="2.循环引用"></a>2.循环引用</h3><p><img src="https://upload-images.jianshu.io/upload_images/2239937-a3a11acd4d28c273.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="循环引用"></p>
+<p>user有一个属性是一个 block，并且在内部又调用了 user，造成了循环引用。在编写代码的时候，编译器就给出了上面的黄色警告。</p>
+<h4 id="怎么知道发生了循环引用"><a href="#怎么知道发生了循环引用" class="headerlink" title="怎么知道发生了循环引用"></a>怎么知道发生了循环引用</h4><p>xcode 9 的话，我们可以打断点看，我们在 autoreleasepool 结束的时候打断点<br><img src="https://upload-images.jianshu.io/upload_images/2239937-f4e88b661cfdf66d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="debug memory"><br>点击 Debug Memory 那个选项<br><img src="https://upload-images.jianshu.io/upload_images/2239937-1cbcc51143e085df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="内存的图"><br>本来这个 pool 结束的时候，user 应该被释放掉，但是因为在 block 内部强引用了 user，造成了循环引用。</p>
+<h5 id="如果我们去掉-block-内部的那些代码"><a href="#如果我们去掉-block-内部的那些代码" class="headerlink" title="如果我们去掉 block 内部的那些代码"></a>如果我们去掉 block 内部的那些代码</h5><p><img src="https://upload-images.jianshu.io/upload_images/2239937-3ad42ef81ac485d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没有形成循环引用"></p>
+<p>如果没有了 block 内部对 user 的强引用，那么便不会发生这种情况</p>
+<h5 id="如果我们一定要在-block-内部调用-user"><a href="#如果我们一定要在-block-内部调用-user" class="headerlink" title="如果我们一定要在 block 内部调用 user"></a>如果我们一定要在 block 内部调用 user</h5><p>修改我们的代码</p>
+<pre><code>User *user = [[User alloc]initWithName:@&quot;Likee&quot;];
+__weak typeof(user)weakUser = user;
+user.block = ^{
+    weakUser.name = @&quot;cat&quot;;
+    NSLog(@&quot;name is %@&quot;,weakUser.name);
+};
+NSLog(@&quot;name is %@&quot;,user.name);
+user.block();
+</code></pre><p>在 block的内部使用弱引用，这样的话，就能打破这个环。内存图就像下面这个样子<br><img src="https://upload-images.jianshu.io/upload_images/2239937-397ffb103db40f73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="解决循环引用"></p>
+<h1 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h1><p><a href="https://www.jianshu.com/p/14efa33b3562" target="_blank" rel="noopener">一篇文章看懂iOS代码块Block
+</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2018/08/31/Block的一些简单理解/" data-id="cm3ob2eil00439rgj0ux95kws"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/block/">block</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2018/09/11/UITableView 之 表单的自动填充 /" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            UITableView 之 表单的自动填充
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/08/20/离屏渲染/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">离屏渲染</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'c9b751a1e1d42d823869',
+      clientSecret: '0f805daf744877256f9aa375be74c0af132942c7',
+      repo: 'LikeeCatTalk',
+      owner: 'LikeeCat',
+      admin: ['LikeeCat'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2024 LikeeCat&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/favicon.ico" alt="LikeeCat&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

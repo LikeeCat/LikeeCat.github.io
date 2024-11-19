@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="iOS">
+  
+  
+    <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    UITableView 之 表单的自动填充 |
+    
+    LikeeCat&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-UITableView 之 表单的自动填充 " class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      UITableView 之 表单的自动填充
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2018/09/11/UITableView 之 表单的自动填充 /" class="article-date">
+  <time datetime="2018-09-11T08:15:13.000Z" itemprop="datePublished">2018-09-11</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/UITableView/">UITableView</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在做一些复杂的表单提交界面，由于 TableView 的复用问题，有了很多的坑，在此做一些记录<br><a id="more"></a></p>
+<h1 id="入坑前"><a href="#入坑前" class="headerlink" title="入坑前"></a>入坑前</h1><p>你的页面可能是这个样子的，很常规的，左边名称，右边输入相关的内容。然后你输入了相关的内容，上下滑动页面，然后再划回去。textField 可能清理掉了你输入的值<br><img src="https://upload-images.jianshu.io/upload_images/2239937-1750e1763419e818.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="表单"></p>
+<h2 id="摆出问题"><a href="#摆出问题" class="headerlink" title="摆出问题"></a>摆出问题</h2><ol>
+<li>自动填充textField<br>你可能需要从某个 VC 或者网络接口请求数据，然后自动填充到相关的输入框中，你的 tableView 因为 cell 的复用，导致你修改了自动填充的内容，当你上下滑动表格的时候，它又恢复到了没有修改之前的值。那么你去提交表单的时候，你需要遍历这个表的每一个 textField,然后去取出相应的内容。接下来包成一个 JSON,传给后台</li>
+</ol>
+<h3 id="自动填充的一些想法"><a href="#自动填充的一些想法" class="headerlink" title="自动填充的一些想法"></a>自动填充的一些想法</h3><ol>
+<li>自动填充 textField<br>界面加载完成后，传统的 MVC 中我们有个 model 来提供数据 。然后通知 UITableView 进行 <code>reloadData</code>,接着调用这个万恶的函数，恰恰就是这个函数让 cell 在复用的过程中，没能正确的显示自动填充的内容。<code>dequeueReusableCellWithIdentifier</code>这个万恶的单元格复用。</li>
+</ol>
+<pre><code>-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;cell&quot;];
+
+        //do something
+}
+</code></pre><p>如果你不使用同一个identifier，那么 tableView 会注册更多的 identifier,可以避免这个问题，但是再次的创建 cell 是需要时间和空间的，如果你的输入框越来越多，难道还要创建越来越多的 cell 么</p>
+<h3 id="自动填充的实现思路"><a href="#自动填充的实现思路" class="headerlink" title="自动填充的实现思路"></a>自动填充的实现思路</h3><p>我的想法是在 textField 输入和 textField 的显示中间，添加 model 作为数据的代理，具体的分为三个部分</p>
+<ol>
+<li>监听 textField 的输入，然后通知 model</li>
+<li>更新 model</li>
+<li>reloadData</li>
+</ol>
+<p>具体的分为 cell 和 vc 两个部分 ，</p>
+<h4 id="cell-h"><a href="#cell-h" class="headerlink" title="cell.h"></a>cell.h</h4><pre><code>@class cellModel;
+typedef void(^reloadOperation)(void);
+
+@interface TableViewCell : UITableViewCell
+//更新cell 数据，并且在 field 的内容完成输入的时候，通知 VC
+- (void)updateWithModel:(cellModel *)model FinishLoad:(reloadOperation)reload;
+</code></pre><h4 id="cell-m"><a href="#cell-m" class="headerlink" title="cell.m"></a>cell.m</h4><pre><code>#import &quot;TableViewCell.h&quot;
+#import &quot;cellModel.h&quot;
+typedef void(^endEditing) (NSString *text);
+@interface TableViewCell ()&lt;UITextFieldDelegate&gt;
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UITextField *field;
+@property (copy, nonatomic) endEditing endEditing;
+
+@end
+
+@implementation TableViewCell
+
+
+
+-(void)updateWithModel:(cellModel *)model FinishLoad:(reloadOperation)reload{
+    self.name.text = model.name;
+    self.field.text = model.url;
+    self.field.delegate = self;
+    self.endEditing = ^(NSString *text) {
+      //在输入结束的回调中，更新 model 的相关输入
+        model.url = text;
+      //通知 VC 需要进行数据的刷新了
+        reload();
+};
+}
+
+
+//在输入完成的时候，通知 cell 完成了 field 的输入
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    self.endEditing(textField.text);
+}
+</code></pre><h4 id="vc-m"><a href="#vc-m" class="headerlink" title="vc.m"></a>vc.m</h4><pre><code>-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;cell&quot;];
+    cellModel *model = self.dataArray[indexPath.row];
+    [cell updateWithModel:model FinishLoad:^{
+        NSLog(@&quot;model.text is %@&quot;,model.url);
+        //回调 刷新数据
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }];
+
+return cell;
+}
+</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>tableView 作为一个 iOS 中最常用的控件，还是不希望大家在重用 cell 的时候创建那么多的 identifier。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2018/09/11/UITableView 之 表单的自动填充 /" data-id="cm3ob2ehk00299rgj7vvbk9xs"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView/">UITableView</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2018/12/03/SDWebImage 不能及时更新图片/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            SDWebImage 不能及时更新图片
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/08/31/Block的一些简单理解/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">block的一些理解</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'c9b751a1e1d42d823869',
+      clientSecret: '0f805daf744877256f9aa375be74c0af132942c7',
+      repo: 'LikeeCatTalk',
+      owner: 'LikeeCat',
+      admin: ['LikeeCat'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2024 LikeeCat&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/favicon.ico" alt="LikeeCat&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>
