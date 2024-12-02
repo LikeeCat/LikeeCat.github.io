@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="iOS">
+  
+  
+    <meta name="description" content="Hello，我是Likee,一个 iOS 开发者">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Top 100 - Backtracking |
+    
+    LikeeCat&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Top 100 - Backtracking" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Top 100 - Backtracking
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2024/11/01/Top 100 - Backtracking/" class="article-date">
+  <time datetime="2024-11-01T09:05:13.000Z" itemprop="datePublished">2024-11-01</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h2 id="22-Generate-Parentheses"><a href="#22-Generate-Parentheses" class="headerlink" title="22. Generate Parentheses"></a>22. Generate Parentheses</h2><p><code>Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.</code></p>
+<pre><code>Example 1:
+
+Input: n = 3
+Output: [&quot;((()))&quot;,&quot;(()())&quot;,&quot;(())()&quot;,&quot;()(())&quot;,&quot;()()()&quot;]
+Example 2:
+
+Input: n = 1
+Output: [&quot;()&quot;]
+</code></pre><a id="more"></a>
+<h3 id="sul"><a href="#sul" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {Integer} n
+# @return {String[]}
+def generate_parenthesis(n)
+    ans = []
+    generate_parenthesis_helper(n,n,ans, &quot;&quot;)
+    ans
+end
+
+def generate_parenthesis_helper(left_remain, right_remain, ans, current_ans)
+    if left_remain == 0 and right_remain == 0
+        ans &lt;&lt; current_ans
+    end
+
+    if left_remain &gt; 0
+        generate_parenthesis_helper(left_remain - 1, right_remain, ans, current_ans + &quot;(&quot;)
+    end
+
+    if right_remain &gt; left_remain
+        generate_parenthesis_helper(left_remain, right_remain - 1, ans, current_ans + &quot;)&quot;)
+    end
+
+end
+</code></pre><h2 id="39-Combination-Sum"><a href="#39-Combination-Sum" class="headerlink" title="39. Combination Sum"></a>39. Combination Sum</h2><p><code>Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.</code></p>
+<p><code>The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.</code></p>
+<p><code>The test cases are generated such that the number of unique combinations that sum up to target is less than 150 combinations for the given input.</code></p>
+<pre><code>Example 1:
+
+Input: candidates = [2,3,6,7], target = 7
+Output: [[2,2,3],[7]]
+Explanation:
+2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.
+7 is a candidate, and 7 = 7.
+These are the only two combinations.
+Example 2:
+
+Input: candidates = [2,3,5], target = 8
+Output: [[2,2,2,2],[2,3,3],[3,5]]
+Example 3:
+
+Input: candidates = [2], target = 1
+Output: []
+</code></pre><h3 id="sul-1"><a href="#sul-1" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {Integer[]} candidates
+# @param {Integer} target
+# @return {Integer[][]}
+def combination_sum(candidates, target)
+    ans = []
+    combination_sum_helper(candidates, target, ans, [], 0)
+    ans
+end
+
+def combination_sum_helper(candidates, target, ans, current_ans, start)
+    if target == 0
+        ans &lt;&lt; current_ans
+        return
+    end
+
+    if target &lt; 0 
+        return
+    end
+
+    for i in start...candidates.length
+        combination_sum_helper(candidates, target- candidates[i], ans, current_ans + [candidates[i]],i)
+    end
+end
+</code></pre><h2 id="46-Permutations"><a href="#46-Permutations" class="headerlink" title="46. Permutations"></a>46. Permutations</h2><p><code>Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.</code></p>
+<pre><code>Example 1:
+
+Input: nums = [1,2,3]
+Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+Example 2:
+
+Input: nums = [0,1]
+Output: [[0,1],[1,0]]
+Example 3:
+
+Input: nums = [1]
+Output: [[1]]
+</code></pre><h3 id="sul-2"><a href="#sul-2" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {Integer[]} nums
+# @return {Integer[][]}
+def permute(nums)
+    ans = []
+    permute_helper(nums, ans, [])
+    ans
+end
+
+def permute_helper(nums, ans, current_ans)
+    if nums.length == 0
+        ans &lt;&lt; current_ans
+        return
+    end
+
+    for i in 0...nums.length
+        permute_helper(nums- [nums[i]], ans, current_ans + [nums[i]])
+    end
+end
+</code></pre><h2 id="78-Subsets"><a href="#78-Subsets" class="headerlink" title="78. Subsets"></a>78. Subsets</h2><p><code>Given an integer array nums of unique elements, return all possible subsets (the power set).</code></p>
+<p><code>The solution set must not contain duplicate subsets. Return the solution in any order.</code></p>
+<pre><code>Example 1:
+
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+Example 2:
+
+Input: nums = [0]
+Output: [[],[0]]
+</code></pre><h3 id="sul-3"><a href="#sul-3" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {Integer[]} nums
+# @return {Integer[][]}
+def subsets(nums)
+    ans = []
+    for i in 0..nums.length
+        subsets_helper(nums, i, ans, [], 0)
+    end
+    ans
+end
+
+def subsets_helper(nums, count, ans, current_ans, start)
+    if count == 0
+        ans &lt;&lt; current_ans
+        return
+    end
+
+    for i in start...nums.length
+        subsets_helper(nums - [nums[i]], count - 1, ans, current_ans + [nums[i]], i)
+    end
+
+end
+</code></pre><h2 id="131-Palindrome-Partitioning"><a href="#131-Palindrome-Partitioning" class="headerlink" title="131. Palindrome Partitioning"></a>131. Palindrome Partitioning</h2><p><code>Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.</code></p>
+<pre><code>Example 1:
+
+Input: s = &quot;aab&quot;
+Output: [[&quot;a&quot;,&quot;a&quot;,&quot;b&quot;],[&quot;aa&quot;,&quot;b&quot;]]
+Example 2:
+
+Input: s = &quot;a&quot;
+Output: [[&quot;a&quot;]]
+</code></pre><h3 id="sul-4"><a href="#sul-4" class="headerlink" title="sul"></a>sul</h3><pre><code> # @param {String} s
+# @return {String[][]}
+def partition(s)
+    ans = []
+    partition_helper(s, ans, [], 0)
+    ans
+end
+
+def partition_helper(s, ans, current_ans, start)
+    if start == s.length
+        ans &lt;&lt; current_ans
+        return
+    end
+
+    for i in start..s.length
+        sub_string = s[start..i]
+        if is_par(sub_string)
+            partition_helper(s, ans, current_ans + [sub_string], i+1)
+        end
+    end
+
+end
+
+
+def is_par(s)
+    left = 0
+    right = s.length - 1
+    while left &lt;= right
+        return false if s[left] != s[right]
+        left += 1
+        right -= 1 
+    end
+
+    return true
+end
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2024/11/01/Top 100 - Backtracking/" data-id="cm46rfzne002cmrgj2cqxup3g"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/11/01/Top 100 - Linked Lists/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">Top 100 - Linked Lists</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'c9b751a1e1d42d823869',
+      clientSecret: '0f805daf744877256f9aa375be74c0af132942c7',
+      repo: 'LikeeCatTalk',
+      owner: 'LikeeCat',
+      admin: ['LikeeCat'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2024 LikeeCat&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/favicon.ico" alt="LikeeCat&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>
