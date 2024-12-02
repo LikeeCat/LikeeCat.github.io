@@ -74,17 +74,7 @@
 <p><img src="/assets/img/linklist/addtwonumber1.jpg" alt="路径"></p>
 <p>Input: l1 = [2,4,3], l2 = [5,6,4]<br>Output: [7,0,8]<br>Explanation: 342 + 465 = 807.</p>
 <a id="more"></a>
-<pre><code>### sul
-
-# Definition for singly-linked list.
-# class ListNode
-#     attr_accessor :val, :next
-#     def initialize(val = 0, _next = nil)
-#         @val = val
-#         @next = _next
-#     end
-# end
-# @param {ListNode} l1
+<h3 id="sul"><a href="#sul" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {ListNode} l1
 # @param {ListNode} l2
 # @return {ListNode}
 def add_two_numbers(l1, l2)
@@ -123,15 +113,7 @@ end
 <p>Given the head of a linked list, remove the nth node from the end of the list and return its head.</p>
 </blockquote>
 <p><img src="/assets/img/linklist/remove_ex1.jpg" alt="路径"></p>
-<h3 id="sul"><a href="#sul" class="headerlink" title="sul"></a>sul</h3><pre><code># Definition for singly-linked list.
-# class ListNode
-#     attr_accessor :val, :next
-#     def initialize(val = 0, _next = nil)
-#         @val = val
-#         @next = _next
-#     end
-# end
-# @param {ListNode} head
+<h3 id="sul-1"><a href="#sul-1" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {ListNode} head
 # @param {Integer} n
 # @return {ListNode}
 def remove_nth_from_end(head, n)
@@ -170,15 +152,7 @@ end
 <p><img src="/assets/img/linklist/merge_ex1.jpg" alt="路径"></p>
 <pre><code>Input: list1 = [1,2,4], list2 = [1,3,4]
 Output: [1,1,2,3,4,4]
-</code></pre><h3 id="sul-1"><a href="#sul-1" class="headerlink" title="sul"></a>sul</h3><pre><code># Definition for singly-linked list.
-# class ListNode
-#     attr_accessor :val, :next
-#     def initialize(val = 0, _next = nil)
-#         @val = val
-#         @next = _next
-#     end
-# end
-# @param {ListNode} list1
+</code></pre><h3 id="sul-2"><a href="#sul-2" class="headerlink" title="sul"></a>sul</h3><pre><code># @param {ListNode} list1
 # @param {ListNode} list2
 # @return {ListNode}
 def merge_two_lists(list1, list2)
@@ -229,7 +203,7 @@ Example 3:
 
 Input: lists = [[]]
 Output: []
-</code></pre><h3 id="sul-2"><a href="#sul-2" class="headerlink" title="sul"></a>sul</h3><pre><code>def merge_k_lists(lists)
+</code></pre><h3 id="sul-3"><a href="#sul-3" class="headerlink" title="sul"></a>sul</h3><pre><code>def merge_k_lists(lists)
     return [] if lists.empty?
     lists_0 = lists[0]
     return lists_0 if lists.length == 1
@@ -275,7 +249,7 @@ end
 <p>Output: [2,1,4,3]</p>
 <p>Explanation:</p>
 <p><img src="/assets/img/linklist/swap_ex1.jpg" alt="路径"></p>
-<h3 id="sul-3"><a href="#sul-3" class="headerlink" title="sul"></a>sul</h3><pre><code>def swap_pairs(head)
+<h3 id="sul-4"><a href="#sul-4" class="headerlink" title="sul"></a>sul</h3><pre><code>def swap_pairs(head)
     dummy = ListNode.new(-1)  # 创建虚拟头节点
     dummy.next = head
     pre = dummy  # 初始化 pre 指针
@@ -301,7 +275,7 @@ end
 <p>Example 1:</p>
 <p><img src="/assets/img/linklist/reverse_ex1.jpg" alt="路径"></p>
 <p>Input: head = [1,2,3,4,5], k = 2<br>Output: [2,1,4,3,5]</p>
-<h3 id="sul-4"><a href="#sul-4" class="headerlink" title="sul"></a>sul</h3><pre><code>def reverse_k_group(head, k)
+<h3 id="sul-5"><a href="#sul-5" class="headerlink" title="sul"></a>sul</h3><pre><code>def reverse_k_group(head, k)
     dummy = ListNode.new(-1)
     dummy_head = dummy
     current = head
@@ -352,7 +326,7 @@ end
 <p>Example 1:</p>
 <p><img src="/assets/img/linklist/e1.jpg" alt="路径"></p>
 <p>Input: head = [[7,null],[13,0],[11,4],[10,2],[1,0]]<br>Output: [[7,null],[13,0],[11,4],[10,2],[1,0]]</p>
-<h3 id="sul-5"><a href="#sul-5" class="headerlink" title="sul"></a>sul</h3><pre><code>def copyRandomList(head)
+<h3 id="sul-6"><a href="#sul-6" class="headerlink" title="sul"></a>sul</h3><pre><code>def copyRandomList(head)
     get_list_info(head)
 end
 
@@ -390,7 +364,7 @@ end
 <p>Return true if there is a cycle in the linked list. Otherwise, return false.</p>
 <p>Example 1:<br><img src="/assets/img/linklist/circularlinkedlist.jpg" alt="路径"></p>
 <p>Input: head = [3,2,0,-4], pos = 1<br>Output: true<br>Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).</p>
-<h3 id="sul-6"><a href="#sul-6" class="headerlink" title="sul"></a>sul</h3><pre><code>def hasCycle(head)
+<h3 id="sul-7"><a href="#sul-7" class="headerlink" title="sul"></a>sul</h3><pre><code>def hasCycle(head)
     fast = head
     slow = head
     # 先移动 再判断
@@ -411,7 +385,7 @@ end
 <p>Input: head = [3,2,0,-4], pos = 1</p>
 <p>Output: tail connects to node index 1</p>
 <p>Explanation: There is a cycle in the linked list, where tail connects to the second node.</p>
-<h3 id="sul-7"><a href="#sul-7" class="headerlink" title="sul"></a>sul</h3><pre><code>def detectCycle(head)
+<h3 id="sul-8"><a href="#sul-8" class="headerlink" title="sul"></a>sul</h3><pre><code>def detectCycle(head)
 nodes = {}
 while head
     return head if nodes[head] # 如果节点已存在，说明环的起点
@@ -424,7 +398,7 @@ end
 <p>Example 1:</p>
 <p><img src="/assets/img/linklist/sort_list_1.jpg" alt="路径"></p>
 <p>Input: head = [4,2,1,3]<br>Output: [1,2,3,4]</p>
-<h3 id="sul-8"><a href="#sul-8" class="headerlink" title="sul"></a>sul</h3><pre><code>def sort_list(head)
+<h3 id="sul-9"><a href="#sul-9" class="headerlink" title="sul"></a>sul</h3><pre><code>def sort_list(head)
 
     return head if head.nil? || head.next.nil?
     sort_list_helper(head)
@@ -471,7 +445,7 @@ end
 <p>For example, the following two linked lists begin to intersect at node c1:</p>
 <p><img src="/assets/img/linklist/160_statement.jpg" alt="路径"><br>The test cases are generated such that there are no cycles anywhere in the entire linked structure.</p>
 <p>Note that the linked lists must retain their original structure after the function returns.</p>
-<h3 id="sul-9"><a href="#sul-9" class="headerlink" title="sul"></a>sul</h3><pre><code>def getIntersectionNode(headA, headB)
+<h3 id="sul-10"><a href="#sul-10" class="headerlink" title="sul"></a>sul</h3><pre><code>def getIntersectionNode(headA, headB)
     point_a = headA
     point_b = headB
 
@@ -494,7 +468,7 @@ end
 </code></pre><h2 id="206-Reverse-Linked-List"><a href="#206-Reverse-Linked-List" class="headerlink" title="206. Reverse Linked List"></a>206. Reverse Linked List</h2><p>Given the head of a singly linked list, reverse the list, and return the reversed list.</p>
 <p>Example 1:<br><img src="/assets/img/linklist/rev1ex1.jpg" alt="路径"></p>
 <p>Input: head = [1,2,3,4,5]<br>Output: [5,4,3,2,1]</p>
-<h3 id="sul-10"><a href="#sul-10" class="headerlink" title="sul"></a>sul</h3><pre><code>def reverse_list(head)
+<h3 id="sul-11"><a href="#sul-11" class="headerlink" title="sul"></a>sul</h3><pre><code>def reverse_list(head)
     pre = nil
     current = head
 
@@ -509,7 +483,7 @@ end
 </code></pre><h2 id="234-Palindrome-Linked-List"><a href="#234-Palindrome-Linked-List" class="headerlink" title="234. Palindrome Linked List"></a>234. Palindrome Linked List</h2><p>Given the head of a singly linked list, return true if it is a palindrome or false otherwise.</p>
 <p>Example 1:<br><img src="/assets/img/linklist/pal1linked-list.jpg" alt="路径"></p>
 <p>Input: head = [1,2,2,1]<br>Output: true</p>
-<h3 id="sul-11"><a href="#sul-11" class="headerlink" title="sul"></a>sul</h3><pre><code>def is_palindrome(head)
+<h3 id="sul-12"><a href="#sul-12" class="headerlink" title="sul"></a>sul</h3><pre><code>def is_palindrome(head)
     return true if head.nil? || head.next.nil?
 
     fast = head
@@ -540,11 +514,17 @@ end
     true
 
 end
-</code></pre>
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>再做链表题的时候注意无论什么时候 原始的链表不能够在操作的时候断开,一旦断开就会丢失数据</li>
+<li>了解快慢指针及应用</li>
+<li>了解链表的翻转过程</li>
+<li>再两个链表进行排序链接时,注意没有排完的部分,一定要在最后补上,不然同样的会丢失数据</li>
+</ol>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2024/11/01/Top 100 - Linked Lists/" data-id="cm46rfzox004amrgjuzo49nos"
+      <a data-url="http://LikeeCat.github.io/2024/11/01/Top 100 - Linked Lists/" data-id="cm46rn9kc0044axgj6glgjs2z"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
@@ -557,19 +537,10 @@ end
     
   <nav class="article-nav">
     
+    
       <a href="/2024/11/01/Top 100 - Backtracking/" class="article-nav-link">
-        <strong class="article-nav-caption">前一篇</strong>
-        <div class="article-nav-title">
-          
-            Top 100 - Backtracking
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2022/12/16/iOS动态库和静态库的区别/" class="article-nav-link">
         <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">iOS 动态库和静态库的区别</div>
+        <div class="article-nav-title">Top 100 - Backtracking</div>
       </a>
     
   </nav>
