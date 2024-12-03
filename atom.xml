@@ -152,30 +152,6 @@ Output: [&amp;quot;()&amp;quot;]
   </entry>
   
   <entry>
-    <title>35. Search Insert Position</title>
-    <link href="http://LikeeCat.github.io/2022/09/21/35.%20Search%20Insert%20Position/"/>
-    <id>http://LikeeCat.github.io/2022/09/21/35. Search Insert Position/</id>
-    <published>2022-09-21T09:05:13.000Z</published>
-    <updated>2022-09-21T03:03:35.313Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/35/search_insert_position.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>排序满足的条件 大于前一位，小于后一位</li><li>根据二分法确定查找范围，</li><li>确定中点和 target 的数据差异 ，中点比target 大 ，target 就走左边继续寻找中点， 中点比target 小， target 走右边</li><li>边界判断和 左右指针的大小范围</li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>class Solution {<br>    func searchInsert(_ nums: [Int], _ target: Int) -&gt; Int {</p><pre><code>    var left = 0    var right = nums.count - 1    while left &lt;= right{        let middle = (right + left) / 2        if target == nums[middle]{            return middle        }        else if nums[middle] &gt; target {            right = middle - 1        }        else{            left = middle +  1        }    }    return  left}</code></pre><p>}</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/35/search_insert_position.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
-    
-      <category term="array" scheme="http://LikeeCat.github.io/tags/array/"/>
-    
-  </entry>
-  
-  <entry>
     <title>linux 命令大全</title>
     <link href="http://LikeeCat.github.io/2022/07/25/linux%20%E5%91%BD%E4%BB%A4/"/>
     <id>http://LikeeCat.github.io/2022/07/25/linux 命令/</id>
@@ -196,147 +172,6 @@ Output: [&amp;quot;()&amp;quot;]
     
     
       <category term="运维" scheme="http://LikeeCat.github.io/tags/%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>141. Linked List Cycle</title>
-    <link href="http://LikeeCat.github.io/2021/01/17/141.%20Linked%20List%20Cycle/"/>
-    <id>http://LikeeCat.github.io/2021/01/17/141. Linked List Cycle/</id>
-    <published>2021-01-17T09:05:13.000Z</published>
-    <updated>2021-01-17T06:36:55.676Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/141/141题目.png" alt="题目"><br><a id="more"></a></p><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>去判断链表是否包含环这种问题,比较适合用快慢指针来做</li><li>slow每次走一步,fast每次走两步,那么fast必然会先进入环中,随后slow也会进入环中</li><li>由于两者指针的速度不一致,在经过一定的步数后,两者一定会相遇</li></ol><h1 id="具体解释"><a href="#具体解释" class="headerlink" title="具体解释"></a>具体解释</h1><p>可以查看第二种解法<a href="https://leetcode.com/problems/linked-list-cycle/solution" target="_blank" rel="noopener">Approach 2: Floyd’s Cycle Finding Algorithm</a></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {   func hasCycle(_ head: ListNode?) -&gt; Bool {         if head == nil || head?.next == nil{            return false;        }        var slow = head;        var fast = head?.next;        while slow !== fast {            //if fast is nil list has no cycle            if fast == nil || fast?.next == nil {                return false;            }            slow = slow?.next;            fast = fast?.next?.next;        }        return true    }}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/141/141题目.png&quot; alt=&quot;题目&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
-    
-      <category term="link list" scheme="http://LikeeCat.github.io/tags/link-list/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>160. Intersection of Two Linked Lists</title>
-    <link href="http://LikeeCat.github.io/2021/01/16/160.%20Intersection%20of%20Two%20Linked%20Lists/"/>
-    <id>http://LikeeCat.github.io/2021/01/16/160. Intersection of Two Linked Lists/</id>
-    <published>2021-01-16T09:05:13.000Z</published>
-    <updated>2021-01-17T07:13:07.537Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/160/160题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,我们需要找到两个链表相交节点</li><li>那么我们可以吧a和b相连,将b和a相连,如果他们两个链表相交,那么他们的尾部肯定是相同的<br><img src="/assets/img/160/160图解.jpeg" alt="思路1"></li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {    func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -&gt; ListNode? {        if headA == nil || headB == nil {            return nil        }        var pointerA = headA;        var pointerB = headB;        var tagA  = 0;        var tagB = 0;        while pointerB !== pointerA {                //避免因为没有共同节点造成死循环            if tagA == 2 &amp;&amp; tagB == 2 {                return nil;            }            pointerA = pointerA == nil ? headB : pointerA?.next            if pointerA === headB {                tagA = tagA + 1            }            pointerB = pointerB == nil ? headA : pointerB?.next            if pointerB === headA {                tagB = tagB + 1            }        }        return pointerA;    }}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/160/160题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
-    
-      <category term="link list" scheme="http://LikeeCat.github.io/tags/link-list/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>21. Merge Two Sorted Lists</title>
-    <link href="http://LikeeCat.github.io/2021/01/10/21.Merge%20Two%20Sorted%20Lists/"/>
-    <id>http://LikeeCat.github.io/2021/01/10/21.Merge Two Sorted Lists/</id>
-    <published>2021-01-10T06:05:13.000Z</published>
-    <updated>2021-01-10T06:50:53.343Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/21/21题目.png" alt></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>首先这是两个分别排好序的数组</li><li>我们需要去遍历这两个链表,比较两个值的大小,然后插入新的链表中</li><li>注意一些可选值的判断</li></ol><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution { func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -&gt; ListNode? {    let headerNode = ListNode        .init();    var headerPoint = headerNode;    var l1Pointer = l1    var l2Pointer = l2    while l1Pointer != nil || l2Pointer != nil {        if l1Pointer != nil &amp;&amp; l2Pointer != nil{            if l1Pointer!.val &gt;= l2Pointer!.val {                headerPoint.next = l2Pointer                l2Pointer = l2Pointer?.next            }            else{                headerPoint.next = l1Pointer                l1Pointer = l1Pointer?.next            }        }        else{            if l1Pointer == nil {                headerPoint.next = l2Pointer                l2Pointer = l2Pointer?.next            }            else{                headerPoint.next = l1Pointer                l1Pointer = l1Pointer?.next            }        }        headerPoint = headerPoint.next!;    }    return headerNode.next;}}</code></pre><h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><ol><li>可选值的判读        </li></ol><h1 id="swift-中-if-let-guard-let-的使用"><a href="#swift-中-if-let-guard-let-的使用" class="headerlink" title="swift 中 if let ,guard let 的使用"></a>swift 中 if let ,guard let 的使用</h1><h2 id="1-if-和-if-let-的区别"><a href="#1-if-和-if-let-的区别" class="headerlink" title="1. if 和 if let 的区别"></a>1. if 和 if let 的区别</h2><pre><code>    let name: String? = &quot;likee&quot;    let age: Int? = 20    //if             if name != nil &amp;&amp; age != nil {        print(name! + String(age!))     // 输出:likee 20    }    //if let    if let nameNew = name,    let ageNew = age {    // 肯定是有值的    print(nameNew + String(ageNew)) // 输出:likee 20}</code></pre><h2 id="guard-let-和-if-let-的区别"><a href="#guard-let-和-if-let-的区别" class="headerlink" title="guard let 和 if let 的区别"></a>guard let 和 if let 的区别</h2><pre><code> guard let nameNew = name,let ageNew = age else {    //在不满足条件后,会直接返回    print(&quot;姓名 或 年龄 为nil&quot;)    return //注意 }// 代码执行至此, nameNew 和 ageNew 一定有值print(nameNew + String(ageNew))     // 输出:likee 20</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/21/21题目.png&quot; alt&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
-    
-      <category term="link list" scheme="http://LikeeCat.github.io/tags/link-list/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>136. Single Number</title>
-    <link href="http://LikeeCat.github.io/2020/12/13/136.%20Single%20Number/"/>
-    <id>http://LikeeCat.github.io/2020/12/13/136. Single Number/</id>
-    <published>2020-12-13T09:05:13.000Z</published>
-    <updated>2021-01-17T06:45:35.909Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/136题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,要找到数组中只出现一次的数</li><li>用字典去记录每一个数字出现的频率,大于1就从字典中删除,最后字典剩下的就是我们需要的target</li><li>题目中还有Follow up,让我们尝试不用多余的内存去做</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><p><img src="/assets/img/136思路2.png" alt="思路1"></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {    var dic :[Int:Int] = [:]    func singleNumber(_ nums: [Int]) -&gt; Int {        for i in nums{            if dic.keys.contains(i) {                dic.removeValue(forKey: i)            }            else{                dic[i] = 1;            }            }        return Int(dic.keys.first!);    }}</code></pre><h2 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h2><p><img src="/assets/img/136思路1.png" alt="思路2"></p><h1 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h1><pre><code>class Solution {func singleNumber(_ nums: [Int]) -&gt; Int {    var  a = 0    for i in nums{        a = a ^ i    }    return a;    }}</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><p>这里用到了异或的计算,计算法则如下,具体的细则可以<a href="https://baike.baidu.com/item/%E5%BC%82%E6%88%96/10993677?fr=aladdin" target="_blank" rel="noopener">点击这里</a><br><img src="/assets/img/136异或运算.png" alt="运算法则"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/136题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>206. Reverse Linked List</title>
-    <link href="http://LikeeCat.github.io/2020/12/13/206.%20Reverse%20Linked%20List/"/>
-    <id>http://LikeeCat.github.io/2020/12/13/206. Reverse Linked List/</id>
-    <published>2020-12-13T09:05:13.000Z</published>
-    <updated>2021-01-10T06:00:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/206题目.png" alt="题目"></p><a id="more"></a><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,考的链表的一些知识,但是这个后进先出的结构特性,让我想起来了stack</li><li>如果节点不为空,就把节点压入栈中,最后,将节点之间按照数组的先后顺序进行连接</li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><pre><code>/** * Definition for singly-linked list. * public class ListNode { *     public var val: Int *     public var next: ListNode? *     public init() { self.val = 0; self.next = nil; } *     public init(_ val: Int) { self.val = val; self.next = nil; } *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; } * } */class Solution {  var stack :[ListNode] = [];  func reverseList(_ head: ListNode?) -&gt; ListNode? {      var tmp = head      //一直将所有的node压入栈,直到node没有下一个node      while  tmp != nil{          stack.insert(tmp!, at: 0)          tmp = tmp?.next      }      //开始将各个node按照数组的先后顺序进行连接    for i in stride(from: 0, through: stack.count - 1, by: 1) {        let node = stack[i]        if(i == stack.count - 1){            node.next = nil;        }        else{            node.next = stack[i+1];        }    }     //返回数组的首个元素      return stack.first;  }}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/206题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>101. Symmetric Tree</title>
-    <link href="http://LikeeCat.github.io/2020/12/13/101.%20Symmetric%20Tree/"/>
-    <id>http://LikeeCat.github.io/2020/12/13/101. Symmetric Tree/</id>
-    <published>2020-12-13T08:05:13.000Z</published>
-    <updated>2021-01-10T06:00:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="/assets/img/101题目.png" alt="题目"></p><h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><ol><li>从给出的内容来看,看这个二叉树是不是一个镜像的二叉树,即它的左子树与右子树之间是<code>对称</code>的</li><li>那么他的左子树和右子树是镜像的,对于一个三层的二叉树来说就是,左子树的左侧节点和右子树的右侧节点是一致的,左子树的右侧节点和右子树的左侧节点是一致的<a id="more"></a></li></ol><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p><img src="/assets/img/101思路.png" alt="思路"></p><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code>/** * Definition for a binary tree node. * public class TreeNode { *     public var val: Int *     public var left: TreeNode? *     public var right: TreeNode? *     public init() { self.val = 0; self.left = nil; self.right = nil; } *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; } *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) { *         self.val = val *         self.left = left *         self.right = right *     } * } */ class Solution {  func isMirror(_ left:TreeNode?,_ right:TreeNode?) -&gt; Bool {    if left == nil &amp;&amp; right == nil {        return  true    }    if left == nil || right == nil {        return false    }    return (left?.val == right?.val) &amp;&amp; isMirror(left?.right, right?.left) &amp;&amp; isMirror(left?.left, right?.right)    }    func isSymmetric(_ root: TreeNode?) -&gt; Bool {            return isMirror(root,root)    }}</code></pre><h1 id="注"><a href="#注" class="headerlink" title="注"></a>注</h1><p>这道题的重点还是要理解两个子树之间的关系,即怎样的两个子树即可互为镜像</p><pre><code>1. Their two roots have the same value2. The right subtree of each tree is a mirror reflection of the other tree</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/assets/img/101题目.png&quot; alt=&quot;题目&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;一些思考&quot;&gt;&lt;a href=&quot;#一些思考&quot; class=&quot;headerlink&quot; title=&quot;一些思考&quot;&gt;&lt;/a&gt;一些思考&lt;/h1&gt;&lt;ol&gt;
-&lt;li&gt;从给出的内容来看,看这个二叉树是不是一个镜像的二叉树,即它的左子树与右子树之间是&lt;code&gt;对称&lt;/code&gt;的&lt;/li&gt;
-&lt;li&gt;那么他的左子树和右子树是镜像的,对于一个三层的二叉树来说就是,左子树的左侧节点和右子树的右侧节点是一致的,左子树的右侧节点和右子树的左侧节点是一致的
-    
-    </summary>
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
     
   </entry>
   
@@ -561,6 +396,172 @@ NSLog(@&amp;quot;dic is %@&amp;quot;,dic);
     
     
       <category term="tip" scheme="http://LikeeCat.github.io/tags/tip/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS 中文排序</title>
+    <link href="http://LikeeCat.github.io/2019/05/29/iOS%E4%B8%AD%E6%96%87%E6%8E%92%E5%BA%8F/"/>
+    <id>http://LikeeCat.github.io/2019/05/29/iOS中文排序/</id>
+    <published>2019-05-29T11:05:58.000Z</published>
+    <updated>2024-12-03T03:25:31.543Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="排序方法"><a href="#排序方法" class="headerlink" title="排序方法"></a>排序方法</h1><h2 id="localizedCompare"><a href="#localizedCompare" class="headerlink" title="localizedCompare(_:)"></a>localizedCompare(_:)</h2><p>Compares the string and a given string using a localized comparison.</p><blockquote><p>在NSString 的 API 中有这个方法,假设你的手机使用的是中文,就可以根据中文排序</p></blockquote><a id="more"></a><h2 id="NSSortDescriptor"><a href="#NSSortDescriptor" class="headerlink" title="NSSortDescriptor"></a>NSSortDescriptor</h2><p>An immutable description of how to order a collection of objects based on a property common to all the objects.</p><blockquote><p>可以根据集合中的对象的某一个属性对这个集合进行排序</p></blockquote><h2 id="initWithKey-ascending-selector"><a href="#initWithKey-ascending-selector" class="headerlink" title="initWithKey:ascending:selector:"></a>initWithKey:ascending:selector:</h2><pre><code>- (instancetype)initWithKey:(NSString *)key               ascending:(BOOL)ascending                selector:(SEL)selector;根据给出的key 升序还是降序 还有使用selector来初始化</code></pre><h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><h2 id="定义对象"><a href="#定义对象" class="headerlink" title="定义对象"></a>定义对象</h2><pre><code>@interface person : NSObject@property (nonatomic,strong)NSString *name;@property (nonatomic,strong)NSString *phone;@end</code></pre><h2 id="定义对象的集合"><a href="#定义对象的集合" class="headerlink" title="定义对象的集合"></a>定义对象的集合</h2><pre><code>person *p = [[person alloc]initWithName:@&quot;小小&quot; phone:@&quot;13322223333&quot;];person *p1 = [[person alloc]initWithName:@&quot;小二&quot; phone:@&quot;13322223333&quot;];person *p2 = [[person alloc]initWithName:@&quot;校小&quot; phone:@&quot;13322223333&quot;];NSMutableArray *arr  = [NSMutableArray arrayWithArray:@[p,p1,p2]];</code></pre><h2 id="定义排序方法"><a href="#定义排序方法" class="headerlink" title="定义排序方法"></a>定义排序方法</h2><pre><code>NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@&quot;name&quot; ascending:YES selector:@selector(localizedCompare:)]];</code></pre><h2 id="进行排序"><a href="#进行排序" class="headerlink" title="进行排序"></a>进行排序</h2><pre><code>[arr sortUsingDescriptors:sortDescriptors];</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;排序方法&quot;&gt;&lt;a href=&quot;#排序方法&quot; class=&quot;headerlink&quot; title=&quot;排序方法&quot;&gt;&lt;/a&gt;排序方法&lt;/h1&gt;&lt;h2 id=&quot;localizedCompare&quot;&gt;&lt;a href=&quot;#localizedCompare&quot; class=&quot;headerlink&quot; title=&quot;localizedCompare(_:)&quot;&gt;&lt;/a&gt;localizedCompare(_:)&lt;/h2&gt;&lt;p&gt;Compares the string and a given string using a localized comparison.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在NSString 的 API 中有这个方法,假设你的手机使用的是中文,就可以根据中文排序&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="tip" scheme="http://LikeeCat.github.io/categories/tip/"/>
+    
+    
+      <category term="tip" scheme="http://LikeeCat.github.io/tags/tip/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OC中函数的一些小技巧</title>
+    <link href="http://LikeeCat.github.io/2019/04/16/OC%E4%B8%AD%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/"/>
+    <id>http://LikeeCat.github.io/2019/04/16/OC中函数的一些理解/</id>
+    <published>2019-04-16T03:18:13.000Z</published>
+    <updated>2019-06-12T06:57:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近在做一个复杂的界面，涉及到 UINavigationController 、UITabBarController、UIViewController、之间的函数调用，需要把原先在UIViewController中的功能转移到UITabBarController 或者 UINavigationController中，这就导致了界面产生冲突，我已经在UIViewController中完成了这个方法，怎么在UINavigationController中调用</p><a id="more"></a><h2 id="关于objc-msgSend"><a href="#关于objc-msgSend" class="headerlink" title="关于objc_msgSend"></a>关于objc_msgSend</h2><p>在对象上调用方法是 Objective-C 中经常使用的功能。用 Objective-C 的术语来说叫做传递消息。消息有名称 (name) 或选择子 (selector) ,可以接受参数，并且还有可能有返回值。   </p><h3 id="IMP"><a href="#IMP" class="headerlink" title="IMP"></a>IMP</h3><p>类的方法列表会把selector的名称的映射到相对应的方法上，使得“动态消息派发系统”能够据此找到相应的方法。这些方法均以函数指针的形式来表示，这种指针就是IMP</p><pre><code>id (*IMP) = (id,SEL,...) </code></pre><h3 id="selector-SEL-的生成"><a href="#selector-SEL-的生成" class="headerlink" title="selector(SEL)的生成"></a>selector(SEL)的生成</h3><p>SEL的生成分为三种情况<br>1.无参</p><pre><code>SEL selector = NSSelectorFromString(@&quot;log&quot;);</code></pre><p>2.有参数</p><pre><code>SEL selector = NSSelectorFromString(@&quot;logWithAll:type:&quot;);</code></pre><h3 id="IMP的生成"><a href="#IMP的生成" class="headerlink" title="IMP的生成"></a>IMP的生成</h3><pre><code>IMP imp1 = [self methodForSelector:selector];</code></pre><h3 id="方法的执行"><a href="#方法的执行" class="headerlink" title="方法的执行"></a>方法的执行</h3><pre><code>- (NSString *)logWithAll:(NSString *)name type:(NSString *)type{    NSLog(@&quot;name is %@  type is %@&quot;,name,type);    return @&quot;aaa&quot;;}if ([self respondsToSelector:selector]) {    NSString* (*func)(id,SEL,NSString*,NSString*) = (void *)imp1;    NSString *result =  func(self,selector,@&quot;哈哈&quot;,@&quot;hehe&quot;);    NSLog(@&quot;result is %@&quot;,result);}</code></pre><p>##结果<br>结构大概就是这样的</p><pre><code>NSString* (*func)(id,SEL,NSString*,NSString*) = (void *)imp1;返回值                     parmar1  parmar2       IMP</code></pre><p>调用</p><pre><code>NSString *result =  func(self,selector,@&quot;哈哈&quot;,@&quot;hehe&quot;);</code></pre><p>输出结果</p><p><img src="/assets/img/oc函数.png" alt="结果"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;最近在做一个复杂的界面，涉及到 UINavigationController 、UITabBarController、UIViewController、之间的函数调用，需要把原先在UIViewController中的功能转移到UITabBarController 或者 UINavigationController中，这就导致了界面产生冲突，我已经在UIViewController中完成了这个方法，怎么在UINavigationController中调用&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://LikeeCat.github.io/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="http://LikeeCat.github.io/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>把博客从简书搬出来</title>
+    <link href="http://LikeeCat.github.io/2019/03/16/%E6%8A%8A%E5%8D%9A%E5%AE%A2%E4%BB%8E%E7%AE%80%E4%B9%A6%E6%90%AC%E5%87%BA%E6%9D%A5/"/>
+    <id>http://LikeeCat.github.io/2019/03/16/把博客从简书搬出来/</id>
+    <published>2019-03-16T11:05:58.000Z</published>
+    <updated>2019-05-30T02:43:05.377Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="起"><a href="#起" class="headerlink" title="起"></a>起</h1><p>忽然觉得大多数的写作的地方都太浮躁了，自己想找个安静的角落，写一写关于技术、生活、旅游方面的姑且认为是文章啦，于是就有了想自己做一个静态网站的想法。</p><h1 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h1><p>花了一周的时间想了很久，最终还是在 GitHub 上安家了，离开自己的舒服区，跑来折腾前端的我也是有够拼的。接下来就慢慢的写，让自己能够得到一些沉淀吧。折腾了一天的我，突然发现天也已经暗了下来，不过总算是完成了一大半的工程。<br><a id="more"></a></p><h1 id="终"><a href="#终" class="headerlink" title="终"></a>终</h1><p>这应该就是我的桃花源吧。<br>晋太元中，武陵人捕鱼为业。缘溪行，忘路之远近。忽逢桃花林<br><img src="/assets/img/搬家.png" alt="桃花源"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;起&quot;&gt;&lt;a href=&quot;#起&quot; class=&quot;headerlink&quot; title=&quot;起&quot;&gt;&lt;/a&gt;起&lt;/h1&gt;&lt;p&gt;忽然觉得大多数的写作的地方都太浮躁了，自己想找个安静的角落，写一写关于技术、生活、旅游方面的姑且认为是文章啦，于是就有了想自己做一个静态网站的想法。&lt;/p&gt;
+&lt;h1 id=&quot;接下来&quot;&gt;&lt;a href=&quot;#接下来&quot; class=&quot;headerlink&quot; title=&quot;接下来&quot;&gt;&lt;/a&gt;接下来&lt;/h1&gt;&lt;p&gt;花了一周的时间想了很久，最终还是在 GitHub 上安家了，离开自己的舒服区，跑来折腾前端的我也是有够拼的。接下来就慢慢的写，让自己能够得到一些沉淀吧。折腾了一天的我，突然发现天也已经暗了下来，不过总算是完成了一大半的工程。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="日记" scheme="http://LikeeCat.github.io/categories/%E6%97%A5%E8%AE%B0/"/>
+    
+    
+      <category term="随笔" scheme="http://LikeeCat.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS 中 CSV格式文件读写</title>
+    <link href="http://LikeeCat.github.io/2019/03/16/iOS-%E4%B8%AD-CSV%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/"/>
+    <id>http://LikeeCat.github.io/2019/03/16/iOS-中-CSV格式文件读写/</id>
+    <published>2019-03-16T09:09:15.000Z</published>
+    <updated>2019-06-12T06:56:19.766Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="CSV"><a href="#CSV" class="headerlink" title="CSV"></a>CSV</h1><p><strong>逗号分隔值</strong>（Comma-Separated Values，<strong>CSV</strong>，有时也称为<strong>字符分隔值</strong>，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）</p><blockquote><p>CSV其实就是一个<strong>纯文本</strong>,那么对应到 Objective-C 中，他就是一个<code>NSString</code>,对应到 Swift 中就是一个<code>String</code></p></blockquote><a id="more"></a><h1 id="举个🌰"><a href="#举个🌰" class="headerlink" title="举个🌰"></a>举个🌰</h1><blockquote><p>sj_mino1001.jpg,715282,4FB55FE8<br>sj_mino1002.jpg,471289,93203C5C<br>sj_mino1003.jpg,451929,C4E80467<br>这个就是一个简单的CSV文件,每个值之间用,分割,在一行数据结束的时候才换行。</p></blockquote><h1 id="CSV读取"><a href="#CSV读取" class="headerlink" title="CSV读取"></a>CSV读取</h1><p>假设我们的项目中有一个 csv 文件，叫做1</p><p>1.获取文件路径</p><pre><code>NSString  *path = [[NSBundle mainBundle]pathForResource:@&quot;1&quot; ofType:@&quot;csv&quot;];</code></pre><p>2.将此文件转码为一个字符串</p><pre><code>NSError *error = nil;//GBK编码NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:0x80000632 error:&amp;error];//UTF8编码NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error];</code></pre><p>3.切割字符串，可以拿到每一行的数据</p><pre><code>//取出每一行的数据NSArray *_allLinedStrings = [fileContents componentsSeparatedByString:@&quot;\r\n&quot;];</code></pre><p>4.如果有表头可以对表头进行处理，即对第一行数据进行处理</p><pre><code>__block NSInteger nameRow = 0;__block NSInteger phoneRow = 0;NSArray *firstLine = [_allLinedStrings[0] componentsSeparatedByString:@&quot;,&quot;];[firstLine enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {NSString *line = obj;if ([line isEqualToString:@&quot;客户名称&quot;]){    nameRow = idx;}else if ([line isEqualToString:@&quot;手机号&quot;]){    phoneRow = idx;}}];</code></pre><p>5.对数据进行处理</p><pre><code>[_allLinedStrings enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {    if (idx == 0) {    }    else{      NSString *str = obj;        NSArray *array = [str componentsSeparatedByString:@&quot;,&quot;];       //获取到某一行的数据，切割这个字符串就可以拿到这一行的值，然后在进行下一步的处理    }     }];</code></pre><h1 id="CSV文件的写入"><a href="#CSV文件的写入" class="headerlink" title="CSV文件的写入"></a>CSV文件的写入</h1><p>假设我们有一个 likee.csv 需要放在Documents目录下</p><p>1.创建写入路径</p><pre><code>NSString *fileNameStr = @&quot;likee.Csv&quot;;NSString *DocPath = [[NSHomeDirectory() stringByAppendingPathComponent:@&quot;Documents&quot;] stringByAppendingPathComponent:fileNameStr];</code></pre><p>2.够造需要写入的数据</p><pre><code>NSString *str = @&quot;11111,22222,33333,44444\n&quot;;NSMutableString *csvString = [NSMutableString string];for (int i = 0; i&lt; 400; i ++) { [csvString appendString:str]; };</code></pre><p>3.够造为NSData，并使用NSData进行文件的写入。</p><pre><code>NSData *data = [csvString dataUsingEncoding:NSUTF8StringEncoding];[data writeToFile:DocPath atomically:YES];</code></pre><h1 id="编码格式的坑"><a href="#编码格式的坑" class="headerlink" title="编码格式的坑"></a>编码格式的坑</h1><p>在 mac 下文本的默认编码格式使用的是UTF-8，在 windows 的 Excel 上，对中文的处理是GBK,所以可能会造成乱码的问题。如果读取文件是无法读出内容，就和使用的编码格式有关。所以建议先使用UTF-8进行解码，如果无法显示内容，再用GBK进行解码</p><pre><code> //UTF8编码NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error];if(!fileContents){    //GBK编码    fileContents = [NSString stringWithContentsOfFile:path encoding:0x80000632 error:&amp;error];}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;CSV&quot;&gt;&lt;a href=&quot;#CSV&quot; class=&quot;headerlink&quot; title=&quot;CSV&quot;&gt;&lt;/a&gt;CSV&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;逗号分隔值&lt;/strong&gt;（Comma-Separated Values，&lt;strong&gt;CSV&lt;/strong&gt;，有时也称为&lt;strong&gt;字符分隔值&lt;/strong&gt;，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本)。（:来自百度百科）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CSV其实就是一个&lt;strong&gt;纯文本&lt;/strong&gt;,那么对应到 Objective-C 中，他就是一个&lt;code&gt;NSString&lt;/code&gt;,对应到 Swift 中就是一个&lt;code&gt;String&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://LikeeCat.github.io/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="http://LikeeCat.github.io/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NSArray 之 SEL 的保存</title>
+    <link href="http://LikeeCat.github.io/2019/02/27/NSArray%20%E4%B9%8B%20SEL%20%E7%9A%84%E4%BF%9D%E5%AD%98/"/>
+    <id>http://LikeeCat.github.io/2019/02/27/NSArray 之 SEL 的保存/</id>
+    <published>2019-02-27T10:05:13.000Z</published>
+    <updated>2024-12-03T03:25:36.274Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近在初始化类的时候，会有很多没有返回值的初始化方法需要调用，每次都需要再写一遍，所以想把函数装进 NSArray 中可以自动调用。结果查了一下真的可以，所以做个笔记记一下</p><a id="more"></a><pre><code>- (void)viewDidLoad {    [super viewDidLoad];    NSString* A = NSStringFromSelector(@selector(loadA));    NSString* B = NSStringFromSelector(@selector(loadB));    NSString* C = NSStringFromSelector(@selector(loadC));    NSArray *arr = @[A,B,C];    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {        NSString *selector = obj;        if (!self) { return; }        SEL performSelector = NSSelectorFromString(selector);        if ([self respondsToSelector:performSelector]){            [self performSelector:performSelector];        }    }];}- (void)loadA{    NSLog(@&quot;call load A +++++++&quot;);}- (void)loadB{    NSLog(@&quot;call load B ++++++++&quot;);}- (void)loadC{    NSLog(@&quot;call load C +++++&quot;);}</code></pre><p>然后就写了一个小 demo,写完后报了警告，查过<a href="https://www.jianshu.com/p/6517ab655be7" target="_blank" rel="noopener">爆栈热门 iOS 问题</a>后，解决了这个问题。<br><img src="https://upload-images.jianshu.io/upload_images/2239937-b6801e1b52041ae2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><pre><code>NSString* A = NSStringFromSelector(@selector(loadA));NSString* B = NSStringFromSelector(@selector(loadB));NSString* C = NSStringFromSelector(@selector(loadC));NSArray *arr = @[A,B,C];[arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {    NSString *selector = obj;    if (!self) { return; }    SEL performSelector = NSSelectorFromString(selector);    IMP imp = [self methodForSelector:performSelector];    void (*func)(id, SEL) = (void *)imp;    func(self, performSelector);}];</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;最近在初始化类的时候，会有很多没有返回值的初始化方法需要调用，每次都需要再写一遍，所以想把函数装进 NSArray 中可以自动调用。结果查了一下真的可以，所以做个笔记记一下&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="NSArray" scheme="http://LikeeCat.github.io/categories/NSArray/"/>
+    
+    
+      <category term="NSArray" scheme="http://LikeeCat.github.io/tags/NSArray/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>UITableView reloadData 滑不到底部</title>
+    <link href="http://LikeeCat.github.io/2019/02/18/UITableView%20reloadData%20%E6%BB%91%E4%B8%8D%E5%88%B0%E5%BA%95%E9%83%A8/"/>
+    <id>http://LikeeCat.github.io/2019/02/18/UITableView reloadData 滑不到底部/</id>
+    <published>2019-02-18T10:05:13.000Z</published>
+    <updated>2019-05-29T04:38:01.527Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>最近有个需求，在 tableView <code>reloadData</code>结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档</p><ol><li>layoutSubviews</li><li>setNeedsLayout</li><li>layoutIfNeeded</li></ol><a id="more"></a><h3 id="layoutSubviews"><a href="#layoutSubviews" class="headerlink" title="layoutSubviews"></a>layoutSubviews</h3><p>Lays out subviews.</p><h4 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h4><p>Subclasses can override this method as needed to perform more precise layout of their subviews. You should override this method only if the autoresizing and constraint-based behaviors of the subviews do not offer the behavior you want. You can use your implementation to set the frame rectangles of your subviews directly.</p><p>You should not call this method directly. If you want to force a layout update, call the <code>setNeedsLayout</code> method instead to do so prior to the next drawing update. If you want to update the layout of your views immediately, call the <code>layoutIfNeeded</code> method.</p><p>在子类中，如果你需要更加准确的定位，你可以重写这个方法。如果 autoresizing 和 constraint不能为你提供你想要做的。你可以自己设置subviews的 frame。<br>你不应该直接调用这个方法，如果你想要强制更新布局，应该调用<code>setNeedsLayout</code>,在下一次绘图更新之前，如果你想要立刻的更新布局，需要调用 <code>layoutIfNeeded</code></p><h3 id="setNeedsLayout"><a href="#setNeedsLayout" class="headerlink" title="setNeedsLayout"></a>setNeedsLayout</h3><p>Invalidates the current layout of the receiver and triggers a layout update during the next update cycle.</p><h4 id="Discussion-1"><a href="#Discussion-1" class="headerlink" title="Discussion"></a>Discussion</h4><p>Call this method on your application’s main thread when you want to adjust the layout of a view’s subviews. This method makes a note of the request and returns immediately. Because this method does not force an immediate update, but instead waits for the next update cycle, you can use it to invalidate the layout of multiple views before any of those views are updated. This behavior allows you to consolidate all of your layout updates to one update cycle, which is usually better for performance.<br>你在想要更新 view 的 subviews 的布局的时候，可以在主线程调用此方法。此方法记录请求并且立即返回。因为这个方法不强制立即更新，而是等待下一个周期更新，你可以使用此方法来让很多 views 的布局失效，并且这样做可以把所有布局更新合并到一个更新周期，这通常会提高性能。</p><h3 id="layoutIfNeeded"><a href="#layoutIfNeeded" class="headerlink" title="layoutIfNeeded"></a>layoutIfNeeded</h3><p>Lays out the subviews immediately, if layout updates are pending.</p><h4 id="Discussion-2"><a href="#Discussion-2" class="headerlink" title="Discussion"></a>Discussion</h4><p>Use this method to force the view to update its layout immediately. When using Auto Layout, the layout engine updates the position of views as needed to satisfy changes in constraints. Using the view that receives the message as the root view, this method lays out the view subtree starting at the root. If no layout updates are pending, this method exits without modifying the layout or calling any layout-related callbacks.<br>使用此方法强制视图立即更新其布局。使用“自动布局”时，布局引擎会根据需要更新视图的位置，以满足约束的更改，使用一个 view 作为 rootView ，此方法从根开始布局视图子树。如果没有约束需要更新，此方法会退出，不会修改 layout 或者调用和此 layout 有关的回调。</p><h2 id="stackoverflow上的提问"><a href="#stackoverflow上的提问" class="headerlink" title="stackoverflow上的提问"></a>stackoverflow上的提问</h2><p>在 stackoverflow上有查到一个问题， <a href="https://stackoverflow.com/questions/16071503/how-to-tell-when-uitableview-has-completed-reloaddata" target="_blank" rel="noopener">How to tell when UITableView has completed ReloadData?</a>，提问的人想要滚动 tableView 到底部，发现调用直接 reloadData，然后滚动没有滚动到最底部，提出了这个问题。 这个下面有很多很多的答案，具体的如下：<br>1.调用<code>layoutIfNeeded</code>强制的刷新布局，接着执行scrollToRowAtIndexPath,滚动到底部，确实是帮助我们解决了这个问题。</p><pre><code>[self.tableView reloadData];[self.tableView layoutIfNeeded];NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOfRowsInSection:([self.tableView     numberOfSections]-1)]-1) inSection: ([self.tableView numberOfSections]-1)];[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];</code></pre><p>原因：</p><blockquote><p>The reload happens during the next layout pass, which normally happens when you return control to the run loop (after, say, your button action or whatever returns).<br>So one way to run something after the table view reloads is simply to force the table view to perform layout immediately<br>重新加载发生在下一个布局过程中，这通常发生在将控制返回到运行循环时（例如，您的按钮操作或任何返回之后）。<br>所以，在tableView reloads 后可以立刻强制更新布局。</p></blockquote><ol start="2"><li><p>调用<code>dispatch_async(dispatch_get_main_queue(), ^{})</code></p><pre><code>[self.tableView reloadData]; dispatch_async(dispatch_get_main_queue(), ^{ NSIndexPath* indexPath = [NSIndexPath indexPathForRow: ([self.tableView numberOfRowsInSection:([self.tableView numberOfSections]-1)]-1) inSection:([self.tableView numberOfSections]-1)]; [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES]; });</code></pre><p>原因</p></li></ol><blockquote><p>depending on how big your table data source is, you can animate going to the bottom of the tableview in the same run loop. If you try your test code with a huge table, your trick of using GCD to delay scrolling until the next run loop will work, whereas immediately scrolling will fail. But anyways, thanks for this trick!<br>但是这种方式并不总是能解决问题,使用GCD来延迟滑动到下一个 runloop，但是立即滑动的话，就会出错。</p></blockquote><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果你的 tableView 在 <code>reloadData</code>后，无法滑动到底部，那么就可以这样做,在<code>reloadData</code>后，调用 <code>layoutIfNeeded</code>，来强制进行布局，然后在进行 tableView的滑动就可以了。</p><pre><code>[self.tableView reloadData];[self.tableView layoutIfNeeded];//do somthing you want</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;最近有个需求，在 tableView &lt;code&gt;reloadData&lt;/code&gt;结束后，需要滑动到底部，可是总是不能准确的滚动到底部。自然而言的就想到了三个方法，查看了一下有关的文档&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;layoutSubviews&lt;/li&gt;
+&lt;li&gt;setNeedsLayout&lt;/li&gt;
+&lt;li&gt;layoutIfNeeded&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="UITableView" scheme="http://LikeeCat.github.io/categories/UITableView/"/>
+    
+    
+      <category term="UITableView" scheme="http://LikeeCat.github.io/tags/UITableView/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Xcode10 【libray not found for -lstdc++.6.0.9 】</title>
+    <link href="http://LikeeCat.github.io/2019/01/08/Xcode10%20%E3%80%90libray%20not%20found%20for%20-lstdc++.6.0.9%20%E3%80%91/"/>
+    <id>http://LikeeCat.github.io/2019/01/08/Xcode10 【libray not found for -lstdc++.6.0.9 】/</id>
+    <published>2019-01-07T18:05:13.000Z</published>
+    <updated>2019-05-29T04:38:37.850Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>上周在打包上传后，报了一个警告，大致的意思就是这样的：<code>2019年3月必须使用Xcode 10.1或更高版本</code>，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10<br><a id="more"></a></p><h2 id="开始采坑"><a href="#开始采坑" class="headerlink" title="开始采坑"></a>开始采坑</h2><p>1、升级完成后直接报了<code>libray not found for -lstdc++.6.0.9</code>，在 Xcode 10 Release Notes 中有着如下的描述</p><blockquote><p>Building with libstdc++ was deprecated with Xcode 8 and is not supported in Xcode 10 when targeting iOS. C++ projects must now migrate to libc++ and are recommended to set a deployment target of macOS 10.9 or later, or iOS 7 or later. Besides changing the C++ Standard Library build setting, developers should audit hard-coded linker flags and target dependencies to remove references to libstdc++ (including -lstdc++, -lstdc++.6.0.9, libstdc++.6.0.9.tbd, and libstdc++.6.0.9.dylib). Project dependencies such as static archives that were built against libstdc++ will also need to be rebuilt against libc++. (40885260)<br>所以苹果在 Xcode10 中移除了对 libstdc++ 的支持。</p></blockquote><p>2、具体的报错可能会有这些</p><ol><li>libray not found for -lstdc++.6.0.9</li><li>libray not found for -lstdc++</li><li>libray not found for libstdc++.6.0.9.tbd</li></ol><p>3、解决办法</p><ol><li>在Build Phases -&gt; Link Binary With Libraries 中删除<code>lstdc++</code>、<code>lstdc++.6.0.9</code>、<code>libstdc++.6.0.9.tbd</code>,并且添加<code>libc++</code>。</li><li>对于有使用 pod 的项目，在debug.xcconfig和release.xcconfig中也需要删除<code>lstdc++.6.0.9</code>、</li></ol><p>4、删除完了这些后还可能编译不成功的问题<br>我在做完这些操作后，我 clean 了项目，然后再次编译的时候，还是有报错，但是其实我已经把引用到这个库的地方都删掉了<br><img src="https://upload-images.jianshu.io/upload_images/2239937-848b52834ec3858b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>我全局搜索了一下，在Build Settings 中找到了这个<br><img src="https://upload-images.jianshu.io/upload_images/2239937-ecece630e02378cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p><img src="https://upload-images.jianshu.io/upload_images/2239937-7f8054d0ac0dd3ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/2239937-105ecf1dca3ceace.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>接着就是在c++ standard Library 中选择 libc++ ，然后编译，成功解决了报错。</p><h1 id="升级后关于Xs-Max-和-XR的适配"><a href="#升级后关于Xs-Max-和-XR的适配" class="headerlink" title="升级后关于Xs Max 和 XR的适配"></a>升级后关于Xs Max 和 XR的适配</h1><p>花了一下午的时间升级了Xcode 10,接着就是关于iPhone Xs Max 和XR 的适配了</p><h2 id="启动页的分辨率"><a href="#启动页的分辨率" class="headerlink" title="启动页的分辨率"></a>启动页的分辨率</h2><h4 id="Xs-Max-1242-2688"><a href="#Xs-Max-1242-2688" class="headerlink" title="Xs Max: 1242 * 2688"></a>Xs Max: 1242 * 2688</h4><h4 id="XR-828-1792-png"><a href="#XR-828-1792-png" class="headerlink" title="XR: 828*1792.png"></a>XR: 828*1792.png</h4><h2 id="一些判断用的宏"><a href="#一些判断用的宏" class="headerlink" title="一些判断用的宏"></a>一些判断用的宏</h2><pre><code>#define isPad ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)#define iPhone5 ([UIScreen mainScreen].bounds.size.height == 568)#define iPhone4 ([UIScreen mainScreen].bounds.size.height == 480)#define iPhone6 ([UIScreen mainScreen].bounds.size.height == 667)#define iPhone6P ([UIScreen mainScreen].bounds.size.height == 736)#define iPhoneX ([UIScreen mainScreen].bounds.size.height == 812)#define iPhoneXR ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) &amp;&amp; !isPad : NO)#define iPhoneXsMax ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size)&amp;&amp; !isPad : NO)</code></pre><h1 id="脱坑"><a href="#脱坑" class="headerlink" title="脱坑"></a>脱坑</h1><p>终于完成了 Xcode 9 到 Xcode 10 的迁移，总的来说比之前可能稍微麻烦了一些。在此做个记录</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.jianshu.com/p/f2a24732cf14" target="_blank" rel="noopener">xsmax 的宏</a><br><a href="https://www.jianshu.com/p/f8a3ccbfbd7b" target="_blank" rel="noopener">Xcode 10 升级项目报错</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;上周在打包上传后，报了一个警告，大致的意思就是这样的：&lt;code&gt;2019年3月必须使用Xcode 10.1或更高版本&lt;/code&gt;，此时的我还在用 Xcode 9，刚好最近刚上了包，就升级了Xcode 10&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Xcode" scheme="http://LikeeCat.github.io/categories/Xcode/"/>
+    
+    
+      <category term="Xcode" scheme="http://LikeeCat.github.io/tags/Xcode/"/>
     
   </entry>
   
