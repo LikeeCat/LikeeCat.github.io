@@ -61,6 +61,71 @@
 
     
       
+        <article id="post-Clang Module VS Swift Module" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2022/12/15/Clang Module VS Swift Module/">Clang Module VS Swift Module</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2022/12/15/Clang Module VS Swift Module/" class="article-date">
+  <time datetime="2022-12-15T10:05:13.000Z" itemprop="datePublished">2022-12-15</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h1><p>Clang Module 是面向 C 语言家族的一种技术，通过 modulemap 文件来组织 .h 文件中的接口信息，中间产物是二进制格式的 pcm 文件。</p>
+<p>Swift Module 是面向 Swift 语言的一种技术，通过 Swiftinterface 文件来组织 .swift 文件中的接口信息，中间产物二进制格式的 Swiftmodule 文件。</p>
+<p>module 的出现是为了解决 pch 预编译文件因为上下文开放可能会被篡改,如果修改 pch 文件内容后,编译时长大幅劣化的问题. 因此才有了 Clang Module<br>是一个编译单元，或构建产物，对一个软件库的结构化替代封装，供链接器使用. 你可以把它理解为一种对组件的描述，包含了对接口（API）和实现（dylib/a）的描述，同时 Module 的产物是被独立编译出来的，不同的 Module 之间是不会影响的</p>
+        
+          <a class="article-more-link" href="/2022/12/15/Clang Module VS Swift Module/">阅读全文...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://LikeeCat.github.io/2022/12/15/Clang Module VS Swift Module/" data-id="cm49cppe600323kgjchcscyfz"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
         <article id="post-面试问题汇总" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -109,7 +174,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2022/10/25/面试问题汇总/" data-id="cm47xn777003gx7gjh71nk1y3"
+      <a data-url="http://LikeeCat.github.io/2022/10/25/面试问题汇总/" data-id="cm49cppex003j3kgjk5t4p45d"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -174,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2022/07/25/linux 命令/" data-id="cm47xn75k001gx7gjfqo41x6c"
+      <a data-url="http://LikeeCat.github.io/2022/07/25/linux 命令/" data-id="cm49cppcz001a3kgj5xyofzlu"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/运维/">运维</a></li></ul>
@@ -237,7 +302,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/12/13/Valid Parentheses/" data-id="cm47xn755000px7gjxpzkb1k9"
+      <a data-url="http://LikeeCat.github.io/2020/12/13/Valid Parentheses/" data-id="cm49cppck000h3kgjmdrgmmzk"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
@@ -302,81 +367,10 @@ NSLog(@&quot;dic is %@&quot;,dic);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/07/29/NSDictionary 使用中的一些问题/" data-id="cm47xn74r0006x7gjvy5rm5qd"
+      <a data-url="http://LikeeCat.github.io/2020/07/29/NSDictionary 使用中的一些问题/" data-id="cm49cppcc00043kgjiuwgfdfq"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tip/">tip</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post-iOS中framework的相关命令" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/07/25/iOS中framework的相关命令/">iOS中framework的相关命令</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2020/07/25/iOS中framework的相关命令/" class="article-date">
-  <time datetime="2020-07-25T10:05:13.000Z" itemprop="datePublished">2020-07-25</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/frame/">frame</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <p>#查看framework支持的处理器架构</p>
-<ol>
-<li><p>进入framework的目录下面 </p>
-<pre><code>cd /xxx/xxx.framework
-</code></pre></li>
-<li><p>输入命令</p>
-<pre><code>lipo -info xxxframework //这里的xxxframwork 是指framework中的二进制
-</code></pre></li>
-</ol>
-        
-          <a class="article-more-link" href="/2020/07/25/iOS中framework的相关命令/">阅读全文...</a>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2020/07/25/iOS中framework的相关命令/" data-id="cm47xn75h0019x7gj6f4cbkxu"
-         class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">framework</a></li></ul>
 
     </footer>
 

@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    NSArray之深浅拷贝 |
+    排序算法 |
     
     LikeeCat&#39;s Blog</title>
   
@@ -27,7 +27,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-NSArray之深浅拷贝" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  <article id="post-排序算法" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -35,7 +35,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      NSArray之深浅拷贝
+      排序算法
     </h1>
   
   
@@ -48,12 +48,12 @@
 
     
       <div class="article-meta">
-        <a href="/2019/06/11/NSArray之深浅拷贝/" class="article-date">
-  <time datetime="2019-06-11T10:05:13.000Z" itemprop="datePublished">2019-06-11</time>
+        <a href="/2024/11/01/排序算法/" class="article-date">
+  <time datetime="2024-11-01T09:05:13.000Z" itemprop="datePublished">2024-11-01</time>
 </a>
         
   <div class="article-category">
-    <a class="article-category-link" href="/categories/NSArray/">NSArray</a>
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
   </div>
 
       </div>
@@ -65,123 +65,114 @@
       
 
       
-        <h2 id="1-自定义对象"><a href="#1-自定义对象" class="headerlink" title="1. 自定义对象"></a>1. 自定义对象</h2><ol>
-<li><p>假设我有一个Student类</p>
-<pre><code>@interface Student()&lt;NSCopying,NSMutableCopying&gt;
-@property (nonatomic,copy)NSString *name;
-@property (nonatomic,assign)NSInteger age;
-@end
-</code></pre> <a id="more"></a>
-</li>
-<li><p>生成两个Student对象</p>
-<pre><code> Student *stu = [[Student alloc]initWithName:@&quot;a&quot; age:1];
-Student *stu1 = [[Student alloc]initWithName:@&quot;b&quot; age:2];
-</code></pre></li>
-<li><p>用NSArray去把这两个对象加进数组,分别对数组进行copy 和 mutableCopy</p>
-<pre><code>NSArray *arr = [NSArray arrayWithObjects:stu,stu1, nil];
-NSArray *arrCopy =  [arr copy] ;
-NSMutableArray *arrMuCopy = [arr mutableCopy];
-</code></pre></li>
-<li><p>在arrMuCopy之后打断点查看结果</p>
-<pre><code> po arr
-&lt;__NSArrayI 0x102900290&gt;(
-&lt;Student: 0x100646bc0&gt;,
-&lt;Student: 0x100647300&gt;
-)
+        <h2 id="912-Sort-an-Array"><a href="#912-Sort-an-Array" class="headerlink" title="912. Sort an Array"></a>912. Sort an Array</h2><p>Given an array of integers nums, sort the array in ascending order and return it.</p>
+<p>You must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible.</p>
+<p>Example 1:</p>
+<p>Input: nums = [5,2,3,1]<br>Output: [1,2,3,5]<br>Explanation: After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).<br>Example 2:</p>
+<p>Input: nums = [5,1,1,2,0,0]<br>Output: [0,0,1,1,2,5]<br>Explanation: Note that the values of nums are not necessairly unique.</p>
+<a id="more"></a>
+<h3 id="sul"><a href="#sul" class="headerlink" title="sul"></a>sul</h3><pre><code># 切割数组,自小到大排序 
+# 归并排序
+# 稳定排序
+# 时间复杂度 O(n * logn)
+# @param {Integer[]} nums
+# @return {Integer[]}
+def sort_array(nums)
+    return nums if nums.length &lt;= 1
+    mid = nums.length / 2
 
- po arrCopy
-&lt;__NSArrayI 0x102900290&gt;(
-&lt;Student: 0x100646bc0&gt;,
-&lt;Student: 0x100647300&gt;
-)
-po arrMuCopy
-&lt;__NSArrayM 0x1029056f0&gt;(
-&lt;Student: 0x100646bc0&gt;,
-&lt;Student: 0x100647300&gt;
-)
-</code></pre><blockquote>
-<p>从结果上来说,copy只是复制了一个指针,arr 和 arrCopy 在堆上的对象是同一个.而arrMuCopy则是创建了新的内存地址,即创建了一个新的NSMutableArray的对象,但是array中包含的自定义对象没有复制.</p>
-</blockquote>
-</li>
-<li><p>重写Student的description方法</p>
-<pre><code>-(NSString *)description{
- return [NSString stringWithFormat:@&quot;name:%@\n age :%d&quot;,self.name,self.age];
- }
-</code></pre></li>
-<li><p>在copy 和 mutableCopy 结束后打断点</p>
-<pre><code>  NSArray *arr = [NSArray arrayWithObjects:stu,stu1, nil];
-NSArray *arrCopy =  [arr copy] ;
-NSMutableArray *arrMuCopy = [arr mutableCopy];
-[stu changeName:@&quot;ccc&quot;];
+    left = sort_array(nums[0...mid])
+    right = sort_array(nums[mid..-1])
+    sort(left, right)
+end
 
- po arr
-&lt;__NSArrayI 0x1029002c0&gt;(
-name:ccc
- age :1,
-name:b
- age :2
-)
- po arrCopy
-&lt;__NSArrayI 0x1029002c0&gt;(
-name:ccc
- age :1,
-name:b
- age :2
-)
-po arrMuCopy
-&lt;__NSArrayM 0x102909590&gt;(
-name:ccc
- age :1,
-name:b
- age :2
-)
-</code></pre></li>
-</ol>
-<p>结果也论证了这一点,mutableCopy后并没有将array中的对象进行复制</p>
-<h2 id="NSString"><a href="#NSString" class="headerlink" title="NSString"></a>NSString</h2><ol>
-<li><p>用NSArray去把这两个对象加进数组,分别对数组进行copy 和 mutableCopy</p>
-<pre><code>NSArray *arr = [NSArray arrayWithObjects:@&quot;aaa&quot;,@&quot;bbb&quot;, nil];
-NSArray *arrCopy =  [arr copy] ;
-NSMutableArray *arrMuCopy = [arr mutableCopy];
-</code></pre></li>
-<li><p>在copy 和 mutableCopy 结束后打断点</p>
-<pre><code>po arr
-&lt;__NSArrayI 0x100504700&gt;(
-aaa,
-bbb
-)
+def sort(left, right)
+    sorted = []
+    while !left.empty? &amp;&amp; !right.empty?
+        if left.first &lt;= right.first
+            sorted &lt;&lt; left.shift
+        else
+            sorted &lt;&lt; right.shift
+        end
+    end
+    sorted + left + right
+end
 
-po arrCopy
-&lt;__NSArrayI 0x100504700&gt;(
-aaa,
-bbb
-)
 
-po arrMuCopy
-&lt;__NSArrayM 0x100503290&gt;(
-aaa,
-bbb
-)
+# 快速排序
+# 非稳定排序
+# 时间复杂度 O(n * logn)
+# @param {Integer[]} nums
+# @return {Integer[]}
+def sort_array(nums)
+    return nums if nums.length &lt;= 1
+    pivot = nums.delete_at(rand(nums.length))
+    left, right = nums.partition{|x| x &lt;= pivot}
+    sort_array(left) + [pivot] + sort_array(right)
+end
 
- p arr[0]
-(__NSCFConstantString *) $4 = 0x00000001000020d0 @&quot;aaa&quot;
+# 冒泡排序
+# 稳定排序
+# 时间复杂度 O(n ^ 2)
+def sort(nums)
+    for i in 0...nums.length - 1 
+        for j in 0...nums.length - 1
+            if nums[j] &gt; nums[j + 1]
+                nums[j], nums[j + 1] = nums[j + 1], nums[j]
+            end
+        end
+    end
+    nums
+end
 
-p arrCopy[0]
-(__NSCFConstantString *) $7 = 0x00000001000020d0 @&quot;aaa&quot;
+# 插入排序
+# 稳定排序
+# 时间复杂度 O(n ^ 2)
+# @param {Integer[]} nums
+# @return {Integer[]}
+def sort_array(nums)
+    (1...nums.length).each do |i|
+        key = nums[i]
 
-p arrMuCopy[0]
-(__NSCFConstantString *) $6 = 0x00000001000020d0 @&quot;aaa&quot;
-</code></pre></li>
-</ol>
-<p>结果也论证了这一点,mutableCopy后并没有将array中的对象进行复制</p>
+        j = i - 1
 
+        while j &gt;=0 &amp;&amp; nums[j] &gt; key
+            nums[j + 1] = nums[j]
+            j -= 1
+        end
+
+        nums[j + 1] = key
+
+    end
+    nums
+end
+
+# 选择排序
+# 稳定排序
+# 时间复杂度 O(n ^ 2)
+# @param {Integer[]} nums
+# @return {Integer[]}
+def sort_array(nums)
+    n = nums.length
+    for i in 0...(n - 1)
+        min_index = i
+        for j in (i + 1)...n
+            if nums[j] &lt; nums[min_index]
+                min_index = j
+            end
+        end
+        nums[i], nums[min_index] = nums[min_index], nums[i] if min_index != i
+    end
+    nums
+end
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2019/06/11/NSArray之深浅拷贝/" data-id="cm49cppci000b3kgjtc8f91jh"
+      <a data-url="http://LikeeCat.github.io/2024/11/01/排序算法/" data-id="cm49cppcy00183kgjxnnwo8ju"
          class="article-share-link">分享</a>
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSArray/">NSArray</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
 
     </footer>
 
@@ -191,19 +182,19 @@ p arrMuCopy[0]
     
   <nav class="article-nav">
     
-      <a href="/2019/11/17/ Flutter 加载txt文件/" class="article-nav-link">
+      <a href="/2024/11/01/Top 100 - Backtracking/" class="article-nav-link">
         <strong class="article-nav-caption">前一篇</strong>
         <div class="article-nav-title">
           
-            Flutter 加载txt文件
+            Top 100 - Backtracking
           
         </div>
       </a>
     
     
-      <a href="/2019/05/30/Xcode 快捷操作/" class="article-nav-link">
+      <a href="/2022/12/16/iOS动态库和静态库的区别/" class="article-nav-link">
         <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">Xcode快捷键</div>
+        <div class="article-nav-title">iOS 动态库和静态库的区别</div>
       </a>
     
   </nav>
