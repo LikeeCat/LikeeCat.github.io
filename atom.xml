@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://LikeeCat.github.io/"/>
-  <updated>2024-12-02T08:26:33.549Z</updated>
+  <updated>2024-12-04T03:51:49.969Z</updated>
   <id>http://LikeeCat.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>排序算法</title>
+    <link href="http://LikeeCat.github.io/2024/12/04/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    <id>http://LikeeCat.github.io/2024/12/04/排序算法/</id>
+    <published>2024-12-04T09:05:13.000Z</published>
+    <updated>2024-12-04T03:51:49.969Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="912-Sort-an-Array"><a href="#912-Sort-an-Array" class="headerlink" title="912. Sort an Array"></a>912. Sort an Array</h2><p>Given an array of integers nums, sort the array in ascending order and return it.</p><p>You must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible.</p><p>Example 1:</p><p>Input: nums = [5,2,3,1]<br>Output: [1,2,3,5]<br>Explanation: After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).<br>Example 2:</p><p>Input: nums = [5,1,1,2,0,0]<br>Output: [0,0,1,1,2,5]<br>Explanation: Note that the values of nums are not necessairly unique.</p><a id="more"></a><h3 id="sul"><a href="#sul" class="headerlink" title="sul"></a>sul</h3><pre><code># 切割数组,自小到大排序 # 归并排序# 稳定排序# 时间复杂度 O(n * logn)# @param {Integer[]} nums# @return {Integer[]}def sort_array(nums)    return nums if nums.length &lt;= 1    mid = nums.length / 2    left = sort_array(nums[0...mid])    right = sort_array(nums[mid..-1])    sort(left, right)enddef sort(left, right)    sorted = []    while !left.empty? &amp;&amp; !right.empty?        if left.first &lt;= right.first            sorted &lt;&lt; left.shift        else            sorted &lt;&lt; right.shift        end    end    sorted + left + rightend# 快速排序# 非稳定排序# 时间复杂度 O(n * logn)# @param {Integer[]} nums# @return {Integer[]}def sort_array(nums)    return nums if nums.length &lt;= 1    pivot = nums.delete_at(rand(nums.length))    left, right = nums.partition{|x| x &lt;= pivot}    sort_array(left) + [pivot] + sort_array(right)end# 冒泡排序# 稳定排序# 时间复杂度 O(n ^ 2)def sort(nums)    for i in 0...nums.length - 1         for j in 0...nums.length - 1            if nums[j] &gt; nums[j + 1]                nums[j], nums[j + 1] = nums[j + 1], nums[j]            end        end    end    numsend# 插入排序# 稳定排序# 时间复杂度 O(n ^ 2)# @param {Integer[]} nums# @return {Integer[]}def sort_array(nums)    (1...nums.length).each do |i|        key = nums[i]        j = i - 1        while j &gt;=0 &amp;&amp; nums[j] &gt; key            nums[j + 1] = nums[j]            j -= 1        end        nums[j + 1] = key    end    numsend# 选择排序# 稳定排序# 时间复杂度 O(n ^ 2)# @param {Integer[]} nums# @return {Integer[]}def sort_array(nums)    n = nums.length    for i in 0...(n - 1)        min_index = i        for j in (i + 1)...n            if nums[j] &lt; nums[min_index]                min_index = j            end        end        nums[i], nums[min_index] = nums[min_index], nums[i] if min_index != i    end    numsend</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;912-Sort-an-Array&quot;&gt;&lt;a href=&quot;#912-Sort-an-Array&quot; class=&quot;headerlink&quot; title=&quot;912. Sort an Array&quot;&gt;&lt;/a&gt;912. Sort an Array&lt;/h2&gt;&lt;p&gt;Given an array of integers nums, sort the array in ascending order and return it.&lt;/p&gt;
+&lt;p&gt;You must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible.&lt;/p&gt;
+&lt;p&gt;Example 1:&lt;/p&gt;
+&lt;p&gt;Input: nums = [5,2,3,1]&lt;br&gt;Output: [1,2,3,5]&lt;br&gt;Explanation: After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).&lt;br&gt;Example 2:&lt;/p&gt;
+&lt;p&gt;Input: nums = [5,1,1,2,0,0]&lt;br&gt;Output: [0,0,1,1,2,5]&lt;br&gt;Explanation: Note that the values of nums are not necessairly unique.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>Top 100 - Linked Lists</title>
@@ -91,32 +117,6 @@ Example 2:
 Input: n = 1
 Output: [&amp;quot;()&amp;quot;]
 &lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="http://LikeeCat.github.io/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>排序算法</title>
-    <link href="http://LikeeCat.github.io/2024/11/01/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
-    <id>http://LikeeCat.github.io/2024/11/01/排序算法/</id>
-    <published>2024-11-01T09:05:13.000Z</published>
-    <updated>2024-12-04T03:51:06.321Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="912-Sort-an-Array"><a href="#912-Sort-an-Array" class="headerlink" title="912. Sort an Array"></a>912. Sort an Array</h2><p>Given an array of integers nums, sort the array in ascending order and return it.</p><p>You must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible.</p><p>Example 1:</p><p>Input: nums = [5,2,3,1]<br>Output: [1,2,3,5]<br>Explanation: After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).<br>Example 2:</p><p>Input: nums = [5,1,1,2,0,0]<br>Output: [0,0,1,1,2,5]<br>Explanation: Note that the values of nums are not necessairly unique.</p><a id="more"></a><h3 id="sul"><a href="#sul" class="headerlink" title="sul"></a>sul</h3><pre><code># 切割数组,自小到大排序 # 归并排序# 稳定排序# 时间复杂度 O(n * logn)# @param {Integer[]} nums# @return {Integer[]}def sort_array(nums)    return nums if nums.length &lt;= 1    mid = nums.length / 2    left = sort_array(nums[0...mid])    right = sort_array(nums[mid..-1])    sort(left, right)enddef sort(left, right)    sorted = []    while !left.empty? &amp;&amp; !right.empty?        if left.first &lt;= right.first            sorted &lt;&lt; left.shift        else            sorted &lt;&lt; right.shift        end    end    sorted + left + rightend# 快速排序# 非稳定排序# 时间复杂度 O(n * logn)# @param {Integer[]} nums# @return {Integer[]}def sort_array(nums)    return nums if nums.length &lt;= 1    pivot = nums.delete_at(rand(nums.length))    left, right = nums.partition{|x| x &lt;= pivot}    sort_array(left) + [pivot] + sort_array(right)end# 冒泡排序# 稳定排序# 时间复杂度 O(n ^ 2)def sort(nums)    for i in 0...nums.length - 1         for j in 0...nums.length - 1            if nums[j] &gt; nums[j + 1]                nums[j], nums[j + 1] = nums[j + 1], nums[j]            end        end    end    numsend# 插入排序# 稳定排序# 时间复杂度 O(n ^ 2)# @param {Integer[]} nums# @return {Integer[]}def sort_array(nums)    (1...nums.length).each do |i|        key = nums[i]        j = i - 1        while j &gt;=0 &amp;&amp; nums[j] &gt; key            nums[j + 1] = nums[j]            j -= 1        end        nums[j + 1] = key    end    numsend# 选择排序# 稳定排序# 时间复杂度 O(n ^ 2)# @param {Integer[]} nums# @return {Integer[]}def sort_array(nums)    n = nums.length    for i in 0...(n - 1)        min_index = i        for j in (i + 1)...n            if nums[j] &lt; nums[min_index]                min_index = j            end        end        nums[i], nums[min_index] = nums[min_index], nums[i] if min_index != i    end    numsend</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;912-Sort-an-Array&quot;&gt;&lt;a href=&quot;#912-Sort-an-Array&quot; class=&quot;headerlink&quot; title=&quot;912. Sort an Array&quot;&gt;&lt;/a&gt;912. Sort an Array&lt;/h2&gt;&lt;p&gt;Given an array of integers nums, sort the array in ascending order and return it.&lt;/p&gt;
-&lt;p&gt;You must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible.&lt;/p&gt;
-&lt;p&gt;Example 1:&lt;/p&gt;
-&lt;p&gt;Input: nums = [5,2,3,1]&lt;br&gt;Output: [1,2,3,5]&lt;br&gt;Explanation: After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).&lt;br&gt;Example 2:&lt;/p&gt;
-&lt;p&gt;Input: nums = [5,1,1,2,0,0]&lt;br&gt;Output: [0,0,1,1,2,5]&lt;br&gt;Explanation: Note that the values of nums are not necessairly unique.&lt;/p&gt;
     
     </summary>
     

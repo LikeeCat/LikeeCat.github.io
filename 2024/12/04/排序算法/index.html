@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    iOS 中文排序 |
+    排序算法 |
     
     LikeeCat&#39;s Blog</title>
   
@@ -27,7 +27,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-iOS中文排序" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  <article id="post-排序算法" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -35,7 +35,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      iOS 中文排序
+      排序算法
     </h1>
   
   
@@ -48,12 +48,12 @@
 
     
       <div class="article-meta">
-        <a href="/2019/05/29/iOS中文排序/" class="article-date">
-  <time datetime="2019-05-29T11:05:58.000Z" itemprop="datePublished">2019-05-29</time>
+        <a href="/2024/12/04/排序算法/" class="article-date">
+  <time datetime="2024-12-04T09:05:13.000Z" itemprop="datePublished">2024-12-04</time>
 </a>
         
   <div class="article-category">
-    <a class="article-category-link" href="/categories/tip/">tip</a>
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
   </div>
 
       </div>
@@ -65,38 +65,114 @@
       
 
       
-        <h1 id="排序方法"><a href="#排序方法" class="headerlink" title="排序方法"></a>排序方法</h1><h2 id="localizedCompare"><a href="#localizedCompare" class="headerlink" title="localizedCompare(_:)"></a>localizedCompare(_:)</h2><p>Compares the string and a given string using a localized comparison.</p>
-<blockquote>
-<p>在NSString 的 API 中有这个方法,假设你的手机使用的是中文,就可以根据中文排序</p>
-</blockquote>
+        <h2 id="912-Sort-an-Array"><a href="#912-Sort-an-Array" class="headerlink" title="912. Sort an Array"></a>912. Sort an Array</h2><p>Given an array of integers nums, sort the array in ascending order and return it.</p>
+<p>You must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible.</p>
+<p>Example 1:</p>
+<p>Input: nums = [5,2,3,1]<br>Output: [1,2,3,5]<br>Explanation: After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).<br>Example 2:</p>
+<p>Input: nums = [5,1,1,2,0,0]<br>Output: [0,0,1,1,2,5]<br>Explanation: Note that the values of nums are not necessairly unique.</p>
 <a id="more"></a>
-<h2 id="NSSortDescriptor"><a href="#NSSortDescriptor" class="headerlink" title="NSSortDescriptor"></a>NSSortDescriptor</h2><p>An immutable description of how to order a collection of objects based on a property common to all the objects.</p>
-<blockquote>
-<p>可以根据集合中的对象的某一个属性对这个集合进行排序</p>
-</blockquote>
-<h2 id="initWithKey-ascending-selector"><a href="#initWithKey-ascending-selector" class="headerlink" title="initWithKey:ascending:selector:"></a>initWithKey:ascending:selector:</h2><pre><code>- (instancetype)initWithKey:(NSString *)key 
-              ascending:(BOOL)ascending 
-               selector:(SEL)selector;
+<h3 id="sul"><a href="#sul" class="headerlink" title="sul"></a>sul</h3><pre><code># 切割数组,自小到大排序 
+# 归并排序
+# 稳定排序
+# 时间复杂度 O(n * logn)
+# @param {Integer[]} nums
+# @return {Integer[]}
+def sort_array(nums)
+    return nums if nums.length &lt;= 1
+    mid = nums.length / 2
 
-根据给出的key 升序还是降序 还有使用selector来初始化
-</code></pre><h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><h2 id="定义对象"><a href="#定义对象" class="headerlink" title="定义对象"></a>定义对象</h2><pre><code>@interface person : NSObject
-@property (nonatomic,strong)NSString *name;
-@property (nonatomic,strong)NSString *phone;
-@end
-</code></pre><h2 id="定义对象的集合"><a href="#定义对象的集合" class="headerlink" title="定义对象的集合"></a>定义对象的集合</h2><pre><code>person *p = [[person alloc]initWithName:@&quot;小小&quot; phone:@&quot;13322223333&quot;];
-person *p1 = [[person alloc]initWithName:@&quot;小二&quot; phone:@&quot;13322223333&quot;];
-person *p2 = [[person alloc]initWithName:@&quot;校小&quot; phone:@&quot;13322223333&quot;];
-NSMutableArray *arr  = [NSMutableArray arrayWithArray:@[p,p1,p2]];
-</code></pre><h2 id="定义排序方法"><a href="#定义排序方法" class="headerlink" title="定义排序方法"></a>定义排序方法</h2><pre><code>NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@&quot;name&quot; ascending:YES selector:@selector(localizedCompare:)]];
-</code></pre><h2 id="进行排序"><a href="#进行排序" class="headerlink" title="进行排序"></a>进行排序</h2><pre><code>[arr sortUsingDescriptors:sortDescriptors];
+    left = sort_array(nums[0...mid])
+    right = sort_array(nums[mid..-1])
+    sort(left, right)
+end
+
+def sort(left, right)
+    sorted = []
+    while !left.empty? &amp;&amp; !right.empty?
+        if left.first &lt;= right.first
+            sorted &lt;&lt; left.shift
+        else
+            sorted &lt;&lt; right.shift
+        end
+    end
+    sorted + left + right
+end
+
+
+# 快速排序
+# 非稳定排序
+# 时间复杂度 O(n * logn)
+# @param {Integer[]} nums
+# @return {Integer[]}
+def sort_array(nums)
+    return nums if nums.length &lt;= 1
+    pivot = nums.delete_at(rand(nums.length))
+    left, right = nums.partition{|x| x &lt;= pivot}
+    sort_array(left) + [pivot] + sort_array(right)
+end
+
+# 冒泡排序
+# 稳定排序
+# 时间复杂度 O(n ^ 2)
+def sort(nums)
+    for i in 0...nums.length - 1 
+        for j in 0...nums.length - 1
+            if nums[j] &gt; nums[j + 1]
+                nums[j], nums[j + 1] = nums[j + 1], nums[j]
+            end
+        end
+    end
+    nums
+end
+
+# 插入排序
+# 稳定排序
+# 时间复杂度 O(n ^ 2)
+# @param {Integer[]} nums
+# @return {Integer[]}
+def sort_array(nums)
+    (1...nums.length).each do |i|
+        key = nums[i]
+
+        j = i - 1
+
+        while j &gt;=0 &amp;&amp; nums[j] &gt; key
+            nums[j + 1] = nums[j]
+            j -= 1
+        end
+
+        nums[j + 1] = key
+
+    end
+    nums
+end
+
+# 选择排序
+# 稳定排序
+# 时间复杂度 O(n ^ 2)
+# @param {Integer[]} nums
+# @return {Integer[]}
+def sort_array(nums)
+    n = nums.length
+    for i in 0...(n - 1)
+        min_index = i
+        for j in (i + 1)...n
+            if nums[j] &lt; nums[min_index]
+                min_index = j
+            end
+        end
+        nums[i], nums[min_index] = nums[min_index], nums[i] if min_index != i
+    end
+    nums
+end
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://LikeeCat.github.io/2019/05/29/iOS中文排序/" data-id="cm49cq7oy001d7bgjevxy3wyl"
+      <a data-url="http://LikeeCat.github.io/2024/12/04/排序算法/" data-id="cm49cq7p3001r7bgjuo6sabnv"
          class="article-share-link">分享</a>
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tip/">tip</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
 
     </footer>
 
@@ -106,19 +182,10 @@ NSMutableArray *arr  = [NSMutableArray arrayWithArray:@[p,p1,p2]];
     
   <nav class="article-nav">
     
-      <a href="/2019/05/30/Xcode 快捷操作/" class="article-nav-link">
-        <strong class="article-nav-caption">前一篇</strong>
-        <div class="article-nav-title">
-          
-            Xcode快捷键
-          
-        </div>
-      </a>
     
-    
-      <a href="/2019/04/16/OC中函数的一些理解/" class="article-nav-link">
+      <a href="/2024/12/02/Top 100 - Linked Lists/" class="article-nav-link">
         <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">OC中函数的一些小技巧</div>
+        <div class="article-nav-title">Top 100 - Linked Lists</div>
       </a>
     
   </nav>
